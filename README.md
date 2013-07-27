@@ -16,6 +16,6 @@ RGBからの変換にしか対応してない。
 
 要するに&lt;input type="range" /&gt;が実装されているモダンブラウザなら動くはずです。
 
-## 連絡先
+## Contact
 
  * Twitter [@egp186](http://twitter.com/egp186)
