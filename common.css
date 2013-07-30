@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 
 header, hgroup, nav, footer, article, aside, section {
     display: block;
@@ -86,11 +86,6 @@ body {
 
 #page-body {
     margin: 20px -20px;
-    border-radius: 12px;
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, .5);
-    border: 1px solid rgba(0, 0, 0, .5);
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-    padding: 20px;
 }
 
 legend {
@@ -122,6 +117,11 @@ input[type='range'] {
 }
 
 .codeBox {
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, .5);
+    border: 1px solid rgba(0, 0, 0, .5);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
     .codeBox h2 {

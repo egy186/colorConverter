@@ -2,11 +2,23 @@
 <html lang="ja">
 <head>
     <meta charset="utf-8" />
-    <title>Color Converter | egy186.github.io</title>
+    <title>Color Converter - egy186.github.io</title>
+    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge" /><![endif]-->
+    <!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="egy186" />
     <link rel="stylesheet" href="common.css" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Titillium+Web:700,300" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico" />
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="favicon.ico" />
+    <!--<link rel='prev'/>
+    <link rel='next' />
+    <link rel="alternate"/>
+    <meta name="msapplication-TileImage" content=""/>
+    <meta name="msapplication-TileColor" content="#"/>
+    <link rel="fluid-icon" />
+    <link rel="apple-touch-icon" />-->
 </head>
 <body>
     <div id="page">
@@ -23,7 +35,7 @@
                         <p><label>RGB: <input type="text" name="RGB" size="42" maxlength="40" tabindex="101" /></label></p>
                         <fieldset>
                             <legend>Slider</legend>
-                            <p><label>R: </span:><input type="number" name="numR" value="0" min="0" max="255" step="1" tabindex="111" /><br /><input  type="range" name="rangeR" value="0" min="0" max="255" step="1" tabindex="121" /></label></p><p><label>G: <input type="number" name="numG" value="0" min="0" max="255" step="1" tabindex="112" /><br /><input type="range" name="rangeG" value="0" min="0" max="255" step="1" tabindex="122" /></label></p><p><label>B: <input type="number" name="numB" value="0" min="0" max="255" step="1" tabindex="113" /><br /><input type="range" name="rangeB" value="0" min="0" max="255" step="1" tabindex="123" /></label></p>
+                            <p><label>R: <input type="number" name="numR" value="0" min="0" max="255" step="1" tabindex="111" /></label><br /><input  type="range" name="rangeR" value="0" min="0" max="255" step="1" tabindex="121" /></p><p><label>G: <input type="number" name="numG" value="0" min="0" max="255" step="1" tabindex="112" /></label><br /><input type="range" name="rangeG" value="0" min="0" max="255" step="1" tabindex="122" /></p><p><label>B: <input type="number" name="numB" value="0" min="0" max="255" step="1" tabindex="113" /></label><br /><input type="range" name="rangeB" value="0" min="0" max="255" step="1" tabindex="123" /></p>
                         </fieldset>
                         <fieldset>
                             <legend>Picker</legend>
@@ -31,10 +43,10 @@
                     </section>
                     <section class="result">
                         <h3>Results</h3>
-                        <p><label>HSL: <input type="text" name="HSL" readonly="readonly" tabindex="131" /></label></p>
-                        <p><label>Hex: <input type="text" name="Hex" readonly="readonly" tabindex="132" /></label></p>
-                        <p><label>RGBa: <input type="text" name="RGBa" readonly="readonly" tabindex="133" /></label></p>
-                        <p><label>HSLa: <input type="text" name="HSLa" readonly="readonly" tabindex="134" /></label></p>
+                        <p><label>HSL: <input type="text" name="HSL" size="25" readonly="readonly" tabindex="131" /></label></p>
+                        <p><label>Hex: <input type="text" name="Hex" size="25" readonly="readonly" tabindex="132" /></label></p>
+                        <p><label>RGBa: <input type="text" name="RGBa" size="25" readonly="readonly" tabindex="133" /></label></p>
+                        <p><label>HSLa: <input type="text" name="HSLa" size="25" readonly="readonly" tabindex="134" /></label></p>
                     </section>
                 </form>
             </section>
@@ -62,7 +74,8 @@
             <p id="copy"><small>Copyrights (c) 2013 egy186 All Rights Reserved.</small></p>
         </footer>
     </div>
-    <script src="colorConvert.js"></script>
+    <!--<script src="colorConvert.js"></script>-->
+    <script src="slider.js"></script>
 </body>
 </html>
 
