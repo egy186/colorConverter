@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>query</title>
+</head>
+<body>
+    <p id="result" style="font-size: 64px;"></p>
+    <script>
+        (function () {
+            queryParam = {};
+            queryParam.get = function (thisParam) {
+                var queryObj = {};
+                var tmp;
+                var query = location.search.substring(1);
+                query = query.split(/&/g);
+                for (var i = 0; i < query.length; i++) {
+                    tmp = query[i].split('=');
+                    queryObj[decodeURIComponent(tmp[0])] = decodeURIComponent(tmp[1]);
+                }
+                if (thisParam) {
+                    return queryObj[thisParam]
+                }
+                return queryObj;
+            }
+            queryParam.set = function (paramObj) { }
+        })();
+        pm = queryParam.get();
+        document.getElementById('result').innerHTML = 'q = ' + pm.q + '<br />';
+        document.getElementById('result').innerHTML += 'e = ' + pm.e + '<br />';
+    </script>
+</body>
+</html>

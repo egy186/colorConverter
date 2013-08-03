@@ -91,7 +91,20 @@ function fromRGB(changedValueName, newValue) {
 }
 // # TODO
 window.addEventListener('load', function () {
-    var rundColor = 'rgb(' + Math.floor(Math.random() * 256) + ', ' + Math.floor(Math.random() * 256) + ', ' + Math.floor(Math.random() * 256) + ')'
+    var rundColor;
+    if (location.search) {
+        var queryObj = {};
+        var tmp;
+        var query = location.search.substring(1);
+        query = query.split(/&/g);
+        for (var i = 0; i < query.length; i++) {
+            tmp = query[i].split('=');
+            queryObj[decodeURIComponent(tmp[0])] = decodeURIComponent(tmp[1]);
+        }
+        rundColor = queryObj.q;
+    } else {
+        rundColor = 'rgb(' + Math.floor(Math.random() * 256) + ', ' + Math.floor(Math.random() * 256) + ', ' + Math.floor(Math.random() * 256) + ')';
+    }
     document.getElementById('RGBform').RGB.value = rundColor;
     fromRGB('RGB', rundColor);
 }, false);
@@ -117,6 +130,7 @@ formLoc.HSLa.addEventListener('focus', function () {
 formLoc.Hex.addEventListener('focus', function () {
     this.select();
 }, false)
+
 
 function rgb2hsl(r, g, b) {
     // Param: r, g and b are from 0 to 255
