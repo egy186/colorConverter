@@ -3,18 +3,31 @@
 <head>
     <meta charset="utf-8" />
     <title>Color Converter - egy186.github.io</title>
-    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge" /><![endif]-->
+    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><![endif]-->
     <!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="author" content="egy186" />
+    <script>
+        WebFontConfig = {
+            google: { families: ['Titillium+Web:700,300'] }
+        };
+        (function () {
+            var wf = document.createElement('script');
+            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+            wf.async = 'async';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wf, s);
+        })();
+    </script>
     <link rel="stylesheet" href="common.css" />
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Titillium+Web:700,300" />
+    <script src="main.js"></script>
     <link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico" />
     <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="favicon.ico" />
     <!--<link rel='prev'/>
     <link rel='next' />
     <link rel="alternate"/>
+    <meta name="viewport" content="width=device-width">
     <meta name="msapplication-TileImage" content=""/>
     <meta name="msapplication-TileColor" content="#"/>
     <link rel="fluid-icon" />
@@ -23,45 +36,90 @@
 <body>
     <div id="page">
         <header id="page-head">
-            <h1>Color Converter</h1>
+            <h1><a href="./" tabindex="1">Color Converter</a></h1>
             <p>Convert colorcode easily.</p>
         </header>
         <div id="page-body">
-            <section id="RGB" class="codeBox">
-                <h2>RGB</h2>
-                <form id="RGBform">
-                    <section class="enter">
-                        <h3>Enter</h3>
-                        <p><label>RGB: <input type="text" name="RGB" size="42" maxlength="40" tabindex="101" /></label></p>
+            <div id="colorLayer">
+                <div id="codeNav">
+                    <ul>
+                        <li><a href="#RGB" tabindex="2">RGB</a></li><li><a href="#RGBa" tabindex="2">RGBa</a></li><li><a href="#HSL" tabindex="2">HSL</a></li><li><a href="#HSLa" tabindex="2">HSLa</a></li><li><a href="#Hex" tabindex="2">Hex</a></li>
+                    </ul>
+                </div>
+                <section id="RGB" class="codeBox">
+                    <h2>Enter: RGB</h2>
+                    <form id="RGBform">
+                        <p>
+                            <label>RGB: <input type="text" name="RGB" size="42" maxlength="40" tabindex="101" /></label>
+                        </p>
                         <fieldset>
                             <legend>Slider</legend>
-                            <p><label>R: <input type="number" name="numR" value="0" min="0" max="255" step="1" tabindex="111" /></label><br /><input  type="range" name="rangeR" value="0" min="0" max="255" step="1" tabindex="121" /></p><p><label>G: <input type="number" name="numG" value="0" min="0" max="255" step="1" tabindex="112" /></label><br /><input type="range" name="rangeG" value="0" min="0" max="255" step="1" tabindex="122" /></p><p><label>B: <input type="number" name="numB" value="0" min="0" max="255" step="1" tabindex="113" /></label><br /><input type="range" name="rangeB" value="0" min="0" max="255" step="1" tabindex="123" /></p>
+                            <p>
+                                <label>R: <input type="number" name="numR" value="0" min="0" max="255" step="1" tabindex="111" /></label><br />
+                                <input type="range" name="rangeR" value="0" min="0" max="255" step="1" tabindex="121" />
+                            </p><p>
+                                <label>G: <input type="number" name="numG" value="0" min="0" max="255" step="1" tabindex="112" /></label><br />
+                                <input type="range" name="rangeG" value="0" min="0" max="255" step="1" tabindex="122" />
+                            </p><p>
+                                <label>B: <input type="number" name="numB" value="0" min="0" max="255" step="1" tabindex="113" /></label><br />
+                                <input type="range" name="rangeB" value="0" min="0" max="255" step="1" tabindex="123" />
+                            </p>
                         </fieldset>
                         <fieldset>
                             <legend>Picker</legend>
                         </fieldset>
-                    </section>
-                    <section class="result">
-                        <h3>Results</h3>
-                        <p><label>HSL: <input type="text" name="HSL" size="25" readonly="readonly" tabindex="131" /></label></p>
-                        <p><label>Hex: <input type="text" name="Hex" size="25" readonly="readonly" tabindex="132" /></label></p>
-                        <p><label>RGBa: <input type="text" name="RGBa" size="25" readonly="readonly" tabindex="133" /></label></p>
-                        <p><label>HSLa: <input type="text" name="HSLa" size="25" readonly="readonly" tabindex="134" /></label></p>
-                    </section>
-                </form>
-            </section>
-<!--            <section id="RGBa" class="codeBox">
-                <h2>RGBa</h2>
-            </section>
-            <section id="HSL" class="codeBox">
-                <h2>HSL</h2>
-            </section>
-            <section id="HSLa" class="codeBox">
-                <h2>HSLa</h2>
-            </section>
-            <section id="Hex" class="codeBox">
-                <h2>Hex</h2>
-            </section>-->
+                    </form>
+                </section>
+                <section id="RGBa" class="codeBox">
+                    <h2>RGBa</h2>
+                    <form id="RGBaform">
+                        <section class="enter">
+                            <h3>Enter</h3>
+                            <p>
+                                <label>RGBa: <input type="text" name="RGBa" size="42" maxlength="40" tabindex="201" /></label>
+                            </p>
+                            <fieldset>
+                                <legend>Slider</legend>
+                                <p>
+                                    <label>R: <input type="number" name="numR" value="0" min="0" max="255" step="1" tabindex="211" /></label><br />
+                                    <input type="range" name="rangeR" value="0" min="0" max="255" step="1" tabindex="221" />
+                                </p><p>
+                                    <label>G: <input type="number" name="numG" value="0" min="0" max="255" step="1" tabindex="212" /></label><br />
+                                    <input type="range" name="rangeG" value="0" min="0" max="255" step="1" tabindex="222" />
+                                </p><p>
+                                    <label>B: <input type="number" name="numB" value="0" min="0" max="255" step="1" tabindex="213" /></label><br />
+                                    <input type="range" name="rangeB" value="0" min="0" max="255" step="1" tabindex="223" />
+                                </p><p>
+                                    <label>a: <input type="number" name="numa" value="1" min="0" max="1" step="0.01" tabindex="214" /></label><br />
+                                    <input type="range" name="rangea" value="1" min="0" max="1" step="0.01" tabindex="224" />
+                                </p>
+                            </fieldset>
+                            <fieldset>
+                                <legend>Picker</legend>
+                            </fieldset>
+                        </section>
+                    </form>
+                </section>
+                <section id="HSL" class="codeBox">
+                    <h2>HSL</h2>
+                </section>
+                <section id="HSLa" class="codeBox">
+                    <h2>HSLa</h2>
+                </section>
+                <section id="Hex" class="codeBox">
+                    <h2>Hex</h2>
+                </section>
+                <section class="codeBox">
+                    <h2>Results</h2>
+                    <form id="results">
+                        <p><label>RGB: <input type="text" name="RGB" size="25" readonly="readonly" tabindex="601" /></label></p>
+                        <p><label>RGBa: <input type="text" name="RGBa" size="25" readonly="readonly" tabindex="602" /></label></p>
+                        <p><label>HSL: <input type="text" name="HSL" size="25" readonly="readonly" tabindex="602" /></label></p>
+                        <p><label>HSLa: <input type="text" name="HSLa" size="25" readonly="readonly" tabindex="603" /></label></p>
+                        <p><label>Hex: <input type="text" name="Hex" size="25" readonly="readonly" tabindex="604" /></label></p>
+                    </form>
+                </section>
+            </div>
         </div>
         <section id="changeBgColor">
             <h2>Change background color</h2>
@@ -71,11 +129,9 @@
                 <p id="nav"><a href="//github.com/egy186/colorConverter/#readme">about</a></p>
                 <p id="verInf">Version 0.0.0 alpha</p>
             </div>
-            <p id="copy"><small>Copyrights (c) 2013 egy186 All Rights Reserved.</small></p>
+            <p id="copy"><small>Copyright (c) 2013 egy186 All Rights Reserved.</small></p>
         </footer>
     </div>
-    <!--<script src="colorConvert.js"></script>-->
-    <script src="slider.js"></script>
+    <script src="colorConvert.js" defer="defer"></script>
 </body>
 </html>
-

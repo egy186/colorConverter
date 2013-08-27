@@ -4,168 +4,448 @@
  *
  * Copyright (c) 2013 egy186
  * Released under the MIT License.
- *
- *
- * Modernizr method is:
- * Modernizr 2.6.2 (Custom Build) | MIT & BSD
- * Build: modernizr.com/download/#-inputtypes
- *
- * Copyright (c) Faruk Ates, Paul Irish, Alex Sexton
- * Available under the BSD and MIT licenses: www.modernizr.com/license/
  */
 
-(function () {
-    // # TODO
-    // use addEventListener
-    // Array R,G,B --> for
-    var focusdForm = document.getElementById('RGBform');
-    window.onload = function () {
-        //var defcolor = 'rgb(51,51,51)';
-        var defcolor = 'rgb(' + Math.floor(Math.random() * 256) + ', ' + Math.floor(Math.random() * 256) + ', ' + Math.floor(Math.random() * 256) + ')';
-        text_setValue(defcolor);
-        focusdForm.RGB.value = defcolor;
+// select tab
+var tab = {
+    RGB: document.getElementById('RGB'),
+    RGBa: document.getElementById('RGBa'),
+    HSL: document.getElementById('HSL'),
+    HSLa: document.getElementById('HSLa'),
+    Hex: document.getElementById('Hex')
+};
+var tabKeys = Object.keys(tab),
+    tabNav = document.getElementById('codeNav').getElementsByTagName('a'),
+    currentTab = 'RGB';
+window.addEventListener('load', function () {
+    for (var i = 0; i < tabKeys.length; i++) {
+        //if (tab[tabKeys[i]]) {
+        tab[tabKeys[i]].style.display = 'none';
+        //}
     }
-    focusdForm.RGB.onkeyup = function () { text_setValue(this.value); };
-    focusdForm.rangeR.onchange = function () { range_setValue(this.valueAsNumber, 'R'); };
-    focusdForm.rangeG.onchange = function () { range_setValue(this.valueAsNumber, 'G'); };
-    focusdForm.rangeB.onchange = function () { range_setValue(this.valueAsNumber, 'B'); };
-    focusdForm.numR.onchange = function () { num_setValue(this.valueAsNumber, 'R'); };
-    focusdForm.numG.onchange = function () { num_setValue(this.valueAsNumber, 'G'); };
-    focusdForm.numB.onchange = function () { num_setValue(this.valueAsNumber, 'B'); };
-    focusdForm.numR.onkeyup = function () {
-        var val = this.valueAsNumber;
-        if (val >= 0 && val <= 255) {
-            num_setValue(this.valueAsNumber, 'R');
+    if (location.hash) {
+        var hash = location.hash.slice(1);
+    } else {
+        var hash = 'RGB';
+    }
+    changeTab(hash);
+    history.replaceState({ code: hash }, hash, null);
+}, false);
+document.getElementById('codeNav').addEventListener('click', function (evt) {
+    if (evt.target.tagName.toLowerCase() == 'a') {
+        evt.target.blur();
+        evt.preventDefault();
+        var clicked = evt.target.getAttribute('href').slice(1);
+        if (clicked != currentTab) {
+            history.pushState({ code: clicked }, clicked, '#' + clicked);
         }
-    };
-    focusdForm.numG.onkeyup = function () {
-        var val = this.valueAsNumber;
-        if (val >= 0 && val <= 255) {
-            num_setValue(this.valueAsNumber, 'G');
-        }
-    };
-    focusdForm.numB.onkeyup = function () {
-        var val = this.valueAsNumber;
-        if (val >= 0 && val <= 255) {
-            num_setValue(this.valueAsNumber, 'B');
-        }
-    };
-    focusdForm.RGBa.onfocus = function () { this.select(); };
-    focusdForm.HSL.onfocus = function () { this.select(); };
-    focusdForm.HSLa.onfocus = function () { this.select(); };
-    focusdForm.Hex.onfocus = function () { this.select(); };
+        changeTab(clicked);
+    }
+}, false);
+window.addEventListener('popstate', function (evt) {
+    //if (evt.state.code != null) {
+    var clicked = evt.state.code;
+    /*} else if (location.hash) {
+    var clicked = location.hash.slice(1);
+    } else {
+    var clicked = 'RGB';
+    }*/
+    changeTab(clicked);
+}, false);
+function changeTab(newTab) {
+    var index = tabKeys.indexOf(newTab);
+    if (index == -1) {
+        newTab = 'RGB';
+        index = 0;
+    }
+    tab[currentTab].style.display = 'none';
+    tabNav.item(tabKeys.indexOf(currentTab)).removeAttribute('class');
+    tab[newTab].style.display = 'block';
+    tabNav.item(index).setAttribute('class', 'current');
+    //result
+    setResult.hideOther(newTab);
+    currentTab = newTab;
+}
 
-    function text_setValue(str) {
-        var enterArr = str.replace(/\s/g, '').replace(/[rgb();]/g, '').split(/,/);
-        switch(enterArr.length){
-            case 2:
-                enterArr[2] = 0;
-            case 1:
-                enterArr[1] = 0;
-            case 3:
+// set first color
+window.addEventListener('load', function () {
+    var rundColor,
+        query = queryParam.get();
+    if (query) {
+        if (query.r >= 0 && query.r <= 255 && query.g >= 0 && query.g <= 255 && query.b >= 0 && query.b <= 255) {
+            rundColor = 'rgb(' + query.r + ', ' + query.g + ', ' + query.b + ')';
+        }
+    } else {
+        rundColor = 'rgb(' + Math.floor(Math.random() * 256) + ', ' + Math.floor(Math.random() * 256) + ', ' + Math.floor(Math.random() * 256) + ')';
+    }
+    document.getElementById('RGBform').RGB.value = rundColor;
+    fromRGB('RGB', rundColor);
+}, false);
+
+// setResult
+var setResultInputs = document.getElementById('results').getElementsByTagName('input');
+for (var i = 0; i < setResultInputs.length; i++) {
+    setResultInputs.item(i).addEventListener('focus', function () {
+        this.select();
+    }, false);
+}
+function setResult(changedValueName, newValue) {
+    var formLoc = document.getElementById('results'),
+        RGBArr = [], HSLArr = [], alpha = 1,
+        i;
+    switch (changedValueName) {
+        case 'RGBa':
+            alpha = newValue[3];
+        case 'RGB':
+            for (i = 0; i < 3; i++) {
+                RGBArr[i] = newValue[i];
+            }
+            HSLArr = rgb2hsl(RGBArr[0], RGBArr[1], RGBArr[2]);
+            break;
+        case 'HSLa':
+            alpha = newValue[3];
+        case 'HSL':
+            for (i = 0; i < 3; i++) {
+                HSLArr[i] = newValue[i];
+            }
+            RGBArr = hsl2rgb(HSLArr[0], HSLArr[1], HSLArr[2]);
+            break;
+        case 'Hex':
+            RGBArr = hex2rgb(newValue);
+            HSLArr = rgb2hsl(RGBArr[0], RGBArr[1], RGBArr[2]);
+            break;
+        default:
+            // unsupported
+            return;
+    }
+    formLoc.RGB.value = 'rgb(' + RGBArr[0] + ', ' + RGBArr[1] + ', ' + RGBArr[2] + ')';
+    formLoc.RGBa.value = 'rgba(' + RGBArr[0] + ', ' + RGBArr[1] + ', ' + RGBArr[2] + ', ' + alpha + ')';
+    formLoc.HSL.value = 'hsl(' + HSLArr[0] + ', ' + HSLArr[1] + ', ' + HSLArr[2] + ')';
+    formLoc.HSLa.value = 'hsla(' + HSLArr[0] + ', ' + HSLArr[1] + ', ' + HSLArr[2] + ', ' + alpha + ')';
+    formLoc.Hex.value = rgb2hex(RGBArr[0], RGBArr[1], RGBArr[2]);
+}
+setResult.hideOther = function (currentTab) {
+    switch (currentTab) {
+        case 'RGB':
+            var visibleNames = ['HSL', 'Hex'];
+            break;
+        case 'RGBa':
+            var visibleNames = ['HSLa'];
+            break;
+        case 'HSL':
+            var visibleNames = ['RGB', 'Hex'];
+            break;
+        case 'HSLa':
+            var visibleNames = ['RGBa'];
+            break;
+        case 'Hex':
+            var visibleNames = ['RGB', 'HSL'];
+            break;
+        default:
+            return;
+    }
+    var i,
+        setResultLoc = document.getElementById('results'),
+        setResultInputs = setResultLoc.getElementsByTagName('input');
+    // init
+    for (i = 0; i < setResultInputs.length; i++) {
+        setResultInputs.item(i).parentElement.style.display = 'none';
+    }
+    // hide
+    for (i = 0; i < visibleNames.length; i++) {
+        setResultLoc[visibleNames[i]].parentElement.style.display = 'block';
+    }
+}
+
+// addEvent
+var handNms = ['change', 'keyup'];
+for (var i = 0; i < handNms.length; i++) {
+    document.getElementById('RGBform').addEventListener(handNms[i], function (evt) {
+        fromRGB(evt.target.name, evt.target.value);
+    }, false);
+    document.getElementById('RGBaform').addEventListener(handNms[i], function (evt) {
+        fromRGBa(evt.target.name, evt.target.value);
+    }, false);
+    /*document.getElementById('HSLform').addEventListener(handNms[i], function (evt) {
+        fromRGB(evt.target.name, evt.target.value);
+    }, false);
+    document.getElementById('HSLaform').addEventListener(handNms[i], function (evt) {
+        fromRGBa(evt.target.name, evt.target.value);
+    }, false);
+    document.getElementById('Hexform').addEventListener(handNms[i], function (evt) {
+        fromRGB(evt.target.name, evt.target.value);
+    }, false);*/
+}
+
+//
+function getOtherValue(changedValueName, newValue) {
+    // Return [r, g, b], 0 to 255.
+    var rgbaValuesLoc = document.getElementById('RGBaform'),
+        hslaValuesLoc = document.getElementById('HSLaform'),
+        r, g, b,
+        RGBaArr = [], HSLaArr = [],
+        temp;
+    if (changedValueName.search(/R|G|B|Hex|/) == -1) {
+        switch (changedValueName) {
+            // hsl
+            case 'HSL':
+                HSLaArr = newValue.replace(/[hsl();\s]/g, '').split(/,/);
+                switch (HSLaArr.length) {
+                    case 0:
+                        HSLaArr[0] = 0;
+                    case 1:
+                        HSLaArr[1] = 0;
+                    case 2:
+                        HSLaArr[2] = 0;
+                    case 3:
+                        HSLaArr[3] = 1;
+                        break;
+                    default:
+                        //window.alert('Invalid Value\nHSL: '+ newValue);
+                        return;
+                }
+                break;
+            case 'HSLa':
+                HSLaArr = newValue.replace(/[hsla();\s]/g, '').split(/,/);
+                switch (HSLaArr.length) {
+                    case 0:
+                        HSLaArr[0] = 0;
+                    case 1:
+                        HSLaArr[1] = 0;
+                    case 2:
+                        HSLaArr[2] = 0;
+                    case 3:
+                        HSLaArr[3] = 1;
+                    case 4:
+                        break;
+                    default:
+                        //window.alert('Invalid Value\nHSLa: '+ newValue);
+                        return;
+                }
+            case 'rangeH':
+            case 'numH':
+                HSLaArr[0] = newValue;
+                HSLaArr[1] = hslaValuesLoc.rangeS.value;
+                HSLaArr[2] = hslaValuesLoc.rangeL.value;
+                HSLaArr[3] = hslaValuesLoc.rangea.value;
+                break;
+            case 'rangeS':
+            case 'numS':
+                HSLaArr[0] = hslaValuesLoc.rangeH.value;
+                HSLaArr[1] = newValue;
+                HSLaArr[2] = hslaValuesLoc.rangeL.value;
+                HSLaArr[3] = hslaValuesLoc.rangea.value;
+                break;
+            case 'rangeL':
+            case 'numL':
+                HSLaArr[0] = hslaValuesLoc.rangeH.value;
+                HSLaArr[1] = hslaValuesLoc.rangeS.value;
+                HSLaArr[2] = newValue;
+                HSLaArr[3] = hslaValuesLoc.rangea.value;
+                break;
+            case 'rangea':
+            case 'numa':
+                HSLaArr[0] = hslaValuesLoc.rangeH.value;
+                HSLaArr[1] = hslaValuesLoc.rangeS.value;
+                HSLaArr[2] = hslaValuesLoc.rangeL.value;
+                HSLaArr[3] = newValue;
                 break;
             default:
+                //window.alert('Internal Error\nchangedValueName: ' + changedValueName);
                 return;
         }
-        if (enterArr[0].search("%") != -1) {
-            for (var i = 1; i <= 3; i++) {
-                enterArr[i] = enterArr[i].replace(/%$/, "") * 255 / 100;
-            }
-        }
-        for (var j = 0; j < 3; j++) {
-            enterArr[j] = parseFloat(enterArr[j]);
-            if(isNaN(enterArr[j])) {
-                return;
-            }
-            if (enterArr[j] < 0 || enterArr[j] > 255) {
-                return;
-            }
-        }
-        focusdForm.rangeR.value = enterArr[0];
-        focusdForm.rangeG.value = enterArr[1];
-        focusdForm.rangeB.value = enterArr[2];
-        focusdForm.numR.value = enterArr[0];
-        focusdForm.numG.value = enterArr[1];
-        focusdForm.numB.value = enterArr[2];
-        setResult(enterArr, 'rgb', true);
-    }
-
-    function num_setValue(value, changedValueName) {
-        var rgb = getOtherValue(value, changedValueName);
-        if (changedValueName == 'R') {
-            focusdForm.rangeR.value = rgb[0];
-        }
-        if (changedValueName == 'G') {
-            focusdForm.rangeG.value = rgb[1];
-        }
-        if (changedValueName == 'B') {
-            focusdForm.rangeB.value = rgb[2];
-        }
-        setResult(rgb, 'rgb', false);
-    }
-
-    function range_setValue(value, changedValueName) {
-        var rgb = getOtherValue(value, changedValueName);
-        if (changedValueName == 'R') {
-            focusdForm.numR.value = rgb[0];
-        }
-        if (changedValueName == 'G') {
-            focusdForm.numG.value = rgb[1];
-        }
-        if (changedValueName == 'B') {
-            focusdForm.numB.value = rgb[2];
-        }
-        setResult(rgb, 'rgb', false);
-    }
-
-    function setResult(colorArr, codeType, except) {
-        var rgb, hsl, hex;
-        switch (codeType) {
-            case 'rgb':
-                rgb = colorArr;
-                hsl = rgb2hsl(rgb[0], rgb[1], rgb[2]);
-                hex = rgb2hex(rgb[0], rgb[1], rgb[2]);
+        RGBaArr = hsl2rgb(HSLaArr[0], HSLaArr[1], HSLaArr[2]);
+        RGBaArr[3] = HSLaArr[3];
+    } else {
+        switch (changedValueName) {
+            // rgb
+            case 'RGB':
+                RGBaArr = newValue.replace(/[rgb();\s]/g, '').split(/,/);
+                switch (RGBaArr.length) {
+                    case 0:
+                        RGBaArr[0] = 0;
+                    case 1:
+                        RGBaArr[1] = 0;
+                    case 2:
+                        RGBaArr[2] = 0;
+                    case 3:
+                        RGBaArr[3] = 1;
+                        break;
+                    default:
+                        //window.alert('Invalid Value\nRGB: '+ newValue);
+                        return;
+                }
                 break;
+            case 'RGBa':
+                RGBaArr = newValue.replace(/[rgba();\s]/g, '').split(/,/);
+                switch (RGBaArr.length) {
+                    case 0:
+                        RGBaArr[0] = 0;
+                    case 1:
+                        RGBaArr[1] = 0;
+                    case 2:
+                        RGBaArr[2] = 0;
+                    case 3:
+                        RGBaArr[3] = 1;
+                    case 4:
+                        break;
+                    default:
+                        //window.alert('Invalid Value\nRGBa: '+ newValue);
+                        return;
+                }
+            case 'numR16': // hex
+                newValue = parseInt(newValue, 16);
+            case 'rangeR':
+            case 'numR':
+                RGBaArr[0] = newValue;
+                RGBaArr[1] = rgbaValuesLoc.rangeG.value;
+                RGBaArr[2] = rgbaValuesLoc.rangeB.value;
+                RGBaArr[3] = rgbaValuesLoc.rangea.value;
+                break;
+            case 'numG16': // hex
+                newValue = parseInt(newValue, 16);
+            case 'rangeG':
+            case 'numG':
+                RGBaArr[0] = rgbaValuesLoc.rangeR.value;
+                RGBaArr[1] = newValue;
+                RGBaArr[2] = rgbaValuesLoc.rangeB.value;
+                RGBaArr[3] = rgbaValuesLoc.rangea.value;
+                break;
+            case 'numB16': // hex
+                newValue = parseInt(newValue, 16);
+            case 'rangeB':
+            case 'numB':
+                RGBaArr[0] = rgbaValuesLoc.rangeR.value;
+                RGBaArr[1] = rgbaValuesLoc.rangeG.value;
+                RGBaArr[2] = newValue;
+                RGBaArr[3] = rgbaValuesLoc.rangea.value;
+                break;
+            case 'rangea':
+            case 'numa':
+                RGBaArr[0] = rgbaValuesLoc.rangeR.value;
+                RGBaArr[1] = rgbaValuesLoc.rangeG.value;
+                RGBaArr[2] = rgbaValuesLoc.rangeB.value;
+                RGBaArr[3] = newValue;
+                break;
+                // hex
+            case 'Hex':
+                RGBaArr = hex2rgb(newValue);
+                RGBaArr[3] = 1;
             default:
-                window.alert('Exception');
-        }
-        if (!except) {
-            focusdForm.RGB.value = 'rgb(' + rgb[0] + ', ' + rgb[1] + ', ' + rgb[2] + ')';
-        }
-        focusdForm.RGBa.value = 'rgba(' + rgb[0] + ', ' + rgb[1] + ', ' + rgb[2] + ', 1)';
-        focusdForm.HSL.value = 'hsl(' + hsl[0] + ', ' + hsl[1] + '%, ' + hsl[2] + '%)';
-        focusdForm.HSLa.value = 'hsla(' + hsl[0] + ', ' + hsl[1] + '%, ' + hsl[2] + '%, 1)';
-        focusdForm.Hex.value = hex;
-        var ApStElem = document.getElementById('page-body').style;
-        ApStElem.backgroundColor = 'rgb(' + rgb[0] + ', ' + rgb[1] + ', ' + rgb[2] + ')';
-        if (judgeTextColor(rgb[0], rgb[1], rgb[2]) == 0) {
-            ApStElem.color = '#222';
-        } else {
-            ApStElem.color = '#fafafa';
+                //window.alert('Internal Error\nchangedValueName: ' + changedValueName);
+                return;
         }
     }
-
-    function getOtherValue(value, changedValueName) {
-        var r, g, b
-        if (changedValueName == 'R') {
-            r = value;
-        } else {
-            r = focusdForm.rangeR.valueAsNumber;
+    // regularization
+    for (var i = 0; i < 3; i++) {
+        temp = String(RGBaArr[i]);
+        if (temp.search('%') != -1) {
+            temp = temp.replace(/%$/, '') * 255 / 100;
         }
-        if (changedValueName == 'G') {
-            g = value;
-        } else {
-            g = focusdForm.rangeG.valueAsNumber;
+        RGBaArr[i] = parseFloat(temp);
+        if (isNaN(RGBaArr[i]) || RGBaArr[i] < 0 || RGBaArr[i] > 255) {
+            //window.alert('Invalid Value\nRGBa Array: '+ RGBaArr);
+            return;
         }
-        if (changedValueName == 'B') {
-            b = value;
-        } else {
-            b = focusdForm.rangeB.valueAsNumber;
-        }
-        return [r, g, b];
     }
-})();
+    RGBaArr[3] = parseFloat(RGBaArr[3]);
+    if (isNaN(RGBaArr[3]) || RGBaArr[3] < 0 || RGBaArr[3] > 1) {
+        //window.alert('Invalid Value\nRGBa Array: '+ RGBaArr);
+        return;
+    }
+    return RGBaArr;
+}
 
+//
+function fromRGB(changedValueName, newValue) {
+    var appendFormLoc = document.getElementById('RGBform'),
+        RGBArr = [];
+    // get RGB value
+    RGBArr = getOtherValue(changedValueName, newValue);
+    // set
+    var rgbStr = 'rgb(' + RGBArr[0] + ', ' + RGBArr[1] + ', ' + RGBArr[2] + ')',
+        hsl = rgb2hsl(RGBArr[0], RGBArr[1], RGBArr[2]),
+        hex = rgb2hex(RGBArr[0], RGBArr[1], RGBArr[2]);
+    // set RGB value
+    if (changedValueName != 'RGB') {
+        appendFormLoc.RGB.value = rgbStr;
+    }
+    if (changedValueName != 'rangeR') {
+        appendFormLoc.rangeR.value = RGBArr[0];
+    }
+    if (changedValueName != 'rangeG') {
+        appendFormLoc.rangeG.value = RGBArr[1];
+    }
+    if (changedValueName != 'rangeB') {
+        appendFormLoc.rangeB.value = RGBArr[2];
+    }
+    if (changedValueName != 'numR') {
+        appendFormLoc.numR.value = RGBArr[0];
+    }
+    if (changedValueName != 'numG') {
+        appendFormLoc.numG.value = RGBArr[1];
+    }
+    if (changedValueName != 'numB') {
+        appendFormLoc.numB.value = RGBArr[2];
+    }
+    // set result to css
+    var parentElemStyle = document.getElementById('colorLayer').style;
+    parentElemStyle.backgroundColor = rgbStr;
+    if (0.298912 * RGBArr[0] + 0.586611 * RGBArr[1] + 0.114478 * RGBArr[2] < 128) {
+        parentElemStyle.color = '#fafafa';
+    } else {
+        parentElemStyle.color = '#222';
+    }
+    setResult('RGB', RGBArr);
+}
+function fromRGBa(changedValueName, newValue) {
+    var appendFormLoc = document.getElementById('RGBaform'),
+        RGBaArr = [];
+    // get RGB value
+    RGBaArr = getOtherValue(changedValueName, newValue);
+    // set
+    var rgbaStr = 'rgba(' + RGBaArr[0] + ', ' + RGBaArr[1] + ', ' + RGBaArr[2] + ', ' + RGBaArr[3] + ')',
+        hsl = rgb2hsl(RGBaArr[0], RGBaArr[1], RGBaArr[2]);
+    // set RGB value
+    if (changedValueName != 'RGBa') {
+        appendFormLoc.RGBa.value = rgbaStr;
+    }
+    if (changedValueName != 'rangeR') {
+        appendFormLoc.rangeR.value = RGBaArr[0];
+    }
+    if (changedValueName != 'rangeG') {
+        appendFormLoc.rangeG.value = RGBaArr[1];
+    }
+    if (changedValueName != 'rangeB') {
+        appendFormLoc.rangeB.value = RGBaArr[2];
+    }
+    if (changedValueName != 'rangea') {
+        appendFormLoc.rangea.value = RGBaArr[3];
+    }
+    if (changedValueName != 'numR') {
+        appendFormLoc.numR.value = RGBaArr[0];
+    }
+    if (changedValueName != 'numG') {
+        appendFormLoc.numG.value = RGBaArr[1];
+    }
+    if (changedValueName != 'numB') {
+        appendFormLoc.numB.value = RGBaArr[2];
+    }
+    if (changedValueName != 'numa') {
+        appendFormLoc.numa.value = RGBaArr[3];
+    }
+    // set result to css
+    var parentElemStyle = document.getElementById('colorLayer').style;
+    parentElemStyle.backgroundColor = rgbaStr;
+    if (0.298912 * RGBaArr[0] + 0.586611 * RGBaArr[1] + 0.114478 * RGBaArr[2] < 128 && RGBaArr[3] > 0.5) {
+        parentElemStyle.color = '#fafafa';
+    } else {
+        parentElemStyle.color = '#222';
+    }
+    setResult('RGBa', RGBaArr);
+}
+
+// utils
 function rgb2hsl(r, g, b) {
     // Param: r, g and b are from 0 to 255
     // Return: h is from 0 to 360, s and l are from 0 to 100
@@ -210,7 +490,6 @@ function rgb2hsl(r, g, b) {
     // h, s and l are decimals so...
     return [Math.round(h), Math.round(s * 100), Math.round(l * 100)];
 }
-
 function hsl2rgb(h, s, l) {
     // Param: h is from 0 to 360, s and l are from 0 to 100
     // Return: r, g and b are from 0 to 255
@@ -251,7 +530,6 @@ function hsl2rgb(h, s, l) {
     // r, g and b are decimals so...
     return [Math.round(255 * (r + m)), Math.round(255 * (g + m)), Math.round(255 * (b + m))];
 }
-
 function rgb2hex(r, g, b) {
     // Param: r, g and b are from 0 to 255
     // Return: #rrggbb
@@ -262,7 +540,6 @@ function rgb2hex(r, g, b) {
     }
     return '#' + result;
 }
-
 function hex2rgb(hex) {
     // Param: #rrggbb
     // Return: r, g and b are from 0 to 255
@@ -276,219 +553,12 @@ function hex2rgb(hex) {
     return [parseInt(hex.slice(0, 2), 16), parseInt(hex.slice(2, 4), 16), parseInt(hex.slice(4, 6), 16)];
 }
 
-function judgeTextColor(r, g, b) {
-    // Param: background r, g, b. r, g and b are from 0 to 255
+function judgeTextColor(r, g, b, a) {
+    // Param: background r, g, b, a. r, g and b are from 0 to 255.
     // Return: textColor. 1 means white, 0 means black.
-    var lum = 0.298912 * r + 0.586611 * g + 0.114478 * b;
-    if (lum < 128) {
+    if (0.298912 * r + 0.586611 * g + 0.114478 * b < 128 && a > 0.5) {
         return 1;
+    } else {
+        return 0;
     }
-    return 0;
 }
-
-/*window.Modernizr = (function (window, document, undefined) {
-
-    var version = '2.6.2',
-
-    Modernizr = {},
-
-
-    docElement = document.documentElement,
-
-    mod = 'modernizr',
-    modElem = document.createElement(mod),
-    mStyle = modElem.style,
-
-    inputElem = document.createElement('input'),
-
-    smile = ':)',
-
-    toString = {}.toString, tests = {},
-    inputs = {},
-    attrs = {},
-
-    classes = [],
-
-    slice = classes.slice,
-
-    featureName,
-
-
-
-    _hasOwnProperty = ({}).hasOwnProperty, hasOwnProp;
-
-    if (!is(_hasOwnProperty, 'undefined') && !is(_hasOwnProperty.call, 'undefined')) {
-        hasOwnProp = function (object, property) {
-            return _hasOwnProperty.call(object, property);
-        };
-    }
-    else {
-        hasOwnProp = function (object, property) {
-            return ((property in object) && is(object.constructor.prototype[property], 'undefined'));
-        };
-    }
-
-
-    if (!Function.prototype.bind) {
-        Function.prototype.bind = function bind(that) {
-
-            var target = this;
-
-            if (typeof target != "function") {
-                throw new TypeError();
-            }
-
-            var args = slice.call(arguments, 1),
-                bound = function () {
-
-                    if (this instanceof bound) {
-
-                        var F = function () { };
-                        F.prototype = target.prototype;
-                        var self = new F();
-
-                        var result = target.apply(
-                            self,
-                            args.concat(slice.call(arguments))
-                        );
-                        if (Object(result) === result) {
-                            return result;
-                        }
-                        return self;
-
-                    } else {
-
-                        return target.apply(
-                            that,
-                            args.concat(slice.call(arguments))
-                        );
-
-                    }
-
-                };
-
-            return bound;
-        };
-    }
-
-    function setCss(str) {
-        mStyle.cssText = str;
-    }
-
-    function setCssAll(str1, str2) {
-        return setCss(prefixes.join(str1 + ';') + (str2 || ''));
-    }
-
-    function is(obj, type) {
-        return typeof obj === type;
-    }
-
-    function contains(str, substr) {
-        return !!~('' + str).indexOf(substr);
-    }
-
-
-    function testDOMProps(props, obj, elem) {
-        for (var i in props) {
-            var item = obj[props[i]];
-            if (item !== undefined) {
-
-                if (elem === false) return props[i];
-
-                if (is(item, 'function')) {
-                    return item.bind(elem || obj);
-                }
-
-                return item;
-            }
-        }
-        return false;
-    }
-    function webforms() {
-        Modernizr['inputtypes'] = (function (props) {
-
-            for (var i = 0, bool, inputElemType, defaultView, len = props.length; i < len; i++) {
-
-                inputElem.setAttribute('type', inputElemType = props[i]);
-                bool = inputElem.type !== 'text';
-
-                if (bool) {
-
-                    inputElem.value = smile;
-                    inputElem.style.cssText = 'position:absolute;visibility:hidden;';
-
-                    if (/^range$/.test(inputElemType) && inputElem.style.WebkitAppearance !== undefined) {
-
-                        docElement.appendChild(inputElem);
-                        defaultView = document.defaultView;
-
-                        bool = defaultView.getComputedStyle &&
-              defaultView.getComputedStyle(inputElem, null).WebkitAppearance !== 'textfield' &&
-                                                                  (inputElem.offsetHeight !== 0);
-
-                        docElement.removeChild(inputElem);
-
-                    } else if (/^(search|tel)$/.test(inputElemType)) {
-                    } else if (/^(url|email)$/.test(inputElemType)) {
-                        bool = inputElem.checkValidity && inputElem.checkValidity() === false;
-
-                    } else {
-                        bool = inputElem.value != smile;
-                    }
-                }
-
-                inputs[props[i]] = !!bool;
-            }
-            return inputs;
-        })('search tel url email datetime date month week time datetime-local number range color'.split(' '));
-    }
-    for (var feature in tests) {
-        if (hasOwnProp(tests, feature)) {
-            featureName = feature.toLowerCase();
-            Modernizr[featureName] = tests[feature]();
-
-            classes.push((Modernizr[featureName] ? '' : 'no-') + featureName);
-        }
-    }
-
-    Modernizr.input || webforms();
-
-
-    Modernizr.addTest = function (feature, test) {
-        if (typeof feature == 'object') {
-            for (var key in feature) {
-                if (hasOwnProp(feature, key)) {
-                    Modernizr.addTest(key, feature[key]);
-                }
-            }
-        } else {
-
-            feature = feature.toLowerCase();
-
-            if (Modernizr[feature] !== undefined) {
-                return Modernizr;
-            }
-
-            test = typeof test == 'function' ? test() : test;
-
-            if (typeof enableClasses !== "undefined" && enableClasses) {
-                docElement.className += ' ' + (test ? '' : 'no-') + feature;
-            }
-            Modernizr[feature] = test;
-
-        }
-
-        return Modernizr;
-    };
-
-
-    setCss('');
-    modElem = inputElem = null;
-
-
-    Modernizr._version = version;
-
-
-    return Modernizr;
-
-})(this, this.document);*/

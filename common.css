@@ -21,16 +21,17 @@ html, body, header, hgroup, nav, footer, article, aside, section, div, p, img, t
     width: 0;
 }
 
-a {
+header a, footer a {
     color: inherit;
     text-decoration: underline;
 }
 
-    a:hover {
+    header a:hover, footer a:hover, header a:focus, footer a:focus {
         color: #ff6d00;
         text-decoration: none;
         background: radial-gradient(closest-side, rgba(255, 255, 255, .2), rgba(255, 255, 255, 0));
     }
+
 
 body {
     text-align: left;
@@ -51,7 +52,7 @@ body {
     position: absolute;
     right: 0;
     top: 0;
-    display: none;
+    display: none; /* pref */
     z-index: 100;
 }
 
@@ -62,8 +63,8 @@ body {
     background: #333;
     color: #fafafa;
     display: inline-block;
-    margin: -1px auto 0 -30px;
-    padding: 20px 30px;
+    margin: -1px auto 0 0;
+    padding: 20px;
     border-bottom-right-radius: 12px;
     border-bottom-left-radius: 12px;
     font-family: 'Titillium Web', sans-serif;
@@ -84,8 +85,55 @@ body {
         font-size: 18px;
     }
 
+    #page-head h1 a {
+        text-decoration: none; 
+}
+
 #page-body {
-    margin: 20px -20px;
+    margin: 20px 0;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, .5);
+    border: 1px solid #666;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    background-image: url(alphaback16.png);
+}
+
+#colorLayer{
+     border-radius: 11px;
+}
+
+#codeNav ul {
+    text-align: center;
+    margin: 0 1%;
+    padding: 0;
+}
+
+#codeNav li {
+    display: inline;
+}
+
+#codeNav a {
+    display: inline-block;
+    width: 18%;
+    padding: 10px 0;
+    text-decoration: none;
+    font-weight: bold;
+    color: inherit;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, .5) inset;
+    margin: 1%;
+    border-radius: 10px;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+    background: rgba(0, 0, 0, .1);
+}
+
+#codeNav a:hover, #codeNav a:focus {
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, .5);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, .0), rgba(0, 0, 0, .2));
+}
+
+#codeNav .current {
+    box-shadow: none;
+    background: transparent;
 }
 
 legend {
@@ -118,10 +166,7 @@ input[type='range'] {
 
 .codeBox {
     padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, .5);
-    border: 1px solid rgba(0, 0, 0, .5);
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    border-radius: 11px;
 }
 
     .codeBox h2 {
@@ -134,7 +179,7 @@ input[type='range'] {
         font-size: 20px;
     }
 
-    .codeBox section:first-child fieldset:last-child {/*pref*/
+    .codeBox fieldset:last-child {/*pref*/
         display: none;
     }
 
@@ -158,10 +203,10 @@ input[type='range'] {
     width: 28.3%;
 }
 
-.enter fieldset p:nth-child(2)  {
+/*.enter fieldset p:nth-child(2)  {
     color: #f00;
     background: inherit;
-    /*background: linear-gradient(to right, #000, #f00);*/
+    /*background: linear-gradient(to right, #000, #f00);
 }
 
 .enter fieldset p:nth-child(3) {
@@ -169,16 +214,15 @@ input[type='range'] {
     background: inherit;
 }
 
-.enter fieldset p:last-child {
+.enter fieldset p:nth-child(4) {
     color: #00f;
     background: inherit;
-}
+}*/
 
 #page-foot {
     background: #333;
     color: #fafafa;
-    padding: 20px 30px;
-    margin: 0 -30px;
+    padding: 20px;
     border-top-right-radius: 12px;
     border-top-left-radius: 12px;
     font-family: 'Titillium Web', sans-serif;

@@ -1,250 +1,86 @@
-function fromRGB(changedValueName, newValue) {
-    var appendFormLoc = document.getElementById('RGBform');
-    var RGBArr = [];
-    // get RGB value
-    switch (changedValueName) {
-        case 'RGB':
-            RGBArr = newValue.replace(/\s/g, '').replace(/[rgb();]/g, '').split(/,/);
-            switch (RGBArr.length) {
-                case 2:
-                    RGBArr[2] = 0;
-                case 1:
-                    RGBArr[1] = 0;
-                case 3:
-                    break;
-                default:
-                    return;
+/*
+ * Modernizr method is:
+ * Modernizr 2.6.2 (Custom Build) | MIT & BSD
+ * Build: modernizr.com/download/#-inputtypes
+ *
+ * Copyright (c) Faruk Ates, Paul Irish, Alex Sexton
+ * Available under the BSD and MIT licenses: www.modernizr.com/license/
+ */
+
+/*
+<p id="mynum">0</p>
+<form id="_form">
+    <div id="_div" class="_div">
+        <input type="button" id="_range" class="_range" />
+    </div>
+</form>
+*/
+
+(function () {
+    var dragging = false;
+    var output = document.getElementById('mynum');
+    var value = output.innerHTML;
+    impRange = {};
+    var slider = document.getElementsByClassName('_div');
+    var input = document.getElementsByClassName('_range');
+    //window.alert(value);
+    var set_value = function () {
+        // つまみのサイズ(input.clientWidth)だけ位置を調整
+        input.style.left = (value - input.offsetWidth / 2) + 'px';
+        //output.value = value;
+        output.innerHTML = value;
+    };
+    for (var i = 0; i < input.length; i++) {
+        input[i].style.left = (value - input[i].offsetWidth / 2) + 'px';
+        output.innerHTML = value;
+    }
+
+    impRange.start = function (ev) {
+        if (ev.target.className == '_div') {
+            slider = ev.target;
+            input = ev.target.childNodes[1];
+            value = ev.clientX - slider.getBoundingClientRect().left;
+            if (value < 0) {
+                value = 0;
+            } else if (value > slider.clientWidth) {
+                value = slider.clientWidth;
             }
-            break;
-        case 'rangeR':
-        case 'numR':
-            RGBArr[0] = parseFloat(newValue);
-            RGBArr[1] = appendFormLoc.numG.valueAsNumber;
-            RGBArr[2] = appendFormLoc.numB.valueAsNumber;
-            break;
-        case 'rangeG':
-        case 'numG':
-            RGBArr[0] = appendFormLoc.numR.valueAsNumber;
-            RGBArr[1] = parseFloat(newValue);
-            RGBArr[2] = appendFormLoc.numB.valueAsNumber;
-            break;
-        case 'rangeB':
-        case 'numB':
-            RGBArr[0] = appendFormLoc.numR.valueAsNumber;
-            RGBArr[1] = appendFormLoc.numG.valueAsNumber;
-            RGBArr[2] = parseFloat(newValue);
-            break;
-        default:
-            return;
-    }
-    // regularization
-    var temp
-    for (var i = 0; i < 3; i++) {
-        temp = String(RGBArr[i]);
-        if (temp.search('%') != -1) {
-            temp = temp.replace(/%$/, '') * 255 / 100;
+            dragging = true;
+            set_value();
+            return false;
+        } else if (ev.target.className == '_range') {
+            slider = ev.target.parentNode;
+            input = ev.target;
+            dragging = true;
+            return false;
         }
-        RGBArr[i] = parseFloat(temp);
-        if (isNaN(RGBArr[i]) || RGBArr[i] < 0 || RGBArr[i] > 255) {
-            return;
+    };
+    impRange.end = function (ev) {
+        dragging = false;
+    };
+    impRange.move = function (ev) {
+        if (dragging) {
+            //if (!evt) {
+            //    evt = window.event;
+            //}
+            value = ev.clientX - slider.getBoundingClientRect().left;
+            if (value < 0) {
+                value = 0;
+            } else if (value > slider.clientWidth) {
+                value = slider.clientWidth;
+            }
+            set_value();
+            return false;
         }
-    }
-    // set
-    var rgbStr = 'rgb(' + RGBArr[0] + ', ' + RGBArr[1] + ', ' + RGBArr[2] + ')',
-        hsl = rgb2hsl(RGBArr[0], RGBArr[1], RGBArr[2]),
-        hex = rgb2hex(RGBArr[0], RGBArr[1], RGBArr[2]);
-    // set RGB value
-    if (changedValueName != 'RGB') {
-        appendFormLoc.RGB.value = rgbStr;
-    }
-    if (changedValueName != 'rangeR') {
-        appendFormLoc.rangeR.value = RGBArr[0];
-    }
-    if (changedValueName != 'rangeG') {
-        appendFormLoc.rangeG.value = RGBArr[1];
-    }
-    if (changedValueName != 'rangeB') {
-        appendFormLoc.rangeB.value = RGBArr[2];
-    }
-    if (changedValueName != 'numR') {
-        appendFormLoc.numR.value = RGBArr[0];
-    }
-    if (changedValueName != 'numG') {
-        appendFormLoc.numG.value = RGBArr[1];
-    }
-    if (changedValueName != 'numB') {
-        appendFormLoc.numB.value = RGBArr[2];
-    }
-    // set result
-    appendFormLoc.RGBa.value = 'rgba(' + RGBArr[0] + ', ' + RGBArr[1] + ', ' + RGBArr[2] + ', 1)';
-    appendFormLoc.HSL.value = 'hsl(' + hsl[0] + ', ' + hsl[1] + '%, ' + hsl[2] + '%)';
-    appendFormLoc.HSLa.value = 'hsla(' + hsl[0] + ', ' + hsl[1] + '%, ' + hsl[2] + '%, 1)';
-    appendFormLoc.Hex.value = hex;
-    // set result to css
-    var parentElemStyle = appendFormLoc.parentElement.style;
-    parentElemStyle.backgroundColor = rgbStr;
-    if (0.298912 * RGBArr[0] + 0.586611 * RGBArr[1] + 0.114478 * RGBArr[2] < 128) {
-        parentElemStyle.color = '#fafafa';
-    } else {
-        parentElemStyle.color = '#222';
-    }
-}
-// # TODO
-window.addEventListener('load', function () {
-    var rundColor;
-    if (location.search) {
-        var queryObj = {};
-        var tmp;
-        var query = location.search.substring(1);
-        query = query.split(/&/g);
-        for (var i = 0; i < query.length; i++) {
-            tmp = query[i].split('=');
-            queryObj[decodeURIComponent(tmp[0])] = decodeURIComponent(tmp[1]);
-        }
-        rundColor = queryObj.q;
-    } else {
-        rundColor = 'rgb(' + Math.floor(Math.random() * 256) + ', ' + Math.floor(Math.random() * 256) + ', ' + Math.floor(Math.random() * 256) + ')';
-    }
-    document.getElementById('RGBform').RGB.value = rundColor;
-    fromRGB('RGB', rundColor);
-}, false);
-var formLoc = document.getElementById('RGBform');
-formLoc.addEventListener('change', function (evt) {
-    fromRGB(evt.target.name, evt.target.value);
-}, false);
-formLoc.addEventListener('keyup', function (evt) {
-    fromRGB(evt.target.name, evt.target.value);
-}, false);
-formLoc.addEventListener('change', function (evt) {
-    fromRGB(evt.target.name, evt.target.value);
-}, false);
-formLoc.RGBa.addEventListener('focus', function () {
-    this.select();
-}, false)
-formLoc.HSL.addEventListener('focus', function () {
-    this.select();
-}, false)
-formLoc.HSLa.addEventListener('focus', function () {
-    this.select();
-}, false)
-formLoc.Hex.addEventListener('focus', function () {
-    this.select();
-}, false)
+    };
+    document.addEventListener('mousedown', impRange.start, false);
+    document.addEventListener('mouseup', impRange.end, false);
+    document.addEventListener('mousemove', impRange.move, false);
+})();
 
-
-function rgb2hsl(r, g, b) {
-    // Param: r, g and b are from 0 to 255
-    // Return: h is from 0 to 360, s and l are from 0 to 100
-    r /= 255;
-    g /= 255;
-    b /= 255;
-    var h, s, l,
-        max = Math.max(r, g, b),
-        min = Math.min(r, g, b),
-        sum = max + min,
-        delta = max - min;
-
-    switch (max) {
-        case min:
-            h = 0;
-            break;
-        case r:
-            h = 60 * (g - b) / delta;
-            break;
-        case g:
-            h = 120 + 60 * (b - r) / delta;
-            break;
-        case b:
-            h = 240 + 60 * (r - g) / delta;
-            break;
-    }
-    while (h < 0) {
-        h += 360;
-    }
-
-    l = sum / 2;
-
-    if (l == 0 || l == 1) {
-        s = 0;
-    } else if (l < 0.5) {
-        s = delta / sum;
-    } else {
-        s = delta / (2 - sum);
-    }
-
-    // now s and l are from 0 to 1 
-    // h, s and l are decimals so...
-    return [Math.round(h), Math.round(s * 100), Math.round(l * 100)];
-}
-
-function hsl2rgb(h, s, l) {
-    // Param: h is from 0 to 360, s and l are from 0 to 100
-    // Return: r, g and b are from 0 to 255
-    while (h < 0) {
-        h += 360;
-    }
-    while (h > 360) {
-        h -= 360;
-    }
-    s /= 100;
-    l /= 100;
-
-    var r = 0, g = 0, b = 0,
-        C = s * (1 - Math.abs(2 * l - 1)),
-        X = C * (1 - Math.abs((h / 60) % 2 - 1)),
-        m = l - C / 2;
-    if (h < 60) {
-        r = C;
-        g = X;
-    } else if (h < 120) {
-        r = X;
-        g = C;
-    } else if (h < 180) {
-        g = C;
-        b = X;
-    } else if (h < 240) {
-        g = X;
-        b = C;
-    } else if (h < 300) {
-        r = X;
-        b = C;
-    } else {
-        r = C;
-        b = X;
-    }
-
-    // Now r, g and b are from 0  to 1 so...
-    // r, g and b are decimals so...
-    return [Math.round(255 * (r + m)), Math.round(255 * (g + m)), Math.round(255 * (b + m))];
-}
-
-function rgb2hex(r, g, b) {
-    // Param: r, g and b are from 0 to 255
-    // Return: #rrggbb
-    //window.alert(r * 65536 + g * 256 + b);
-    var result = (r * 65536 + g * 256 + b).toString(16);
-    while (result.length < 6) {
-        result = '0' + result;
-    }
-    return '#' + result;
-}
-
-function hex2rgb(hex) {
-    // Param: #rrggbb
-    // Return: r, g and b are from 0 to 255
-    hex = hex.replace("#", "");
-    if (hex.length == 3) {
-        var r = parseInt(hex.slice(0, 1), 16),
-            g = parseInt(hex.slice(1, 2), 16),
-            b = parseInt(hex.slice(2, 3), 16);
-        return [r + r * 16, g + g * 16, b + b * 16];
-    }
-    return [parseInt(hex.slice(0, 2), 16), parseInt(hex.slice(2, 4), 16), parseInt(hex.slice(4, 6), 16)];
-}
-
-
-
+// # IT DOESN'T WORK ?
 //function html5_slider(node) {
+//from http://gihyo.jp/dev/serial/01/crossbrowser-javascript/0023
 
 //    var addEvent = document.addEventListener ?
 //      function (node, type, listener) {
@@ -375,7 +211,6 @@ function hex2rgb(hex) {
 //        }
 //    }
 //}
-
 
 window.Modernizr = (function (window, document, undefined) {
 
