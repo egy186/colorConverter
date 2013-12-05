@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 
 /*!
  * Copyright (c) 2013 egy186
@@ -159,7 +159,7 @@ body {
     }
 
     #nav-tab li {
-        display: inline;
+        display: table-cell;
     }
 
     #nav-tab a {
@@ -171,7 +171,7 @@ body {
         margin: 0 1%;
         padding: 8px 0;
         text-decoration: none;
-        width: 18%;
+        /*width: 18%;*/
     }
 
 .form-box {

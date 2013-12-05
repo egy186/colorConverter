@@ -14,9 +14,9 @@ Version 0.1.0 で対応済。
 
 ## 動作確認済みのブラウザ
 
-* Internet Explorer 10
-* Mozilla Firefox 23
-* Google Chrome 28
+* Internet Explorer 10+
+* Mozilla Firefox 23+
+* Google Chrome 28+
 
 要するに&lt;input type="range" /&gt;が実装されているモダンブラウザなら動くはずです。
 
