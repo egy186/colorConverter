@@ -103,9 +103,9 @@ egyColorCONFIG.prototype.set = function (key, value) {
         case 'hex':
             value = value.replace("#", "");
             if (value.length == 3) {
-                var r = parseInt(hex.slice(0, 1), 16),
-                    g = parseInt(hex.slice(1, 2), 16),
-                    b = parseInt(hex.slice(2, 3), 16);
+                var r = parseInt(value.slice(0, 1), 16),
+                    g = parseInt(value.slice(1, 2), 16),
+                    b = parseInt(value.slice(2, 3), 16);
                 this.r = r + r * 16;
                 this.g = g + g * 16;
                 this.b = b + b * 16;
@@ -113,12 +113,15 @@ egyColorCONFIG.prototype.set = function (key, value) {
                 if (value.length != 6) {
                     value = ('000000' + value).slice(-6);
                 }
-                this.r = parseInt(hex.slice(0, 2), 16);
-                this.g = parseInt(hex.slice(2, 4), 16);
-                this.b = parseInt(hex.slice(4, 6), 16);
+                this.r = parseInt(value.slice(0, 2), 16);
+                this.g = parseInt(value.slice(2, 4), 16);
+                this.b = parseInt(value.slice(4, 6), 16);
             }
             this.sync('rgb');
             break;
+        default:
+            console.log('Unknown key: egyColorCONFIG.set');
+
     }
 }
 
@@ -241,7 +244,6 @@ console.log(egyColorConfig.h); // 180*/
 
 
 // colorConverter
-//addEventListener('DOMContentLoaded', init, false);
 addEventListener('load', init, false);
 
 var colorConfig = new egyColorCONFIG(),
@@ -290,6 +292,7 @@ function init() {
     } else {
         // random
         changeTab(tabList[Math.floor(Math.random() * 5)]);
+        console.log('random tab');
     }
 
     // set color
@@ -301,8 +304,9 @@ function init() {
         }
     } else {
         main('text-rgba', 'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',1)');
+        console.log('random color');
     }
-    history.replaceState({},'', location.href.replace(/\#.*/, ''));
+    history.replaceState({}, '', location.href.replace(/\#.*/, ''));
 }
 
 
@@ -316,6 +320,7 @@ function changeTab(newTab) {
     if (newTabIndex == -1) {
         newTab = 'RGB';
         newTabIndex = 0;
+        console.log('unknown tab-name')
     }
     // forms
     var temp;
@@ -405,6 +410,9 @@ function main(key, value) {
         case 'range-a':
             colorConfig.set('a', value);
             break;
+        default:
+            console.log('unknown key');
+            break;
     }
     // set values
     // TODO: use function
@@ -482,11 +490,11 @@ function main(key, value) {
     // form-output
     formOutput['output-rgb'].value = colorConfig.toString('rgb');
     formOutput['output-rgba'].value = colorConfig.toString('rgba');
-    formOutput['output-hsl'].value = colorConfig.toString('hsla');
-    formOutput['output-hsla'].value = colorConfig.toString('hsl');
+    formOutput['output-hsl'].value = colorConfig.toString('hsl');
+    formOutput['output-hsla'].value = colorConfig.toString('hsla');
     formOutput['output-hex'].value = colorConfig.toString('hex');
     //formOutput['output-permalink'].value = location.protocol + location.host + location.pathname + '#' + currentTab + '&' + JSON.stringify(colorConfig);
-    formOutput['output-permalink'].value = location.protocol + location.hostname + location.pathname + '#' + currentTab + '&' + JSON.stringify(colorConfig);
+    formOutput['output-permalink'].value = location.protocol + '//' + location.hostname + location.pathname + '#' + currentTab + '&' + JSON.stringify(colorConfig);
     // set CSS
     var layerBgColor = document.getElementById('layer-bgcolor');
     if (currentTab == 'RGBa' || currentTab == 'HSLa') {

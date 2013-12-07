@@ -10,8 +10,7 @@
     <meta name="author" content="egy186" />
     <meta name="application-name" content="Color_Converter">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="common.css" />
-    <script src="main.js" async="async"></script>
+    <script src="colorconverter.js" async="async"></script>
     <script>
         WebFontConfig = {
             google: { families: ['Titillium+Web:700,300'] }
@@ -24,6 +23,7 @@
             s.parentNode.insertBefore(wf, s);
         })();
     </script>
+    <link rel="stylesheet" href="common.css" />
     <link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico" />
     <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="favicon.ico" />
     <!--
@@ -34,23 +34,25 @@
 </head>
 <body>
     <div id="page">
-        <header id="page-head">
-            <h1><a href="./" tabindex="1">Color Converter</a></h1>
-            <p>Convert colorcode easily.</p>
-            <nav id="nav-tab">
-                <h2>Table of Contents</h2>
-                <ul>
-                    <li><a href="#input" tabindex="11">RGB</a></li>
-                    <li><a href="#input" tabindex="11">RGBa</a></li>
-                    <li><a href="#input" tabindex="11">HSL</a></li>
-                    <li><a href="#input" tabindex="11">HSLa</a></li>
-                    <li><a href="#input" tabindex="11">Hex</a></li>
-                </ul>
-            </nav>
-        </header>
-        <div id="page-body">
-            <div id="layer-bgcolor" class="theme-light">
-                <section id="input" class="form-box">
+        <div id="layer-bgcolor">
+            <header id="page-head">
+                <div id="page-head-inner">
+                    <h1><a href="./" tabindex="1">Color Converter</a></h1>
+                    <p>Convert colorcode easily.</p>
+                    <nav id="nav-tab">
+                        <h2>Table of Contents</h2>
+                        <ul>
+                            <li><a href="#input" tabindex="11">RGB</a></li>
+                            <li><a href="#input" tabindex="11">RGBa</a></li>
+                            <li><a href="#input" tabindex="11">HSL</a></li>
+                            <li><a href="#input" tabindex="11">HSLa</a></li>
+                            <li><a href="#input" tabindex="11">Hex</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </header>
+            <main id="page-body">
+                <section class="form-box">
                     <h2>Input</h2>
                     <form id="form-input" class="clearfix">
                         <section id="input-text">
@@ -63,7 +65,7 @@
                         </section>
                         <section id="input-slider">
                             <h3>Slider</h3>
-                            <fieldset class="rgb rgba hex">
+                            <fieldset id="set-rgb" class="rgb rgba hex">
                                 <legend>RGB</legend>
                                 <p>
                                     <span class="rgb rgba"><label>R:<input type="number" name="num-r" value="0" min="0" max="255" step="1" tabindex="201" /></label><br /></span>
@@ -81,7 +83,7 @@
                                     <input type="range" name="range-b" value="0" min="0" max="255" step="1" tabindex="221" />
                                 </p>
                             </fieldset>
-                            <fieldset class="hsl hsla">
+                            <fieldset id="set-hsl" class="hsl hsla">
                                 <legend>HSL</legend>
                                 <p>
                                     <label>H:<input type="number" name="num-h" value="0" min="0" max="360" step="1" tabindex="201" /></label><br />
@@ -96,7 +98,7 @@
                                     <input type="range" name="range-l" value="0" min="0" max="100" step="1" tabindex="221" />
                                 </p>
                             </fieldset>
-                            <fieldset class="rgba hsla">
+                            <fieldset id="set-alpha" class="rgba hsla">
                                 <legend>alpha</legend>
                                 <p>
                                     <label>a:<input type="number" name="num-a" value="1" min="0" max="1" step="0.01" tabindex="201" /></label><br />
@@ -109,7 +111,7 @@
                         </section>
                     </form>
                 </section>
-                <section id="output" class="form-box">
+                <section class="form-box">
                     <h2>Output</h2>
                     <form id="form-output">
                         <p class="hsl hex"><label>RGB:<input type="text" name="output-rgb" size="30" readonly="readonly" tabindex="1001" /></label></p>
@@ -120,17 +122,16 @@
                         <p class="permalink"><label>Permalink:<input type="url" name="output-permalink" size="100" readonly="readonly" tabindex="1001" /></label></p>
                     </form>
                 </section>
-            </div>
+            </main>
+            <footer id="page-foot">
+                <div id="page-foot-inner">
+                    <p id="nav"><a href="//github.com/egy186/colorConverter/#readme" tabindex="10001">About this site</a></p>
+                    <p id="verInf">Version 0.2.0 beta</p>
+                    <p id="copy"><small>Copyright (c) 2013 egy186 All Rights Reserved.</small></p>
+                </div>
+            </footer>
         </div>
-        <footer id="page-foot">
-            <div class="clearfix">
-                <p id="nav"><a href="//github.com/egy186/colorConverter/#readme" tabindex="10001">about</a></p>
-                <p id="verInf">Version 0.2.0 alpha</p>
-            </div>
-            <p id="copy"><small>Copyright (c) 2013 egy186 All Rights Reserved.</small></p>
-        </footer>
     </div>
-    <script src="colorconverter.js" defer="defer"></script>
     <script>
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
