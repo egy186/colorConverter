@@ -336,8 +336,8 @@ function changeTab(newTab) {
     }
     delete temp;
     // nav-tab
-    navTabs.item(tabList.indexOf(currentTab)).removeAttribute('class');
-    navTabs.item(newTabIndex).setAttribute('class', 'current');
+    navTabs.item(tabList.indexOf(currentTab)).parentElement.removeAttribute('class');
+    navTabs.item(newTabIndex).parentElement.setAttribute('class', 'active');
     // return
     currentTab = newTab;
     //history.pushState({ code: clicked }, clicked, '#' + clicked);

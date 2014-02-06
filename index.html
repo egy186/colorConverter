@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="utf-8" />
@@ -23,11 +23,11 @@
             s.parentNode.insertBefore(wf, s);
         })();
     </script>
-    <link rel="stylesheet" href="common.css" />
+    <link rel ="stylesheet" href="lib/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" href="main.css" />
     <link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico" />
     <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="favicon.ico" />
-    <!--
-    <meta name="msapplication-TileImage" content=""/>
+    <!--<meta name="msapplication-TileImage" content=""/>
     <meta name="msapplication-TileColor" content="#"/>
     <link rel="fluid-icon" />
     <link rel="apple-touch-icon" />-->
@@ -41,12 +41,12 @@
                     <p>Convert colorcode easily.</p>
                     <nav id="nav-tab">
                         <h2>Table of Contents</h2>
-                        <ul>
-                            <li><a href="#input" tabindex="11">RGB</a></li>
-                            <li><a href="#input" tabindex="11">RGBa</a></li>
-                            <li><a href="#input" tabindex="11">HSL</a></li>
-                            <li><a href="#input" tabindex="11">HSLa</a></li>
-                            <li><a href="#input" tabindex="11">Hex</a></li>
+                        <ul class="nav nav-pills nav-justified">
+                            <li><a href="#input-rgb" tabindex="11">RGB</a></li>
+                            <li><a href="#input-rgba" tabindex="11">RGBa</a></li>
+                            <li><a href="#input-hsl" tabindex="11">HSL</a></li>
+                            <li><a href="#input-hsla" tabindex="11">HSLa</a></li>
+                            <li><a href="#input-hex" tabindex="11">Hex</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -54,55 +54,55 @@
             <main id="page-body">
                 <section class="form-box">
                     <h2>Input</h2>
-                    <form id="form-input" class="clearfix">
+                    <form id="form-input" class="clearfix form-inline">
                         <section id="input-text">
                             <h3>Text</h3>
-                            <p class="rgb"><label>RGB:<input type="text" name="text-rgb" size="42" placeholder="rgb(R, G, B)" title="Functional notation: rgb(R, G, B)" maxlength="40" tabindex="101" /></label></p>
-                            <p class="rgba"><label>RGBa:<input type="text" name="text-rgba" size="42" placeholder="rgba(R, G, B, a)" title="Functional notation: rgba(R, G, B, a)" maxlength="40" tabindex="101" /></label></p>
-                            <p class="hsl"><label>HSL:<input type="text" name="text-hsl" size="42" placeholder="hsl(H, S, L)" title="Functional notation: hsl(H, S, L)" maxlength="40" tabindex="101" /></label></p>
-                            <p class="hsla"><label>HSLa:<input type="text" name="text-hsla" size="42" placeholder="hsla(H, S, L, a)" title="Functional notation: hsla(H, S, L, a)" maxlength="40" tabindex="101" /></label></p>
-                            <p class="hex"><label>Hex:<input type="text" name="text-hex" size="42" placeholder="#RRGGBB" title="Hexadecimal notation: #RRGGBB or #RGB" maxlength="40" tabindex="101" /></label></p>
+                            <p id="input-rgb" class="rgb"><label>RGB:<input class="form-control" type="text" name="text-rgb" size="42" placeholder="rgb(R, G, B)" title="Functional notation: rgb(R, G, B)" maxlength="40" tabindex="101" /></label></p>
+                            <p id="input-rgba" class="rgba"><label>RGBa:<input class="form-control" type="text" name="text-rgba" size="42" placeholder="rgba(R, G, B, a)" title="Functional notation: rgba(R, G, B, a)" maxlength="40" tabindex="101" /></label></p>
+                            <p id="input-hsl" class="hsl"><label>HSL:<input class="form-control" type="text" name="text-hsl" size="42" placeholder="hsl(H, S, L)" title="Functional notation: hsl(H, S, L)" maxlength="40" tabindex="101" /></label></p>
+                            <p id="input-hsla" class="hsla"><label>HSLa:<input class="form-control" type="text" name="text-hsla" size="42" placeholder="hsla(H, S, L, a)" title="Functional notation: hsla(H, S, L, a)" maxlength="40" tabindex="101" /></label></p>
+                            <p id="input-hex" class="hex"><label>Hex:<input class="form-control" type="text" name="text-hex" size="42" placeholder="#RRGGBB" title="Hexadecimal notation: #RRGGBB or #RGB" maxlength="40" tabindex="101" /></label></p>
                         </section>
                         <section id="input-slider">
                             <h3>Slider</h3>
                             <fieldset id="set-rgb" class="rgb rgba hex">
                                 <legend>RGB</legend>
                                 <p>
-                                    <span class="rgb rgba"><label>R:<input type="number" name="num-r" value="0" min="0" max="255" step="1" tabindex="201" /></label><br /></span>
-                                    <span class="hex"><label>R(hex):<input type="text" name="num16-r" value="00" size="5" title="RR or R" maxlength="5" tabindex="211" /></label><br /></span>
-                                    <input type="range" name="range-r" value="0" min="0" max="255" step="1" tabindex="221" />
+                                    <span class="rgb rgba"><label>R:<input class="form-control" type="number" name="num-r" value="0" min="0" max="255" step="1" tabindex="201" /></label><br /></span>
+                                    <span class="hex"><label>R(hex):<input class="form-control" type="text" name="num16-r" value="00" size="5" title="RR or R" maxlength="5" tabindex="211" /></label><br /></span>
+                                    <input class="form-control" type="range" name="range-r" value="0" min="0" max="255" step="1" tabindex="221" />
                                 </p>
                                 <p>
-                                    <span class="rgb rgba"><label>G:<input type="number" name="num-g" value="0" min="0" max="255" step="1" tabindex="201" /></label><br /></span>
-                                    <span class="hex"><label>G(hex):<input type="text" name="num16-g" value="00" size="5" title="GG or G" maxlength="5" tabindex="211" /></label><br /></span>
-                                    <input type="range" name="range-g" value="0" min="0" max="255" step="1" tabindex="221" />
+                                    <span class="rgb rgba"><label>G:<input class="form-control" type="number" name="num-g" value="0" min="0" max="255" step="1" tabindex="201" /></label><br /></span>
+                                    <span class="hex"><label>G(hex):<input class="form-control" type="text" name="num16-g" value="00" size="5" title="GG or G" maxlength="5" tabindex="211" /></label><br /></span>
+                                    <input class="form-control" type="range" name="range-g" value="0" min="0" max="255" step="1" tabindex="221" />
                                 </p>
                                 <p>
-                                    <span class="rgb rgba"><label>B:<input type="number" name="num-b" value="0" min="0" max="255" step="1" tabindex="201" /></label><br /></span>
-                                    <span class="hex"><label>B(hex):<input type="text" name="num16-b" value="00" size="5" title="BB or B" maxlength="5" tabindex="211" /></label><br /></span>
-                                    <input type="range" name="range-b" value="0" min="0" max="255" step="1" tabindex="221" />
+                                    <span class="rgb rgba"><label>B:<input class="form-control" type="number" name="num-b" value="0" min="0" max="255" step="1" tabindex="201" /></label><br /></span>
+                                    <span class="hex"><label>B(hex):<input class="form-control" type="text" name="num16-b" value="00" size="5" title="BB or B" maxlength="5" tabindex="211" /></label><br /></span>
+                                    <input class="form-control" type="range" name="range-b" value="0" min="0" max="255" step="1" tabindex="221" />
                                 </p>
                             </fieldset>
                             <fieldset id="set-hsl" class="hsl hsla">
                                 <legend>HSL</legend>
                                 <p>
-                                    <label>H:<input type="number" name="num-h" value="0" min="0" max="360" step="1" tabindex="201" /></label><br />
-                                    <input type="range" name="range-h" value="0" min="0" max="360" step="1" tabindex="221" />
+                                    <label>H:<input class="form-control" type="number" name="num-h" value="0" min="0" max="360" step="1" tabindex="201" /></label><br />
+                                    <input class="form-control" type="range" name="range-h" value="0" min="0" max="360" step="1" tabindex="221" />
                                 </p>
                                 <p>
-                                    <label>S:<input type="number" name="num-s" value="0" min="0" max="100" step="1" tabindex="201" /></label><br />
-                                    <input type="range" name="range-s" value="0" min="0" max="100" step="1" tabindex="221" />
+                                    <label>S:<input class="form-control" type="number" name="num-s" value="0" min="0" max="100" step="1" tabindex="201" /></label><br />
+                                    <input class="form-control" type="range" name="range-s" value="0" min="0" max="100" step="1" tabindex="221" />
                                 </p>
                                 <p>
-                                    <label>L:<input type="number" name="num-l" value="0" min="0" max="100" step="1" tabindex="201" /></label><br />
-                                    <input type="range" name="range-l" value="0" min="0" max="100" step="1" tabindex="221" />
+                                    <label>L:<input class="form-control" type="number" name="num-l" value="0" min="0" max="100" step="1" tabindex="201" /></label><br />
+                                    <input class="form-control" type="range" name="range-l" value="0" min="0" max="100" step="1" tabindex="221" />
                                 </p>
                             </fieldset>
                             <fieldset id="set-alpha" class="rgba hsla">
                                 <legend>alpha</legend>
                                 <p>
-                                    <label>a:<input type="number" name="num-a" value="1" min="0" max="1" step="0.01" tabindex="201" /></label><br />
-                                    <input type="range" name="range-a" value="1" min="0" max="1" step="0.01" tabindex="221" />
+                                    <label>a:<input class="form-control" type="number" name="num-a" value="1" min="0" max="1" step="0.01" tabindex="201" /></label><br />
+                                    <input class="form-control" type="range" name="range-a" value="1" min="0" max="1" step="0.01" tabindex="221" />
                                 </p>
                             </fieldset>
                         </section>
@@ -113,13 +113,13 @@
                 </section>
                 <section class="form-box">
                     <h2>Output</h2>
-                    <form id="form-output">
-                        <p class="hsl hex"><label>RGB:<input type="text" name="output-rgb" size="30" readonly="readonly" tabindex="1001" /></label></p>
-                        <p class="hsla"><label>RGBa:<input type="text" name="output-rgba" size="30" readonly="readonly" tabindex="1001" /></label></p>
-                        <p class="rgb hex"><label>HSL:<input type="text" name="output-hsl" size="30" readonly="readonly" tabindex="1001" /></label></p>
-                        <p class="rgba"><label>HSLa:<input type="text" name="output-hsla" size="30" readonly="readonly" tabindex="1001" /></label></p>
-                        <p class="rgb hsl"><label>Hex:<input type="text" name="output-hex" size="30" readonly="readonly" tabindex="1001" /></label></p>
-                        <p class="permalink"><label>Permalink:<input type="url" name="output-permalink" size="100" readonly="readonly" tabindex="1001" /></label></p>
+                    <form id="form-output" class="form-inline">
+                        <p class="hsl hex"><label>RGB:<input class="form-control" type="text" name="output-rgb" size="30" readonly="readonly" tabindex="1001" /></label></p>
+                        <p class="hsla"><label>RGBa:<input class="form-control" type="text" name="output-rgba" size="30" readonly="readonly" tabindex="1001" /></label></p>
+                        <p class="rgb hex"><label>HSL:<input class="form-control" type="text" name="output-hsl" size="30" readonly="readonly" tabindex="1001" /></label></p>
+                        <p class="rgba"><label>HSLa:<input class="form-control" type="text" name="output-hsla" size="30" readonly="readonly" tabindex="1001" /></label></p>
+                        <p class="rgb hsl"><label>Hex:<input class="form-control" type="text" name="output-hex" size="30" readonly="readonly" tabindex="1001" /></label></p>
+                        <p class="permalink"><label>Permalink:<input class="form-control" type="url" name="output-permalink" size="100" readonly="readonly" tabindex="1001" /></label></p>
                     </form>
                 </section>
             </main>

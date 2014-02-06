@@ -1,0 +1,284 @@
+﻿@charset "utf-8";
+
+/*!
+ * Copyright (c) 2013 egy186
+ * Released under the MIT License.
+ * github.com/egy186/colorConverter
+ */
+
+/* #region Reset */
+form fieldset {
+    border:1px solid rgb(192, 192, 192);
+    border-radius: 8px;
+    padding: 10px;
+}
+
+legend {
+    display: none;
+}
+
+input {
+    margin: 0 .5em;
+}
+
+    input[type='number'], input[type='text'], input[type='url'] {
+        max-width: 400px;
+        /*vertical-align: bottom;*/
+    }
+
+        input[type='number']:invalid, input[type='text']:invalid, input[type='url']:invalid {
+            border-color: hsl(15, 100%, 73%);
+            box-shadow: 0px 0px 4px hsl(15, 100%, 73%) inset;
+        }
+
+input[readonly] {
+    cursor: default !important;
+}
+
+body {
+    background: #f3f3f3;
+    color: #222;
+    text-align: left;
+}
+/* #endregion */
+
+#page {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAB3RJTUUH3QgCCjQtC28MTwAAAAlwSFlzAAAOwgAADsIBFShKgAAAAARnQU1BAACxjwv8YQUAAAApSURBVHjaY/z//z8DNnDw4EGs4kwMJIJRDcQAFlzhbW9vP1T8MBw0AACLzAhiw0RyWAAAAABJRU5ErkJggg==); // alphaback16.png
+    font: 18px Helvetica, Arial, Meiryo, "Hiragino Maru Gothic ProN", "MS PGothic", Osaka, sans-serif;
+    margin: 0;
+    text-align: justify;
+}
+
+#page-head {
+    font-family: 'Titillium Web', Arial, Meiryo, "Hiragino Maru Gothic ProN", "MS PGothic", Osaka, sans-serif;
+    /*line-height: .8;*/
+    margin: 0 auto;
+    max-width: 1100px;
+    padding: 0;
+}
+/* #region page-head */
+#page-head-inner {
+    display: inline-block;
+    background: #333;
+    border-bottom: 1px solid #222;
+    border-left: 1px solid #222;
+    border-right: 1px solid #222;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, .5);
+    color: #fafafa;
+    padding: 12px 20px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    transition: all .4s ease;
+}
+
+#page-head a {
+    color: inherit;
+    transition: all .4s ease;
+}
+
+    #page-head a:hover, #page-head a:focus {
+        color: hsl(25, 100%, 50%);
+        background: radial-gradient(closest-side, hsla(0, 0%, 100%, .2), hsla(0, 0%, 100%, 0));
+        text-decoration: none;
+    }
+
+    #page-head a:active {
+        color: hsl(25, 100%, 50%);
+        background: radial-gradient(closest-side, hsla(25, 100%, 75%, .2), hsla(0, 0%, 100%, 0));
+        text-decoration: none;
+    }
+
+#page-head h1 {
+    display: table-cell;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+#page-head h2 {
+    display: none;
+}
+
+#page-head p {
+    display: none;
+    /*display: inline;
+    margin: 1em 0 0;*/
+}
+/* #endregion */
+#nav-tab{
+    margin: 1em 0 0;
+}
+
+#page-body {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+/* #region page-body */
+.form-box {
+    font-weight: bold;
+    margin: 20px;
+}
+
+    .form-box h2 {
+        display: none;
+    }
+
+    .form-box p {
+        font-size: 22px;
+        margin: 10px 0;
+    }
+
+#form-input h3 {
+    display: none;
+}
+
+#input-slider {
+    float: left;
+    transition: all .4s ease;
+    width: 50%;
+}
+
+    #input-slider input[type='range'] {
+        margin: 1em 0 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    #input-slider fieldset {
+        margin-top: 10px;
+    }
+
+#input-picker {
+    display: none; /* pref */
+    float: right;
+    transition: all .4s ease;
+    width: 50%;
+}
+/* #endregion */
+/* #region page-body-theme */
+.theme-light {
+    color: #222;
+    text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.5);
+}
+
+.theme-dark {
+    color: #fafafa;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+/* #endregion */
+
+#page-foot {
+    background: #333;
+    border-top: 1px solid #222;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, .5);
+    color: #fafafa;
+    font-family: 'Titillium Web', Arial, Meiryo, "Hiragino Maru Gothic ProN", "MS PGothic", Osaka, sans-serif;
+    padding: 20px 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+/* #region page-foot */
+#page-foot-inner {
+    margin: 0 auto;
+    max-width: 1100px;
+    padding: 0 20px;
+}
+
+#page-foot a {
+    color: inherit;
+    text-decoration: underline;
+    transition: all .4s ease;
+}
+
+    #page-foot a:hover, #page-foot a:focus {
+        color: hsl(25, 100%, 50%);
+        background: radial-gradient(closest-side, hsla(0, 0%, 100%, .2), hsla(0, 0%, 100%, 0));
+        text-decoration: none;
+    }
+
+    #page-foot a:active {
+        color: hsl(25, 100%, 50%);
+        background: radial-gradient(closest-side, hsla(25, 100%, 75%, .2), hsla(0, 0%, 100%, 0));
+        text-decoration: none;
+    }
+
+#nav {
+    text-transform: lowercase;
+    font-size: 18px;
+}
+
+#verInf {
+    color: #999;
+    font-size: 14px;
+}
+
+#copy small {
+    font-size: 14px;
+}
+/* #endregion */
+
+@media (max-width: 1100px) {
+    #page-head-inner {
+        border-bottom-left-radius: 0;
+        border-left: none;
+    }
+}
+
+@media (max-width: 720px) {
+    #page {
+        min-width: 480px;
+    }
+
+    #page-head-inner {
+        border-right: none;
+        border-bottom-right-radius: 0;
+        display: block;
+        padding: 12px 0;
+    }
+
+        #page-head-inner h1 {
+            display: block;
+            margin: 0 20px;
+        }
+
+/* #region page-head-nav */
+    #nav-tab {
+        display: block;
+        padding: 1em 0 0;
+    }
+
+        #nav-tab ul {
+            border-left: none;
+            border-radius: 0;
+            border-right: none;
+        }
+
+        #nav-tab li {
+            display: block;
+        }
+
+        #nav-tab a {
+            border-bottom: 1px solid hsl(0, 0%, 10%);
+            border-right: none;
+            display: block;
+            line-height: 1.8;
+        }
+
+        #nav-tab li:last-child a {
+            border-bottom: none;
+        }
+/* #endregion */
+
+    #input-slider {
+        float: none;
+        width: 100%;
+    }
+
+    #input-picker {
+        float: none;
+        width: 100%;
+    }
+
+    #nav {
+        font-size: 28px;
+    }
+}
