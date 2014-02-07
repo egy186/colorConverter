@@ -1,11 +1,11 @@
 /*!
- * Color Converter Version 0.2.0
+ * Color Converter Version 0.2.1
  * github.com/egy186/colorConverter
  *
  * Includes egyColorCONFIG
  * gist.github.com/egy186/7693713
  *
- * Copyright (c) 2013 egy186
+ * Copyright (c) 2013-2014 egy186
  * Released under the MIT License.
  */
 
@@ -270,10 +270,10 @@ function init() {
 
     var formInput = document.getElementById('form-input');
     formInput.addEventListener('change', function (evt) {
-        main(evt.target.name, evt.target.value);
+        main(evt.target.id, evt.target.value);
     }, false);
     formInput.addEventListener('input', function (evt) {
-        main(evt.target.name, evt.target.value);
+        main(evt.target.id, evt.target.value);
     }, false);
 
     var formOutputInputs = document.getElementById('form-output').getElementsByTagName('input');
@@ -296,13 +296,13 @@ function init() {
     }
 
     // set color
-    if (locHashCv && JSON.parse(locHashCv)) {
+    try{
         var config = JSON.parse(locHashCv);
         for (var key in config) {
             colorConfig.set(key, config[key]);
             main('num-r', colorConfig.r);
         }
-    } else {
+    } catch (err) {
         main('text-rgba', 'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',1)');
         console.log('random color');
     }
@@ -332,7 +332,7 @@ function changeTab(newTab) {
     }
     temp = document.getElementsByClassName(newTab.toLowerCase());
     for (i = 0; i < temp.length; i++) {
-        temp[i].style.display = 'block';
+        temp[i].style.display = '';
     }
     delete temp;
     // nav-tab
@@ -341,7 +341,7 @@ function changeTab(newTab) {
     // return
     currentTab = newTab;
     //history.pushState({ code: clicked }, clicked, '#' + clicked);
-    main('r', colorConfig.r); // !finally
+    main('num-r', colorConfig.r); // !finally
 }
 
 
