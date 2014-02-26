@@ -1,28 +1,29 @@
 /*!
- * Color Converter Version 0.2.1
+ * Color Converter Version 0.2.2
  * github.com/egy186/colorConverter
  *
- * Includes egyColorCONFIG
+ * Includes egy.ColorConfig Revision 12
  * gist.github.com/egy186/7693713
  *
  * Copyright (c) 2013-2014 egy186
  * Released under the MIT License.
  */
 
-// egyColorCONFIG
-function egyColorCONFIG() {
+// egy.ColorConfig
+var egy = {};
+
+egy.ColorConfig = function () {
     this.r = 0; // 0-255
     this.g = 0; // 0-255
     this.b = 0; // 0-255
-    this.h = 0, // 0-360
-    this.s = 0, // 0-100
-    this.l = 0, // 0-100
-    this.a = 1  // 0-1
+    this.h = 0; // 0-360
+    this.s = 0; // 0-100
+    this.l = 0; // 0-100
+    this.a = 1; // 0-1
 }
 
-egyColorCONFIG.prototype.set = function (key, value) {
-    // key is string rgb, rgba, hsl, hsla, hex
-    //     or float  r, g, b, h, s, l, a
+egy.ColorConfig.prototype.set = function (key, value) {
+    // key is string rgb, rgba, hsl, hsla, hex, r, g, b, h, s, l, a
     // value is float
     switch (key) {
         case 'rgb':
@@ -120,12 +121,12 @@ egyColorCONFIG.prototype.set = function (key, value) {
             this.sync('rgb');
             break;
         default:
-            console.log('Unknown key: egyColorCONFIG.set');
-
+            return false;
     }
+    return true;
 }
 
-egyColorCONFIG.prototype.sync = function (changedColorScheme) {
+egy.ColorConfig.prototype.sync = function (changedColorScheme) {
     // changedColorScheme is rgb, hsl
     switch (changedColorScheme) {
         case 'rgb':
@@ -208,11 +209,17 @@ egyColorCONFIG.prototype.sync = function (changedColorScheme) {
             this.g = Math.round(255 * (G + m));
             this.b = Math.round(255 * (B + m));
             break;
+        default:
+            return false;
     }
+    return true;
 }
 
-egyColorCONFIG.prototype.toString = function (colorScheme) {
+egy.ColorConfig.prototype.toString = function (colorScheme) {
     // colorScheme is rgb, rgba, hsl, hsla, hex
+    if (!colorScheme) {
+        return JSON.stringify(this);
+    }
     switch (colorScheme.toLowerCase()) {
         case 'rgb':
             return 'rgb(' + Math.round(this.r) + ', ' + Math.round(this.g) + ', ' + Math.round(this.b) + ')';
@@ -227,26 +234,10 @@ egyColorCONFIG.prototype.toString = function (colorScheme) {
     }
 }
 
-// usage of egyColorCONFIG
-/*var egyColorConfig = new egyColorCONFIG();
-
-console.log(egyColorConfig.toString('rgba')); // rgba(0, 0, 0, 1)
-
-egyColorConfig.set('r', 255);
-
-console.log(egyColorConfig.toString('rgba')); // rgba(255, 0, 0, 1)
-
-console.log(egyColorConfig.toString('hsla')); // hsla(0, 100%, 50%, 1)
-
-egyColorConfig.set('rgba(0, 255, 255, 0.5)');
-
-console.log(egyColorConfig.h); // 180*/
-
-
 // colorConverter
 addEventListener('load', init, false);
 
-var colorConfig = new egyColorCONFIG(),
+var colorConfig = new egy.ColorConfig(),
     tabList = ['RGB', 'RGBa', 'HSL', 'HSLa', 'Hex'];
 
 
@@ -296,7 +287,7 @@ function init() {
     }
 
     // set color
-    try{
+    try {
         var config = JSON.parse(locHashCv);
         for (var key in config) {
             colorConfig.set(key, config[key]);
@@ -455,7 +446,7 @@ function main(key, value) {
         formInput['range-b'].value = colorConfig.b;
     }
     if (key != 'num16-r') {
-        formInput['num16-r'].value = ('0'+colorConfig.r.toString(16)).slice(-2);
+        formInput['num16-r'].value = ('0' + colorConfig.r.toString(16)).slice(-2);
     }
     if (key != 'num16-g') {
         formInput['num16-g'].value = ('0' + colorConfig.g.toString(16)).slice(-2);
