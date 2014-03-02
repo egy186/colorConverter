@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 /*!
- * Copyright (c) 2013 egy186
+ * Copyright (c) 2013-2014 egy186
  * Released under the MIT License.
  * github.com/egy186/colorConverter
  */
@@ -12,7 +12,7 @@ header, nav, footer, article, aside, section, main {
 }
 
 html, body, header, nav, footer, article, aside, section, main, div, p, ul, li, img, table, caption, tbody, tfoot, thead, tr, th, td {
-    background: none repeat scroll 0% 0% transparent;
+    background: none repeat scroll 0 0 transparent;
     border: 0;
     font-size: 100%;
     margin: 0;
@@ -56,13 +56,13 @@ input {
         input[type='number']:focus, input[type='text']:focus, input[type='url']:focus {
             background: #fafaff;
             border-color: hsl(225, 100%, 73%);
-            box-shadow: 0px 0px 4px hsl(225, 100%, 73%) inset;
+            box-shadow: 0 0 4px hsl(225, 100%, 73%) inset;
         }
 
         input[type='number']:invalid, input[type='text']:invalid, input[type='url']:invalid {
             background: #fffafa;
             border-color: hsl(15, 100%, 73%);
-            box-shadow: 0px 0px 4px hsl(15, 100%, 73%) inset;
+            box-shadow: 0 0 4px hsl(15, 100%, 73%) inset;
         }
 
 body {
@@ -73,7 +73,7 @@ body {
 /* #endregion */
 
 #page {
-    background-image: url(alphaback16.png);
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAB3RJTUUH3QgCCjQtC28MTwAAAAlwSFlzAAAOwgAADsIBFShKgAAAAARnQU1BAACxjwv8YQUAAAApSURBVHjaY/z//z8DNnDw4EGs4kwMJIJRDcQAFlzhbW9vP1T8MBw0AACLzAhiw0RyWAAAAABJRU5ErkJggg==); /* alphaback16.png */
     font: 18px Helvetica, Arial, Meiryo, "Hiragino Maru Gothic ProN", "MS PGothic", Osaka, sans-serif;
     margin: 0 auto;
     text-align: justify;
@@ -96,7 +96,7 @@ body {
     border-right: 1px solid rgba(0, 0, 0, .5);
     border-bottom-right-radius: 12px;
     border-bottom-left-radius: 12px;
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, .5);
+    box-shadow: 0 0 8px rgba(0, 0, 0, .5);
     color: #fafafa;
     padding: 12px 20px;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
@@ -252,7 +252,7 @@ body {
 #page-foot {
     background: #333;
     border-top: 1px solid rgba(0, 0, 0, .5);
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, .5);
+    box-shadow: 0 0 8px rgba(0, 0, 0, .5);
     color: #fafafa;
     font-family: 'Titillium Web', Arial, Meiryo, "Hiragino Maru Gothic ProN", "MS PGothic", Osaka, sans-serif;
     padding: 20px 0;

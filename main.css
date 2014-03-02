@@ -40,10 +40,7 @@ body {
     background-color: #333;
     border-color: #222;
     border-top: none;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
+    border-radius: 0 0 12px 12px;
 }
 
     .navbar-inverse .navbar-brand {
