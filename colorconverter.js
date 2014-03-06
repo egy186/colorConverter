@@ -1,5 +1,5 @@
 /*!
- * Color Converter Version 0.2.3
+ * Color Converter Version 0.2.4
  * github.com/egy186/colorConverter
  *
  * Includes egy.ColorConfig rev.15
@@ -244,16 +244,36 @@ egy.ColorConfig.prototype = {
 addEventListener('load', init, false);
 
 var colorConfig = new egy.ColorConfig(),
-    tabList = ['RGB', 'RGBa', 'HSL', 'HSLa', 'Hex'];
+    tabList = ['RGB', 'RGBa', 'HSL', 'HSLa', 'Hex'],
+    // select tab
+    currentTab = 'RGB',
+    navTabs,
+    // main
+    formInput,
+    formOutput,
+    layerBgColor,
+    inputRangeSts;
 
 // init
 function init() {
+    // set global var
+    navTabs = document.getElementById('nav-tab').getElementsByTagName('a');
+    formInput = document.getElementById('form-input');
+    formOutput = document.getElementById('form-output');
+    layerBgColor = document.getElementById('layer-bgcolor');
+    inputRangeSts = [
+        document.getElementById('range-r').style,
+        document.getElementById('range-g').style,
+        document.getElementById('range-b').style,
+        document.getElementById('range-h').style,
+        document.getElementById('range-s').style,
+        document.getElementById('range-l').style
+    ];
+    // init dom
     var navTav = document.getElementById('nav-tab'),
         i;
-    // init dom
-    var navTabAs = navTav.getElementsByTagName('a');
     for (i = 0; i < 5; i++) {
-        navTabAs[i].setAttribute('href', '#' + tabList[i]);
+        navTabs[i].setAttribute('href', '#' + tabList[i]);
     }
     // add event
     navTav.addEventListener('click', function (evt) {
@@ -264,7 +284,6 @@ function init() {
         }
     }, false);
 
-    var formInput = document.getElementById('form-input');
     formInput.addEventListener('change', function (evt) {
         main(evt.target.id, evt.target.value);
     }, false);
@@ -306,12 +325,10 @@ function init() {
 }
 
 // select tab
-var currentTab = 'RGB';
 function changeTab(newTab) {
-    // newTab is 'RGB', 'RGBa', 'HSL', 'HSLa', 'Hex'
-    var navTabs = document.getElementById('nav-tab').getElementsByTagName('a'),
-        newTabIndex = tabList.indexOf(newTab),
+    var newTabIndex = tabList.indexOf(newTab),
         i, j;
+    // newTab is 'RGB', 'RGBa', 'HSL', 'HSLa', 'Hex'
     if (newTabIndex === -1) {
         newTab = 'RGB';
         newTabIndex = 0;
@@ -340,8 +357,6 @@ function changeTab(newTab) {
 
 // main
 function main(key, value) {
-    var formInput = document.getElementById('form-input'),
-        formOutput = document.getElementById('form-output');
     // set colorConfig
     // TODO: use function
     switch (key) {
@@ -489,7 +504,6 @@ function main(key, value) {
     //formOutput['output-permalink'].value = location.protocol + location.host + location.pathname + '#' + currentTab + '&' + JSON.stringify(colorConfig);
     formOutput['output-permalink'].value = location.protocol + '//' + location.hostname + location.pathname + '#' + currentTab + '&' + JSON.stringify(colorConfig);
     // set CSS
-    var layerBgColor = document.getElementById('layer-bgcolor');
     if (currentTab === 'RGBa' || currentTab === 'HSLa') {
         layerBgColor.style.backgroundColor = colorConfig.toString('hsla');
         if (colorConfig.l > 50 || colorConfig.a < 0.5) {
@@ -505,5 +519,11 @@ function main(key, value) {
             layerBgColor.setAttribute('class', 'theme-dark');
         }
     }
+    inputRangeSts[0].backgroundImage = 'linear-gradient(90deg, rgba(0, ' + colorConfig.g + ', ' + colorConfig.b + ', 1), rgba(255, ' + colorConfig.g + ', ' + colorConfig.b + ', 1))';
+    inputRangeSts[1].backgroundImage = 'linear-gradient(90deg, rgba(' + colorConfig.r + ', 0, ' + colorConfig.b + ', 1), rgba(' + colorConfig.r + ', 255, ' + colorConfig.b + ', 1))';
+    inputRangeSts[2].backgroundImage = 'linear-gradient(90deg, rgba(' + colorConfig.r + ', ' + colorConfig.g + ', 0, 1), rgba(' + colorConfig.r + ', ' + colorConfig.g + ', 255, 1))';
+    inputRangeSts[3].backgroundImage = 'linear-gradient(90deg, hsla(0, ' + colorConfig.s + '%, ' + colorConfig.l + '%, 1), hsla(90, ' + colorConfig.s + '%, ' + colorConfig.l + '%, 1) 25%, hsla(180, ' + colorConfig.s + '%, ' + colorConfig.l + '%, 1) 50%, hsla(270, ' + colorConfig.s + '%, ' + colorConfig.l + '%, 1) 75%, hsla(360, ' + colorConfig.s + '%, ' + colorConfig.l + '%, 1))';
+    inputRangeSts[4].backgroundImage = 'linear-gradient(90deg, hsla(' + colorConfig.h + ', 0%, ' + colorConfig.l + '%, 1), hsla(' + colorConfig.h + ', 100%, ' + colorConfig.l + '%, 1))';
+    inputRangeSts[5].backgroundImage = 'linear-gradient(90deg, hsla(' + colorConfig.h + ', ' + colorConfig.s + '%, 0%, 1), hsla(' + colorConfig.h + ', ' + colorConfig.s + '%, 50%, 1) 50%, hsla(' + colorConfig.h + ', ' + colorConfig.s + '%, 100%, 1))';
 }
 // [EOF]
