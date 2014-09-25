@@ -192,6 +192,8 @@ form p{
     margin-top: -1px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
 
     #input-slider input[type="range"]:focus {

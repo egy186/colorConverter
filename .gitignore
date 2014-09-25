@@ -1,3 +1,7 @@
+node_modules/
+bower_components/
+vwd.webinfo
+
 #################
 ## Eclipse
 #################
@@ -192,7 +196,7 @@ $RECYCLE.BIN/
 # Packages
 *.egg
 *.egg-info
-dist/
+#dist/
 build/
 eggs/
 parts/

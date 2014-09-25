@@ -1,14 +1,3 @@
-/*!
- * Color Converter Version 0.2.4
- * https://github.com/egy186/colorConverter
- *
- * Includes egy.ColorConfig rev.15
- * https://gist.github.com/egy186/7693713
- *
- * Copyright (c) 2013-2014 egy186
- * Released under the MIT License.
- */
-
 // egy.ColorConfig
 if (typeof egy !== 'object') {
   egy = {};
