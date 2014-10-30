@@ -1,6 +1,6 @@
 # Color Conerter
 
-Color Converter([http://egy186.github.io/colorconverter](http://egy186.github.io/colorconverter/))
+Color Converter([http://egy186.github.io/colorConverter](http://egy186.github.io/colorConverter/))
 
 RGB、HSLなどCSSで用いられる色の表記を相互に変換するためのWebサイト。
 
