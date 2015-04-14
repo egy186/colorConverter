@@ -2,9 +2,9 @@
 
 Color Converter([http://egy186.github.io/colorconverter](http://egy186.github.io/colorconverter/))
 
-RGB、HSLなどCSSで用いられる色の表記を相互に変換するためのWebサイト。
+Web application to easily convert color codes. Convert between RGBa, HSLa, RGB, HSL and Hex
 
-## 動作確認済みのブラウザ
+## Supported Browsers
 
 * Internet Explorer 10+
 * Mozilla Firefox 23+

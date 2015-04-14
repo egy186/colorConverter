@@ -1,18 +1,7 @@
-﻿var del = require('del');
-var gulp = require('gulp');
-var install = require("gulp-install");
-var mainBowerFiles = require('main-bower-files');
+/* jshint node: true */
 
-gulp.task('install', function () {
-  return gulp.src('./bower.json')
-    .pipe(install());
-});
+'use strict';
 
-gulp.task('bower', ['install'], function () {
-  var targetPath = 'lib';
-  del.sync(targetPath);
-  return gulp.src(mainBowerFiles(), { base: 'bower_components' })
-    .pipe(gulp.dest(targetPath));
-});
+var requireDir = require('require-dir');
 
-gulp.task('default', ['bower']);
+requireDir('./gulp/tasks', { recurse: true });

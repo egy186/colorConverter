@@ -1,0 +1,155 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    title Color Converter - egy186.github.io
+    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><![endif]-->
+    meta(name='keywords', content='CSS,color converter,color code,RGBa,HSLa,RGB,HSL,Hex')
+    meta(name='description', content='Web application to easily convert color codes for use in CSS. Convert between RGBa, HSLa, RGB, HSL and Hex')
+    meta(name='author', content='egy186')
+    meta(name='viewport', content='width=device-width')
+    script.
+      WebFontConfig = {
+        google: { families: ['Open+Sans:400,700:latin', 'Titillium+Web:700,400:latin'] }
+      };
+      (function () {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+          '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })();
+    script(src='lib/jquery/dist/jquery.min.js', defer)
+    script(src='lib/bootstrap/dist/js/bootstrap.min.js', defer)
+    script(src='js/colorconverter.js', async)
+    link(rel='stylesheet', href='lib/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='css/style.css')
+    meta(name='application-name', content='Color_Converter')
+  body#page
+    div#layer-bgcolor
+      div.container
+        header.col-md-12
+          div#page-header.navbar.navbar-inverse
+            div.navbar-header
+              h1
+                a.navbar-brand(role='heading', href='./', tabindex='2') Color Converter
+              button.navbar-toggle(type='button', data-toggle='collapse', data-target='#nav-tab')
+                span.sr-only Toggle navigation
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+            div#nav-tab.collapse.navbar-collapse
+              ul.nav.navbar-nav
+                li
+                  a(href='#input-rgb', tabindex='11') RGB
+                li
+                  a(href='#input-rgba', tabindex='11') RGBa
+                li
+                  a(href='#input-hsl', tabindex='11') HSL
+                li
+                  a(href='#input-hsla', tabindex='11') HSLa
+                li
+                  a(href='#input-hex', tabindex='11') Hex
+        main#page-body(role='main')
+          section.col-md-6
+            h2 Input
+            form#form-input
+              section#input-text
+                h3.sr-only Text
+                p#input-rgb.rgb.input-group.input-group-lg
+                  label.input-group-addon(for='text-rgb') RGB:
+                  input#text-rgb.form-control(type='text', size='42', placeholder='rgb(R, G, B)', title='Functional notation: rgb(R, G, B)', maxlength='40', tabindex='101')
+                p#input-rgba.rgba.input-group.input-group-lg
+                  label.input-group-addon(for='text-rgba') RGBa:
+                  input#text-rgba.form-control(type='text', size='42' placeholder='rgba(R, G, B, a)', title='Functional notation: rgba(R, G, B, a)', maxlength='40', tabindex='101')
+                p#input-hsl.hsl.input-group.input-group-lg
+                  label.input-group-addon(for='text-hsl') HSL:
+                  input#text-hsl.form-control(type='text', size='42', placeholder='hsl(H, S, L)', title='Functional notation: hsl(H, S, L)', maxlength='40', tabindex='101')
+                p#input-hsla.hsla.input-group.input-group-lg
+                  label.input-group-addon(for='text-hsla') HSLa:
+                  input#text-hsla.form-control(type='text', size='42', placeholder='hsla(H, S, L, a)', title='Functional notation: hsla(H, S, L, a)', maxlength='40', tabindex='101')
+                p#input-hex.hex.input-group.input-group-lg
+                  label.input-group-addon(for='text-hex') Hex:
+                  input#text-hex.form-control(type='text', size='42', placeholder='#RRGGBB', title='Hexadecimal notation: #RRGGBB or #RGB', maxlength='40', tabindex='101')
+              section#input-slider
+                h3.sr-only Slider
+                fieldset#set-rgb.rgb.rgba.hex
+                  legend.sr-only RGB
+                  p
+                    span.rgb.rgba.input-group.input-group-lg
+                      label.input-group-addon(for='num-r') R:
+                      input#num-r.form-control(type='number', value='0', min='0', max='255', step='1', tabindex='201')
+                    span.hex.input-group.input-group-lg
+                      label.input-group-addon(for='num16-r') R (hex):
+                      input#num16-r.form-control(type='text', value='00', size='5', title='RR or R', maxlength='5', tabindex='211')
+                    input#range-r.form-control.input-lg(type='range', value='0', min='0', max='255', step='1', tabindex='221')
+                  p
+                    span.rgb.rgba.input-group.input-group-lg
+                      label.input-group-addon(for='num-g') G:
+                      input#num-g.form-control(type='number', value='0', min='0', max='255', step='1', tabindex='201')
+                    span.hex.input-group.input-group-lg
+                      label.input-group-addon(for='num16-g') G (hex):
+                      input#num16-g.form-control(type='text', value='00', size='5', title='GG or G', maxlength='5', tabindex='211')
+                    input#range-g.form-control.input-lg(type='range', value='0', min='0', max='255', step='1', tabindex='221')
+                  p
+                    span.rgb.rgba.input-group.input-group-lg
+                      label.input-group-addon(for='num-b') B:
+                      input#num-b.form-control(type='number', value='0', min='0', max='255', step='1', tabindex='201')
+                    span.hex.input-group.input-group-lg
+                      label.input-group-addon(for='num16-b') B (hex):
+                      input#num16-b.form-control(type='text', value='00', size='5', title='BB or B', maxlength='5', tabindex='211')
+                    input#range-b.form-control.input-lg(type='range', value='0', min='0', max='255', step='1', tabindex='221')
+                fieldset#set-hsl.hsl.hsla
+                  legend.sr-only HSL
+                  p
+                    span.input-group.input-group-lg
+                      label.input-group-addon(for='num-h') H:
+                      input#num-h.form-control(type='number', value='0', min='0', max='360', step='1', tabindex='201')
+                    input#range-h.form-control.input-lg(type='range', value='0', min='0', max='360', step='1', tabindex='221')
+                  p
+                    span.input-group.input-group-lg
+                      label.input-group-addon(for='num-s') S:
+                      input#num-s.form-control(type='number', value='0', min='0', max='100', step='1', tabindex='201')
+                    input#range-s.form-control.input-lg(type='range', value='0', min='0', max='100', step='1', tabindex='221')
+                  p
+                    span.input-group.input-group-lg
+                      label.input-group-addon(for='num-l') L:
+                      input#num-l.form-control(type='number', value='0', min='0', max='100', step='1', tabindex='201')
+                    input#range-l.form-control.input-lg(type='range', value='0', min='0', max='100', step='1', tabindex='221')
+                fieldset#set-alpha.rgba.hsla
+                  legend.sr-only alpha
+                  p
+                    span.input-group.input-group-lg
+                      label.input-group-addon(for='num-a') a:
+                      input#num-a.form-control(type='number', value='1', min='0', max='1', step='0.01', tabindex='201')
+                    input#range-a.form-control.input-lg(type='range', value='1', min='0', max='1', step='0.01', tabindex='221')
+          section.col-md-6
+            h2 Output
+            form#form-output
+              p.hsl.hex.input-group.input-group-lg
+                label.input-group-addon(for='output-rgb') RGB:
+                input#output-rgb.form-control(type='text', size='30', readonly='readonly', tabindex='1001')
+              p.hsla.input-group.input-group-lg
+                label.input-group-addon(for='output-rgba') RGBa:
+                input#output-rgba.form-control(type='text', size='30', readonly='readonly', tabindex='1001')
+              p.rgb.hex.input-group.input-group-lg
+                label.input-group-addon(for='output-hsl') HSL:
+                input#output-hsl.form-control(type='text', size='30', readonly='readonly', tabindex='1001')
+              p.rgba.input-group.input-group-lg
+                label.input-group-addon(for='output-hsla') HSLa:
+                input#output-hsla.form-control(type='text', size='30', readonly='readonly', tabindex='1001')
+              p.rgb.hsl.input-group.input-group-lg
+                label.input-group-addon(for='output-hex') Hex:
+                input#output-hex.form-control(type='text', size='30', readonly='readonly', tabindex='1001')
+              p.permalink.input-group
+                label.input-group-addon(for='output-permalink') Permalink:
+                input#output-permalink.form-control(type='url', size='100', readonly='readonly', tabindex='1001')
+        footer.col-md-6
+          div#page-footer.text-center
+            p
+              a(href='//github.com/egy186/colorConverter/#readme', tabindex='10001') about
+            p='Color Converter '+version
+            p
+              small.h5 Copyright (c) 2015 egy186 All Rights Reserved.
