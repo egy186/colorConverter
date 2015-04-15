@@ -6,6 +6,6 @@ var config = require('../config').clean;
 var del = require('del');
 var gulp = require('gulp');
 
-gulp.task('clean', function (callback) {
+gulp.task('clean', function () {
   del.sync(config);
 });

@@ -5,6 +5,21 @@
 import hsl2rgb from './hsl2rgb';
 import rgb2hsl from './rgb2hsl';
 
+// https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN
+Number.isNaN = Number.isNaN || function(value) {
+    return typeof value === 'number' && value !== value;
+};
+// https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Number/isFinite
+Number.isFinite = Number.isFinite || function(value) {
+    return typeof value === 'number' && isFinite(value);
+};
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes
+if (!String.prototype.includes) {
+  String.prototype.includes = function() {
+    return String.prototype.indexOf.apply(this, arguments) !== -1;
+  };
+}
+
 let isNumber = n => {
   return !Number.isNaN(n) && Number.isFinite(n);
 };
@@ -24,9 +39,9 @@ class ColorConfig {
       value = parseFloat(value);
       if (this.hasOwnProperty(key) && isNumber(value)) {
         this[key] = value;
-        if ('rgb'.contains(key)) {
+        if ('rgb'.includes(key)) {
           this.sync('rgb');
-        } else if ('hsl'.contains(key)) {
+        } else if ('hsl'.includes(key)) {
           this.sync('hsl');
         }
       }
