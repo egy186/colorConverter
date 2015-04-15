@@ -109,7 +109,6 @@ var linearGradient = function linearGradient(deg) {
   return 'linear-gradient(' + deg + 'deg, ' + colors.join(', ') + ')';
 };
 
-// colorConverter
 var colorConfig = new _ColorConfig2['default'](),
     tabs = undefined,
     tabList = ['rgb', 'rgba', 'hsl', 'hsla', 'hex'],
