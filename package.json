@@ -1,10 +1,10 @@
 {
-  "name": "colorConverter",
+  "name": "colorconverter",
   "description": "Color Converter",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "author": "egy186",
   "bugs": {
-    "url": "https://github.com/egy186/colorConverter/issues"
+    "url": "https://github.com/egy186/colorconverter/issues"
   },
   "devDependencies": {
     "babelify": "^6.0.2",
@@ -27,7 +27,7 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
-  "homepage": "https://github.com/egy186/colorConverter",
+  "homepage": "https://github.com/egy186/colorconverter",
   "keywords": [
     "color",
     "convert"
@@ -36,7 +36,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/egy186/colorConverter.git"
+    "url": "https://github.com/egy186/colorconverter.git"
   },
   "scripts": {
     "build": "gulp build",

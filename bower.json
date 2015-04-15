@@ -1,5 +1,5 @@
 {
-  "name": "colorConverter",
+  "name": "colorconverter",
   "dependencies": {
     "bootstrap": "~3.3.4"
   },

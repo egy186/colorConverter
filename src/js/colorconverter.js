@@ -89,7 +89,6 @@ let rgba = (r, g, b, a) => `rgba(${r}, ${g}, ${b}, ${a})`;
 let hsla = (h, s, l, a) => `hsla(${h}, ${s}%, ${l}%, ${a})`;
 let linearGradient = (deg, ...colors) => `linear-gradient(${deg}deg, ${colors.join(', ')})`;
 
-// colorConverter
 let colorConfig = new ColorConfig(),
     tabs,
     tabList = ['rgb', 'rgba', 'hsl', 'hsla', 'hex'],
