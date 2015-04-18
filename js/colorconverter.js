@@ -110,8 +110,8 @@ var linearGradient = function linearGradient(deg) {
 };
 
 var colorConfig = new _ColorConfig2['default'](),
-    tabs = undefined,
-    tabList = ['rgb', 'rgba', 'hsl', 'hsla', 'hex'],
+    tabList = ['rgb', 'rgba', 'hsl', 'hsla', 'hex'];
+var tabs = undefined,
 
 // select tab
 currentTab = tabList[0],
@@ -121,46 +121,59 @@ currentTab = tabList[0],
 formInput = undefined,
     formOutput = undefined,
     layerBgColor = undefined,
-    inputRangeSts = undefined;
+    inputRangeStyles = undefined;
 
-var update = function update() {
+var updateView = function updateView() {
+  // form-output
+  formOutput['output-rgb'].value = colorConfig.rgb;
+  formOutput['output-rgba'].value = colorConfig.rgba;
+  formOutput['output-hsl'].value = colorConfig.hsl;
+  formOutput['output-hsla'].value = colorConfig.hsla;
+  formOutput['output-hex'].value = colorConfig.hex;
+  formOutput['output-permalink'].value = global.location.toString() + '#' + currentTab + '&' + colorConfig.toString();
+  // set CSS
   if (currentTab === 'rgba' || currentTab === 'hsla') {
-    layerBgColor.style.backgroundColor = colorConfig.toString('hsla');
+    layerBgColor.style.backgroundColor = colorConfig.hsla;
     if (colorConfig.l > 50 || colorConfig.a < 0.5) {
       layerBgColor.setAttribute('class', 'theme-light');
     } else {
       layerBgColor.setAttribute('class', 'theme-dark');
     }
   } else {
-    layerBgColor.style.backgroundColor = colorConfig.toString('hsl');
+    layerBgColor.style.backgroundColor = colorConfig.hsl;
     if (colorConfig.l > 50) {
       layerBgColor.setAttribute('class', 'theme-light');
     } else {
       layerBgColor.setAttribute('class', 'theme-dark');
     }
   }
+  // range
+  inputRangeStyles['range-r'].backgroundImage = linearGradient(90, rgba(0, colorConfig.g, colorConfig.b, 1), rgba(255, colorConfig.g, colorConfig.b, 1));
+  inputRangeStyles['range-g'].backgroundImage = linearGradient(90, rgba(colorConfig.r, 0, colorConfig.b, 1), rgba(colorConfig.r, 255, colorConfig.b, 1));
+  inputRangeStyles['range-b'].backgroundImage = linearGradient(90, rgba(colorConfig.r, colorConfig.g, 0, 1), rgba(colorConfig.r, colorConfig.g, 255, 1));
+  inputRangeStyles['range-h'].backgroundImage = linearGradient(90, hsla(0, colorConfig.s, colorConfig.l, 1), hsla(60, colorConfig.s, colorConfig.l, 1), hsla(120, colorConfig.s, colorConfig.l, 1), hsla(180, colorConfig.s, colorConfig.l, 1), hsla(240, colorConfig.s, colorConfig.l, 1), hsla(300, colorConfig.s, colorConfig.l, 1), hsla(360, colorConfig.s, colorConfig.l, 1));
+  inputRangeStyles['range-s'].backgroundImage = linearGradient(90, hsla(colorConfig.h, 0, colorConfig.l, 1), hsla(colorConfig.h, 100, colorConfig.l, 1));
+  inputRangeStyles['range-l'].backgroundImage = linearGradient(90, hsla(colorConfig.h, colorConfig.s, 0, 1), hsla(colorConfig.h, colorConfig.s, 50, 1), hsla(colorConfig.h, colorConfig.s, 100, 1));
+  inputRangeStyles['range-a'].background = linearGradient(90, rgba(colorConfig.r, colorConfig.g, colorConfig.b, 0), rgba(colorConfig.r, colorConfig.g, colorConfig.b, 1));
 };
 
 // main
-var main = function main(key, value) {
-  // set colorConfig
-  if (/^num16/.test(key)) {
-    if (value.length === 1) {
-      value = String(value) + String(value);
-    }
-    value = parseInt(value, 16);
-  }
-  colorConfig.set(key.replace(/^\S+-/, ''), value);
-  // set values
+var changeValue = function changeValue(key, value) {
+  // set
+  colorConfig[key.replace(/^\S+-/, '')] = value;
+  // update other values
   var inputValues = {
-    'text-rgb': colorConfig.toString('rgb'),
-    'text-rgba': colorConfig.toString('rgba'),
-    'text-hsl': colorConfig.toString('hsl'),
-    'text-hsla': colorConfig.toString('hsla'),
-    'text-hex': colorConfig.toString('hex'),
+    'text-rgb': colorConfig.rgb,
+    'text-rgba': colorConfig.rgba,
+    'text-hsl': colorConfig.hsl,
+    'text-hsla': colorConfig.hsla,
+    'text-hex': colorConfig.hex,
     'num-r': colorConfig.r,
     'num-g': colorConfig.g,
     'num-b': colorConfig.b,
+    'num-r16': colorConfig.r16,
+    'num-g16': colorConfig.g16,
+    'num-b16': colorConfig.b16,
     'num-h': colorConfig.h,
     'num-s': colorConfig.s,
     'num-l': colorConfig.l,
@@ -171,10 +184,8 @@ var main = function main(key, value) {
     'range-h': colorConfig.h,
     'range-s': colorConfig.s,
     'range-l': colorConfig.l,
-    'range-a': colorConfig.a,
-    'num16-r': ('0' + colorConfig.r.toString(16)).slice(-2),
-    'num16-g': ('0' + colorConfig.g.toString(16)).slice(-2),
-    'num16-b': ('0' + colorConfig.b.toString(16)).slice(-2) };
+    'range-a': colorConfig.a
+  };
   delete inputValues[key];
   for (var inputKey in inputValues) {
     if (!inputValues.hasOwnProperty(inputKey)) {
@@ -182,23 +193,8 @@ var main = function main(key, value) {
     }
     formInput[inputKey].value = inputValues[inputKey];
   }
-  // form-output
-  formOutput['output-rgb'].value = colorConfig.toString('rgb');
-  formOutput['output-rgba'].value = colorConfig.toString('rgba');
-  formOutput['output-hsl'].value = colorConfig.toString('hsl');
-  formOutput['output-hsla'].value = colorConfig.toString('hsla');
-  formOutput['output-hex'].value = colorConfig.toString('hex');
-  formOutput['output-permalink'].value = global.location.toString() + '#' + currentTab + '&' + JSON.stringify(colorConfig);
-  // range
-  inputRangeSts[0].backgroundImage = linearGradient(90, rgba(0, colorConfig.g, colorConfig.b, 1), rgba(255, colorConfig.g, colorConfig.b, 1));
-  inputRangeSts[1].backgroundImage = linearGradient(90, rgba(colorConfig.r, 0, colorConfig.b, 1), rgba(colorConfig.g, 255, colorConfig.b, 1));
-  inputRangeSts[2].backgroundImage = linearGradient(90, rgba(colorConfig.r, colorConfig.g, 0, 1), rgba(colorConfig.r, colorConfig.g, 255, 1));
-  inputRangeSts[3].backgroundImage = linearGradient(90, hsla(0, colorConfig.s, colorConfig.l, 1), hsla(60, colorConfig.s, colorConfig.l, 1), hsla(120, colorConfig.s, colorConfig.l, 1), hsla(180, colorConfig.s, colorConfig.l, 1), hsla(240, colorConfig.s, colorConfig.l, 1), hsla(300, colorConfig.s, colorConfig.l, 1), hsla(360, colorConfig.s, colorConfig.l, 1));
-  inputRangeSts[4].backgroundImage = linearGradient(90, hsla(colorConfig.h, 0, colorConfig.l, 1), hsla(colorConfig.h, 100, colorConfig.l, 1));
-  inputRangeSts[5].backgroundImage = linearGradient(90, hsla(colorConfig.h, colorConfig.s, 0, 1), hsla(colorConfig.h, colorConfig.s, 50, 1), hsla(colorConfig.h, colorConfig.s, 100, 1));
-  inputRangeSts[6].background = linearGradient(90, rgba(colorConfig.r, colorConfig.g, colorConfig.b, 0), rgba(colorConfig.r, colorConfig.g, colorConfig.b, 1));
-  // set CSS
-  update();
+  // update
+  updateView();
 };
 
 // select tab
@@ -222,7 +218,7 @@ var changeTab = function changeTab(newTab) {
   // set new tab
   currentTab = newTab;
   // update
-  update();
+  updateView();
 };
 
 // init
@@ -233,7 +229,15 @@ global.addEventListener('load', function () {
   formInput = global.document.getElementById('form-input');
   formOutput = global.document.getElementById('form-output');
   layerBgColor = global.document.getElementById('layer-bgcolor');
-  inputRangeSts = [global.document.getElementById('range-r').style, global.document.getElementById('range-g').style, global.document.getElementById('range-b').style, global.document.getElementById('range-h').style, global.document.getElementById('range-s').style, global.document.getElementById('range-l').style, global.document.getElementById('range-a').style];
+  inputRangeStyles = {
+    'range-r': global.document.getElementById('range-r').style,
+    'range-g': global.document.getElementById('range-g').style,
+    'range-b': global.document.getElementById('range-b').style,
+    'range-h': global.document.getElementById('range-h').style,
+    'range-s': global.document.getElementById('range-s').style,
+    'range-l': global.document.getElementById('range-l').style,
+    'range-a': global.document.getElementById('range-a').style
+  };
   // init dom
   for (var i = 0; i < tabList.length; i++) {
     navTabs[i].setAttribute('href', '#' + tabList[i]);
@@ -243,14 +247,14 @@ global.addEventListener('load', function () {
     if (evt.target.tagName.toLowerCase() === 'a') {
       evt.preventDefault();
       evt.target.blur();
-      changeTab(evt.target.getAttribute('href').slice(1));
+      changeTab(evt.target.getAttribute('href').substr(1));
     }
   }, false);
   formInput.addEventListener('change', function (evt) {
-    return main(evt.target.id, evt.target.value);
+    return changeValue(evt.target.id, evt.target.value);
   }, false);
   formInput.addEventListener('input', function (evt) {
-    return main(evt.target.id, evt.target.value);
+    return changeValue(evt.target.id, evt.target.value);
   }, false);
   var formOutputInputs = formOutput.getElementsByTagName('input');
   for (var i = 0; i < formOutputInputs.length; i++) {
@@ -259,7 +263,7 @@ global.addEventListener('load', function () {
     }, false);
   }
   // set tab
-  var locationHash = global.location.hash.slice(1),
+  var locationHash = global.location.hash.substr(1),
       scheme = locationHash.replace(/&\S*$/, '').toLowerCase();
   if (tabList.indexOf(scheme) !== -1) {
     changeTab(scheme);
@@ -273,13 +277,13 @@ global.addEventListener('load', function () {
       if (!config.hasOwnProperty(key)) {
         continue;
       }
-      colorConfig.set(key, config[key]);
+      colorConfig[key] = config[key];
     }
-    main('num-r', colorConfig.r);
+    changeValue('num-r', colorConfig.r);
     formInput['num-r'].value = colorConfig.r;
   } catch (err) {
     var textRgba = rgba(Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), 1);
-    main('text-rgba', textRgba);
+    changeValue('text-rgba', textRgba);
     formInput['text-rgba'].value = textRgba;
   }
   history.replaceState({}, '', location.href.replace(/\#.*/, ''));
@@ -328,123 +332,234 @@ if (!String.prototype.includes) {
   };
 }
 
+var PrivateProperties = function PrivateProperties() {
+  var wm = new WeakMap();
+  //return self => wm.get(self) || wm.set(self, Object.create(null)).get(self);
+  // `WeakMap.prototype.set` does not return `this` in IE11
+  return function (self) {
+    return wm.get(self) || (wm.set(self, Object.create(null)), wm.get(self));
+  };
+};
+
 var isNumber = function isNumber(n) {
   return !Number.isNaN(n) && Number.isFinite(n);
 };
 
+var toHex = function toHex(n) {
+  return ('0' + n.toString(16)).slice(-2);
+};
+
 var ColorConfig = (function () {
-  function ColorConfig() {
-    _classCallCheck(this, ColorConfig);
+  var privateProperties = new PrivateProperties();
 
-    this.r = 0;
-    this.g = 0;
-    this.b = 0;
-    this.h = 0;
-    this.s = 0;
-    this.l = 0;
-    this.a = 1;
-  }
+  var sync = function sync(changedColorScheme) {
+    switch (changedColorScheme) {
+      case 'rgb':
+        var _rgb2hsl = _rgb2hsl4['default']([this.r, this.g, this.b]);
 
-  _createClass(ColorConfig, [{
-    key: 'set',
-    value: function set(key, value) {
-      if (key.length === 1) {
-        value = parseFloat(value);
-        if (this.hasOwnProperty(key) && isNumber(value)) {
-          this[key] = value;
-          if ('rgb'.includes(key)) {
-            this.sync('rgb');
-          } else if ('hsl'.includes(key)) {
-            this.sync('hsl');
-          }
-        }
-      } else if (key === 'rgb' || key === 'rgba') {
-        var rgba = ['r', 'g', 'b', 'a'];
-        value = value.replace(/[rgba();\s]/g, '').split(',').map(parseFloat);
-        for (var i = 0; i < Math.min(rgba.length, value.length); i++) {
-          if (isNumber(value[i])) {
-            this[rgba[i]] = value[i];
-          }
-        }
-        this.sync('rgb');
-      } else if (key === 'hsl' || key === 'hsla') {
-        var hsla = ['h', 's', 'l', 'a'];
-        value = value.replace(/[hsla();\s]/g, '').split(',').map(parseFloat);
-        for (var i = 0; i < Math.min(hsla.length, value.length); i++) {
-          if (isNumber(value[i])) {
-            this[hsla[i]] = value[i];
-          }
-        }
-        this.sync('hsl');
-      } else if (key === 'hex') {
-        value = value.replace('#', '');
-        if (value.length === 3) {
-          var r = parseInt(value.substr(0, 1), 16),
-              g = parseInt(value.substr(1, 1), 16),
-              b = parseInt(value.substr(2, 1), 16);
-          this.r = r + r * 16;
-          this.g = g + g * 16;
-          this.b = b + b * 16;
-        } else {
-          if (value.length !== 6) {
-            value = (value + '000000').slice(0, 6);
-          }
-          this.r = parseInt(value.substr(0, 2), 16);
-          this.g = parseInt(value.substr(2, 2), 16);
-          this.b = parseInt(value.substr(4, 2), 16);
-        }
-        this.sync('rgb');
+        var _rgb2hsl2 = _slicedToArray(_rgb2hsl, 3);
+
+        privateProperties(this).h = _rgb2hsl2[0];
+        privateProperties(this).s = _rgb2hsl2[1];
+        privateProperties(this).l = _rgb2hsl2[2];
+
+        break;
+      case 'hsl':
+        var _hsl2rgb = _hsl2rgb4['default']([this.h, this.s, this.l]);
+
+        var _hsl2rgb2 = _slicedToArray(_hsl2rgb, 3);
+
+        privateProperties(this).r = _hsl2rgb2[0];
+        privateProperties(this).g = _hsl2rgb2[1];
+        privateProperties(this).b = _hsl2rgb2[2];
+
+        break;
+    }
+  };
+
+  var setNumber = function setNumber(key, value) {
+    value = parseFloat(value);
+    if (isNumber(value)) {
+      privateProperties(this)[key] = value;
+      if ('rgb'.includes(key)) {
+        sync.call(this, 'rgb');
+      } else if ('hsl'.includes(key)) {
+        sync.call(this, 'hsl');
       }
     }
-  }, {
-    key: 'sync',
-    value: function sync(changedColorScheme) {
-      switch (changedColorScheme) {
-        case 'rgb':
-          var _rgb2hsl = _rgb2hsl4['default']([this.r, this.g, this.b]);
+    return value;
+  };
 
-          var _rgb2hsl2 = _slicedToArray(_rgb2hsl, 3);
+  var setHex = function setHex(key, value) {
+    value = String(value);
+    if (value.length === 1) {
+      value += value;
+    }
+    return setNumber.call(this, key, parseInt(value, 16));
+  };
 
-          this.h = _rgb2hsl2[0];
-          this.s = _rgb2hsl2[1];
-          this.l = _rgb2hsl2[2];
-
-          break;
-        case 'hsl':
-          var _hsl2rgb = _hsl2rgb4['default']([this.h, this.s, this.l]);
-
-          var _hsl2rgb2 = _slicedToArray(_hsl2rgb, 3);
-
-          this.r = _hsl2rgb2[0];
-          this.g = _hsl2rgb2[1];
-          this.b = _hsl2rgb2[2];
-
-          break;
+  var setString = function setString(key, value) {
+    value = value.replace(/[rgbhsla();\s]/g, '').split(',').map(parseFloat);
+    for (var i = 0; i < Math.min(key.length, value.length); i++) {
+      if (isNumber(value[i])) {
+        privateProperties(this)[key[i]] = value[i];
       }
     }
-  }, {
-    key: 'toString',
-    value: function toString() {
-      var colorScheme = arguments[0] === undefined ? '' : arguments[0];
+    sync.call(this, key.substr(0, 3));
+    return value;
+  };
 
-      switch (colorScheme.toLowerCase()) {
-        case 'rgb':
-          return 'rgb(' + Math.round(this.r) + ', ' + Math.round(this.g) + ', ' + Math.round(this.b) + ')';
-        case 'rgba':
-          return 'rgba(' + Math.round(this.r) + ', ' + Math.round(this.g) + ', ' + Math.round(this.b) + ', ' + this.a + ')';
-        case 'hsl':
-          return 'hsl(' + Math.round(this.h) + ', ' + Math.round(this.s) + '%, ' + Math.round(this.l) + '%)';
-        case 'hsla':
-          return 'hsla(' + Math.round(this.h) + ', ' + Math.round(this.s) + '%, ' + Math.round(this.l) + '%, ' + this.a + ')';
-        case 'hex':
-          return '#' + ('000000' + (this.r * 65536 + this.g * 256 + this.b).toString(16)).slice(-6);
-        default:
-          return JSON.stringify(this);
+  return (function () {
+    var _class = function () {
+      _classCallCheck(this, _class);
+
+      privateProperties(this).r = 0;
+      privateProperties(this).g = 0;
+      privateProperties(this).b = 0;
+      privateProperties(this).h = 0;
+      privateProperties(this).s = 0;
+      privateProperties(this).l = 0;
+      privateProperties(this).a = 1;
+    };
+
+    _createClass(_class, [{
+      key: 'r',
+      get: function () {
+        return privateProperties(this).r;
+      },
+      set: function (n) {
+        return setNumber.call(this, 'r', n);
       }
-    }
-  }]);
+    }, {
+      key: 'g',
+      get: function () {
+        return privateProperties(this).g;
+      },
+      set: function (n) {
+        return setNumber.call(this, 'g', n);
+      }
+    }, {
+      key: 'b',
+      get: function () {
+        return privateProperties(this).b;
+      },
+      set: function (n) {
+        return setNumber.call(this, 'b', n);
+      }
+    }, {
+      key: 'r16',
+      get: function () {
+        return toHex(this.r);
+      },
+      set: function (s) {
+        return setHex.call(this, 'r', s);
+      }
+    }, {
+      key: 'g16',
+      get: function () {
+        return toHex(this.g);
+      },
+      set: function (s) {
+        return setHex.call(this, 'g', s);
+      }
+    }, {
+      key: 'b16',
+      get: function () {
+        return toHex(this.b);
+      },
+      set: function (s) {
+        return setHex.call(this, 'b', s);
+      }
+    }, {
+      key: 'h',
+      get: function () {
+        return privateProperties(this).h;
+      },
+      set: function (n) {
+        return setNumber.call(this, 'h', n);
+      }
+    }, {
+      key: 's',
+      get: function () {
+        return privateProperties(this).s;
+      },
+      set: function (n) {
+        return setNumber.call(this, 's', n);
+      }
+    }, {
+      key: 'l',
+      get: function () {
+        return privateProperties(this).l;
+      },
+      set: function (n) {
+        return setNumber.call(this, 'l', n);
+      }
+    }, {
+      key: 'a',
+      get: function () {
+        return privateProperties(this).a;
+      },
+      set: function (n) {
+        return setNumber.call(this, 'a', n);
+      }
+    }, {
+      key: 'rgb',
+      get: function () {
+        return 'rgb(' + Math.round(this.r) + ', ' + Math.round(this.g) + ', ' + Math.round(this.b) + ')';
+      },
+      set: function (s) {
+        return setString.call(this, 'rgb', s);
+      }
+    }, {
+      key: 'rgba',
+      get: function () {
+        return 'rgba(' + Math.round(this.r) + ', ' + Math.round(this.g) + ', ' + Math.round(this.b) + ', ' + this.a + ')';
+      },
+      set: function (s) {
+        return setString.call(this, 'rgba', s);
+      }
+    }, {
+      key: 'hsl',
+      get: function () {
+        return 'hsl(' + Math.round(this.h) + ', ' + Math.round(this.s) + '%, ' + Math.round(this.l) + '%)';
+      },
+      set: function (s) {
+        return setString.call(this, 'hsl', s);
+      }
+    }, {
+      key: 'hsla',
+      get: function () {
+        return 'hsla(' + Math.round(this.h) + ', ' + Math.round(this.s) + '%, ' + Math.round(this.l) + '%, ' + this.a + ')';
+      },
+      set: function (s) {
+        return setString.call(this, 'hsla', s);
+      }
+    }, {
+      key: 'hex',
+      get: function () {
+        return '#' + this.r16 + this.g16 + this.b16;
+      },
+      set: function (s) {
+        s = s.replace('#', '');
+        var length = 2;
+        if (s.length === 3) {
+          length = 1;
+        } else if (s.length !== 6) {
+          s = (s + '000000').substr(0, 6);
+        }
+        setHex.call(this, 'r', s.substr(0, length));
+        setHex.call(this, 'g', s.substr(length, length));
+        setHex.call(this, 'b', s.substr(length * 2, length));
+      }
+    }, {
+      key: 'toString',
+      value: function toString() {
+        return JSON.stringify(privateProperties(this));
+      }
+    }]);
 
-  return ColorConfig;
+    return _class;
+  })();
 })();
 
 exports['default'] = ColorConfig;
@@ -479,13 +594,12 @@ var hsl2rgb = function hsl2rgb(hsl) {
   l /= 100;
   var c = s * (1 - Math.abs(2 * l - 1)),
       x = c * (1 - Math.abs(h / 60 % 2 - 1)),
-      m = l - c / 2,
-      r = undefined,
-      g = undefined,
-      b = undefined;
-  if (s === 0) {
-    return [l, l, l];
-  } else {
+      m = l - c / 2;
+  var r = l;
+  var g = l;
+  var b = l;
+
+  if (s !== 0) {
     if (h < 60) {
       r = c + m;
       g = x + m;
@@ -511,8 +625,8 @@ var hsl2rgb = function hsl2rgb(hsl) {
       g = m;
       b = x + m;
     }
-    return [Math.round(255 * r), Math.round(255 * g), Math.round(255 * b)];
   }
+  return [Math.round(255 * r), Math.round(255 * g), Math.round(255 * b)];
 };
 
 exports['default'] = hsl2rgb;
@@ -544,14 +658,12 @@ var rgb2hsl = function rgb2hsl(rgb) {
 
   var r = _rgb[0];
   var g = _rgb[1];
-
   var b = _rgb[2];
-  var h = 0;
-  var s = 0;
-  var l = sum * 50;
-  if (delta === 0) {
-    return [0, 0, l];
-  } else {
+
+  var h = 0,
+      s = 0,
+      l = sum * 50;
+  if (delta !== 0) {
     switch (max) {
       case r:
         h = 60 * (g - b) / delta;
@@ -571,8 +683,8 @@ var rgb2hsl = function rgb2hsl(rgb) {
     } else {
       s = delta * 100 / (2 - sum);
     }
-    return [Math.round(h), Math.round(s), Math.round(l)];
   }
+  return [Math.round(h), Math.round(s), Math.round(l)];
 };
 
 exports['default'] = rgb2hsl;
