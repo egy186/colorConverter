@@ -2,19 +2,17 @@
 
 'use strict';
 
-let rgb2hsl = (rgb) => {
+const rgb2hsl = (rgb) => {
   rgb = rgb.map(n => n / 255);
-  let max = Math.max(...rgb),
-      min = Math.min(...rgb),
-      sum = max + min,
-      delta = max - min,
-      [r, g, b] = rgb,
-      h = 0,
+  const max = Math.max(...rgb),
+        min = Math.min(...rgb),
+        sum = max + min,
+        delta = max - min,
+        [r, g, b] = rgb;
+  let h = 0,
       s = 0,
       l = sum * 50;
-  if (delta === 0) {
-    return [0, 0, l];
-  } else {
+  if (delta !== 0) {
     switch (max) {
       case r:
         h = 60 * (g - b) / delta;
@@ -34,8 +32,8 @@ let rgb2hsl = (rgb) => {
     } else {
       s = delta * 100 / (2 - sum);
     }
-    return [Math.round(h), Math.round(s), Math.round(l)];
   }
+  return [Math.round(h), Math.round(s), Math.round(l)];
 };
 
 export default rgb2hsl;

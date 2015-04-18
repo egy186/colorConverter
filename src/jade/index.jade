@@ -21,9 +21,12 @@ html(lang='en')
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(wf, s);
       })();
+    //- WeakMap polyfill for IE10
+    script(src='https://cdn.rawgit.com/Benvie/WeakMap/master/weakmap.min.js', defer)
     script(src='lib/jquery/dist/jquery.min.js', defer)
     script(src='lib/bootstrap/dist/js/bootstrap.min.js', defer)
-    script(src='js/colorconverter.js', async)
+    //- require WeakMap
+    script(src='js/colorconverter.js', defer)
     link(rel='stylesheet', href='lib/bootstrap/dist/css/bootstrap.min.css')
     link(rel='stylesheet', href='css/style.css')
     meta(name='application-name', content='Color_Converter')
@@ -82,24 +85,24 @@ html(lang='en')
                       label.input-group-addon(for='num-r') R:
                       input#num-r.form-control(type='number', value='0', min='0', max='255', step='1', tabindex='201')
                     span.hex.input-group.input-group-lg
-                      label.input-group-addon(for='num16-r') R (hex):
-                      input#num16-r.form-control(type='text', value='00', size='5', title='RR or R', maxlength='5', tabindex='211')
+                      label.input-group-addon(for='num-r16') R (hex):
+                      input#num-r16.form-control(type='text', value='00', size='5', title='RR or R', maxlength='5', tabindex='211')
                     input#range-r.form-control.input-lg(type='range', value='0', min='0', max='255', step='1', tabindex='221')
                   p
                     span.rgb.rgba.input-group.input-group-lg
                       label.input-group-addon(for='num-g') G:
                       input#num-g.form-control(type='number', value='0', min='0', max='255', step='1', tabindex='201')
                     span.hex.input-group.input-group-lg
-                      label.input-group-addon(for='num16-g') G (hex):
-                      input#num16-g.form-control(type='text', value='00', size='5', title='GG or G', maxlength='5', tabindex='211')
+                      label.input-group-addon(for='num-g16') G (hex):
+                      input#num-g16.form-control(type='text', value='00', size='5', title='GG or G', maxlength='5', tabindex='211')
                     input#range-g.form-control.input-lg(type='range', value='0', min='0', max='255', step='1', tabindex='221')
                   p
                     span.rgb.rgba.input-group.input-group-lg
                       label.input-group-addon(for='num-b') B:
                       input#num-b.form-control(type='number', value='0', min='0', max='255', step='1', tabindex='201')
                     span.hex.input-group.input-group-lg
-                      label.input-group-addon(for='num16-b') B (hex):
-                      input#num16-b.form-control(type='text', value='00', size='5', title='BB or B', maxlength='5', tabindex='211')
+                      label.input-group-addon(for='num-b16') B (hex):
+                      input#num-b16.form-control(type='text', value='00', size='5', title='BB or B', maxlength='5', tabindex='211')
                     input#range-b.form-control.input-lg(type='range', value='0', min='0', max='255', step='1', tabindex='221')
                 fieldset#set-hsl.hsl.hsla
                   legend.sr-only HSL
