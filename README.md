@@ -8,4 +8,4 @@ Web application to easily convert color codes. Convert between RGBa, HSLa, RGB, 
 
 * Internet Explorer 10+
 * Mozilla Firefox 23+
-* Google Chrome 28+
+* Google Chrome 36+

@@ -66,7 +66,7 @@ if (!Array.from) {
 
       // 16. Let k be 0.
       var k = 0;
-      // 17. Repeat, while k < len… (also steps a - h)
+      // 17. Repeat, while k < len... (also steps a - h)
       var kValue;
       while (k < len) {
         kValue = items[k];
