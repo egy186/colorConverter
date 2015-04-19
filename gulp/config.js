@@ -9,38 +9,44 @@ var dest = './dist';
 
 module.exports = {
   bower: {
-    dest: dest + '/lib'
+    dest: src + '/static/lib'
   },
-  browserify: {
-    src: src + '/js/colorconverter.js',
-    dest: dest + '/js'
-  },
-  clean: dest,
-  copy: {
-    src: src + '/static/*',
-    dest: dest
-  },
-  jade: {
-    src: src + '/jade/**/*.jade',
-    dest: dest,
-    options: {
-      data: {
-        version: 'v' + pkg.version
+  build: {
+    css: {
+      src: src + '/less/**/*.less',
+      dest: dest + '/css'
+    },
+    html: {
+      src: src + '/jade/**/*.jade',
+      dest: dest,
+      options: {
+        data: {
+          version: 'v' + pkg.version
+        }
       }
+    },
+    js: {
+      src: src + '/js/colorconverter.js',
+      dest: dest + '/js'
+    },
+    static: {
+      src: src + '/static/**',
+      dest: dest
     }
   },
-  jshint: {
-    src: ['gulp/**/*.js', 'src/js/**/*.js'],
-  },
-  less: {
-    src: src + '/less/**/*.less',
-    dest: dest + '/css'
+  clean: dest,
+  lint: {
+    js: {
+      src: ['gulp/**/*.js', 'src/js/**/*.js'],
+    },
   },
   server: {
-    notify: false,
-    open: false,
-    server: {
-      baseDir: dest
+    options: {
+      notify: false,
+      open: false,
+      server: {
+        baseDir: dest
+      }
     }
   }
 };

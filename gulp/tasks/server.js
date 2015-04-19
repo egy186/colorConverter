@@ -7,7 +7,7 @@ var config = require('../config').server;
 var gulp = require('gulp');
 
 gulp.task('server:start', function() {
-  browserSync(config);
+  browserSync(config.options);
 });
 
 gulp.task('server:reload', function () {
