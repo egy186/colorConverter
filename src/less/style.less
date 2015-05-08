@@ -28,50 +28,62 @@ input {
     font-size: 32px;
     height: 100%;
   }
-  .navbar-nav > li > a {
-    color: #ccc;
-    font-size: 18px;
-  }
-  .navbar-nav > .active > a,
-  .navbar-nav > .active > a:hover,
-  .navbar-nav > .active > a:focus {
-    background-color: #222;
+  .navbar-nav > li {
+    >a {
+      color: #ccc;
+      font-size: 18px;
+    }
+    &.active {
+      >a,
+      >a:hover,
+      >a:focus {
+        background-color: #222;
+      }
+    }
   }
   .navbar-toggle {
     border-color: #222;
   }
-  .navbar-toggle:hover,
-  .navbar-toggle:focus {
-    background-color: #2a2a2a;
-  }
-  .navbar-toggle .icon-bar {
-    background-color: #fafafa;
+  .navbar-toggle {
+    &:hover,
+    &:focus {
+      background-color: #2a2a2a;
+    }
+    .icon-bar {
+      background-color: #fafafa;
+    }
   }
   .navbar-link {
     color: #ccc;
-  }
-  .navbar-link:hover {
-    color: #fff;
+    &:hover {
+      color: #fff;
+    }
   }
 }
 
 @media (max-width: 767px) {
   .navbar-inverse {
     text-align: center;
-    .navbar-nav .open .dropdown-menu > .dropdown-header {
-      border-color: #222;
-    }
-    .navbar-nav .open .dropdown-menu .divider {
-      background-color: #222;
-    }
-    .navbar-nav .open .dropdown-menu > li > a {
-      color: #ccc;
-    }
-    .navbar-nav .open .dropdown-menu > .active > a,
-    .navbar-nav .open .dropdown-menu > .active > a:hover,
-    .navbar-nav .open .dropdown-menu > .active > a:focus {
-      color: #fff;
-      background-color: #222;
+    .navbar-nav .open .dropdown-menu {
+      >.dropdown-header {
+        border-color: #222;
+      }
+      .divider {
+        background-color: #222;
+      }
+      >li {
+        >a {
+          color: #ccc;
+        }
+        &.active {
+          >a,
+          >a:hover,
+          >a:focus {
+            color: #fff;
+            background-color: #222;
+          }
+        }
+      }
     }
   }
 }
@@ -94,13 +106,13 @@ html {
 #layer-bgcolor {
   display: table-cell;
   vertical-align: middle;
-  > .container {
+  >.container {
     padding-top: 15px;
     padding-bottom: 15px;
-    > header {
+    >header {
       padding-top: 15px;
     }
-    > footer {
+    >footer {
       padding-top: 15px;
       padding-bottom: 15px;
     }
@@ -128,15 +140,17 @@ form p{
   a {
     transition: all .4s ease;
     font-weight: bold;
-  }
-  a:hover,
-  a:focus {
-    color: hsl(25, 100%, 50%);
-    text-decoration: none;
-  }
-  a.navbar-brand:hover,
-  a.navbar-brand:focus {
-    background: radial-gradient(closest-side, hsla(0, 0%, 100%, .2), hsla(0, 0%, 100%, 0));
+    &:hover,
+    &:focus {
+      color: hsl(25, 100%, 50%);
+      text-decoration: none;
+    }
+    &.navbar-brand {
+      &:hover,
+      &:focus{
+        background: radial-gradient(closest-side, hsla(0, 0%, 100%, .2), hsla(0, 0%, 100%, 0));
+      }
+    }
   }
 }
 
@@ -193,22 +207,24 @@ form p{
     color: inherit;
     text-decoration: underline;
     transition: all .4s ease;
+    &:hover,
+    &:focus {
+      color: hsl(25, 100%, 50%);
+      background: radial-gradient(closest-side, hsla(0, 0%, 100%, .2), hsla(0, 0%, 100%, 0));
+      text-decoration: none;
+    }
+    &:active {
+      color: hsl(25, 100%, 50%);
+      background: radial-gradient(closest-side, hsla(25, 100%, 75%, .2), hsla(0, 0%, 100%, 0));
+      text-decoration: none;
+    }
   }
-  a:hover,
-  a:focus {
-    color: hsl(25, 100%, 50%);
-    background: radial-gradient(closest-side, hsla(0, 0%, 100%, .2), hsla(0, 0%, 100%, 0));
-    text-decoration: none;
-  }
-  a:active {
-    color: hsl(25, 100%, 50%);
-    background: radial-gradient(closest-side, hsla(25, 100%, 75%, .2), hsla(0, 0%, 100%, 0));
-    text-decoration: none;
-  }
-  p:first-child {
-    font-size: 21px;
-  }
-  p:nth-child(2) {
-    color: #999;
+  p {
+    &:first-child {
+      font-size: 21px;
+    }
+    &:nth-child(2) {
+      color: #999;
+    }
   }
 }
