@@ -48,5 +48,12 @@ module.exports = {
         baseDir: dest
       }
     }
+  },
+  watch: {
+    css: src + '/less/**/*.less',
+    html: src + '/jade/**/*.jade',
+    js: src + '/js/**/*.js',
+    static: src + '/static/**',
+    server: dest + '/**'
   }
 };

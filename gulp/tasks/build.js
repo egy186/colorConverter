@@ -34,9 +34,9 @@ gulp.task('build:js', function () {
     .pipe(source(distName + '.js'))
     .pipe(buffer())
     .pipe(gulp.dest(config.js.dest))
+    .pipe(rename(distName + '.min.js'))
     .pipe(sourcemaps.init())
     .pipe(uglify())
-    .pipe(rename(distName + '.min.js'))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(config.js.dest));
 });

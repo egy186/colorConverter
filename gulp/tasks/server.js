@@ -13,3 +13,5 @@ gulp.task('server:start', function() {
 gulp.task('server:reload', function () {
   browserSync.reload();
 });
+
+gulp.task('server', ['server:start']);
