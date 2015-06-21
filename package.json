@@ -7,20 +7,20 @@
     "url": "https://github.com/egy186/colorconverter/issues"
   },
   "devDependencies": {
-    "babelify": "^6.0.2",
+    "babelify": "^6.1.2",
     "bower": "^1.4.1",
-    "browser-sync": "^2.6.4",
-    "browserify": "^9.0.8",
-    "del": "^1.1.1",
-    "gulp": "^3.8.11",
-    "gulp-jade": "^1.0.0",
-    "gulp-jshint": "^1.10.0",
-    "gulp-less": "^3.0.2",
-    "gulp-minify-css": "^1.0.0",
+    "browser-sync": "^2.7.12",
+    "browserify": "^10.2.4",
+    "del": "^1.2.0",
+    "gulp": "^3.9.0",
+    "gulp-jade": "^1.0.1",
+    "gulp-jshint": "^1.11.0",
+    "gulp-less": "^3.0.3",
+    "gulp-minify-css": "^1.1.6",
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.2.0",
-    "main-bower-files": "^2.6.2",
+    "main-bower-files": "^2.7.0",
     "require-dir": "^0.3.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
@@ -34,7 +34,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/egy186/colorconverter.git"
+    "url": "git+https://github.com/egy186/colorconverter.git"
   },
   "scripts": {
     "build": "gulp build",
