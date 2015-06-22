@@ -26,7 +26,7 @@ module.exports = {
       }
     },
     js: {
-      src: src + '/js/colorconverter.js',
+      src: src + '/js/app.js',
       dest: dest + '/js'
     },
     static: {

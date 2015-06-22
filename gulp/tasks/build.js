@@ -10,7 +10,6 @@ var gulp = require('gulp');
 var jade = require('gulp-jade');
 var less = require('gulp-less');
 var minify = require('gulp-minify-css');
-var rename = require('gulp-rename');
 var source = require('vinyl-source-stream');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
@@ -33,8 +32,6 @@ gulp.task('build:js', function () {
   browserify().transform(babelify).require(config.js.src, { entry: true }).bundle()
     .pipe(source(distName + '.js'))
     .pipe(buffer())
-    .pipe(gulp.dest(config.js.dest))
-    .pipe(rename(distName + '.min.js'))
     .pipe(sourcemaps.init())
     .pipe(uglify())
     .pipe(sourcemaps.write('.'))
