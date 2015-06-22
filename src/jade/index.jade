@@ -21,12 +21,9 @@ html(lang='en')
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(wf, s);
       })();
-    //- WeakMap polyfill for IE10
-    script(src='https://cdn.rawgit.com/Benvie/WeakMap/master/weakmap.min.js', defer)
     script(src='lib/jquery/dist/jquery.min.js', defer)
     script(src='lib/bootstrap/dist/js/bootstrap.min.js', defer)
-    //- require WeakMap
-    script(src='js/colorconverter.min.js', defer)
+    script(src='js/colorconverter.min.js', async)
     link(rel='stylesheet', href='lib/bootstrap/dist/css/bootstrap.min.css')
     link(rel='stylesheet', href='css/style.css')
     meta(name='application-name', content='Color_Converter')

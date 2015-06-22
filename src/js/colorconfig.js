@@ -4,21 +4,12 @@
 
 import hsl2rgb from './hsl2rgb';
 import rgb2hsl from './rgb2hsl';
+// import polyfill
+import './polyfill/numberisfinite';
+import './polyfill/stringincludes';
+import './polyfill/weakmap';
 
-// https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN
-Number.isNaN = Number.isNaN || function(value) {
-    return typeof value === 'number' && value !== value;
-};
-// https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Number/isFinite
-Number.isFinite = Number.isFinite || function(value) {
-    return typeof value === 'number' && isFinite(value);
-};
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes
-if (!String.prototype.includes) {
-  String.prototype.includes = function() {
-    return String.prototype.indexOf.apply(this, arguments) !== -1;
-  };
-}
+const round = Math.round;
 
 const PrivateProperties = () => {
   const wm = new WeakMap();
@@ -27,27 +18,28 @@ const PrivateProperties = () => {
   return self => wm.get(self) || (wm.set(self, Object.create(null)), wm.get(self));
 };
 
-const isNumber = n => !Number.isNaN(n) && Number.isFinite(n);
-
 const toHex = n => ('0' + n.toString(16)).slice(-2);
 
 const ColorConfig = (() => {
   const privateProperties = new PrivateProperties();
 
   const sync = function (changedColorScheme) {
+    const pp = privateProperties(this);
     switch (changedColorScheme) {
       case 'rgb':
-        [privateProperties(this).h, privateProperties(this).s, privateProperties(this).l] = rgb2hsl([this.r, this.g, this.b]);
-        break;
+        [pp.h, pp.s, pp.l] = rgb2hsl([this.r, this.g, this.b]);
+        return true;
       case 'hsl':
-        [privateProperties(this).r, privateProperties(this).g, privateProperties(this).b] = hsl2rgb([this.h, this.s, this.l]);
-        break;
+        [pp.r, pp.g, pp.b] = hsl2rgb([this.h, this.s, this.l]);
+        return true;
+      default:
+        return false;
     }
   };
 
   const setNumber = function (key, value) {
     value = parseFloat(value);
-    if (isNumber(value)) {
+    if (Number.isFinite(value)) {
       privateProperties(this)[key] = value;
       if ('rgb'.includes(key)) {
         sync.call(this, 'rgb');
@@ -68,9 +60,10 @@ const ColorConfig = (() => {
 
   const setString = function (key, value) {
     value = value.replace(/[rgbhsla();\s]/g, '').split(',').map(parseFloat);
+    const pp = privateProperties(this);
     for (let i = 0; i < Math.min(key.length, value.length); i++) {
-      if (isNumber(value[i])) {
-        privateProperties(this)[key[i]] = value[i];
+      if (Number.isFinite(value[i])) {
+        pp[key[i]] = value[i];
       }
     }
     sync.call(this, key.substr(0, 3));
@@ -79,13 +72,14 @@ const ColorConfig = (() => {
 
   return class {
     constructor () {
-      privateProperties(this).r = 0;
-      privateProperties(this).g = 0;
-      privateProperties(this).b = 0;
-      privateProperties(this).h = 0;
-      privateProperties(this).s = 0;
-      privateProperties(this).l = 0;
-      privateProperties(this).a = 1;
+      const pp = privateProperties(this);
+      pp.r = 0;
+      pp.g = 0;
+      pp.b = 0;
+      pp.h = 0;
+      pp.s = 0;
+      pp.l = 0;
+      pp.a = 1;
     }
 
     get r () {
@@ -159,28 +153,28 @@ const ColorConfig = (() => {
     }
 
     get rgb () {
-      return `rgb(${Math.round(this.r)}, ${Math.round(this.g)}, ${Math.round(this.b)})`;
+      return `rgb(${round(this.r)}, ${round(this.g)}, ${round(this.b)})`;
     }
     set rgb (s) {
       return setString.call(this, 'rgb', s);
     }
 
     get rgba () {
-      return `rgba(${Math.round(this.r)}, ${Math.round(this.g)}, ${Math.round(this.b)}, ${this.a})`;
+      return `rgba(${round(this.r)}, ${round(this.g)}, ${round(this.b)}, ${this.a})`;
     }
     set rgba (s) {
       return setString.call(this, 'rgba', s);
     }
 
     get hsl () {
-      return `hsl(${Math.round(this.h)}, ${Math.round(this.s)}%, ${Math.round(this.l)}%)`;
+      return `hsl(${round(this.h)}, ${round(this.s)}%, ${round(this.l)}%)`;
     }
     set hsl (s) {
       return setString.call(this, 'hsl', s);
     }
 
     get hsla () {
-      return `hsla(${Math.round(this.h)}, ${Math.round(this.s)}%, ${Math.round(this.l)}%, ${this.a})`;
+      return `hsla(${round(this.h)}, ${round(this.s)}%, ${round(this.l)}%, ${this.a})`;
     }
     set hsla (s) {
       return setString.call(this, 'hsla', s);

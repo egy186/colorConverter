@@ -1,14 +1,11 @@
 /* global global */
 /* jshint esnext: true */
-/* jshint browser: true */
 
 'use strict';
 
-import { rgba, hsla, linearGradient, arrayFrom } from './util';
-
-if (!Array.from) {
-  arrayFrom();
-}
+import { rgba, hsla, linearGradient } from './util';
+// import polyfill
+import './polyfill/arrayfrom';
 
 let formOutput,
     layerBgColor,
@@ -80,6 +77,7 @@ const updateView = (colorConfig, currentTab) => {
     rgba(colorConfig.r, colorConfig.g, colorConfig.b, 0),
     rgba(colorConfig.r, colorConfig.g, colorConfig.b, 1)
   );
+  return true;
 };
 
 global.addEventListener('load',() => {

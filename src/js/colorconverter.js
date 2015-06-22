@@ -1,20 +1,25 @@
 /* global global */
 /* jshint esnext: true */
-/* jshint browser: true */
 
 'use strict';
 
 import ColorConfig from './colorconfig';
-import updateView from './view';
-import { rgba, randomInt, arrayFrom } from './util';
+import tab from './tab';
+import { tabList } from './tab';
+import view from './view';
+import { rgba, randomInt } from './util';
+// import polyfill
+import './polyfill/arrayfrom';
 
-if (!Array.from) {
-  arrayFrom();
-}
-
-const colorConfig = new ColorConfig(),
-      tabList = ['rgb', 'rgba', 'hsl', 'hsla', 'hex'];
+const colorConfig = new ColorConfig();
 let currentTab = tabList[0];
+
+const updateView = () => view(colorConfig, currentTab);
+const changeTab = (newTab) => {
+  currentTab = newTab;
+  updateView();
+  return tab(colorConfig, currentTab);
+};
 
 // main
 let formInput;
@@ -33,45 +38,16 @@ const changeValue = (key, value) => {
     formInput[key].value = colorConfig[key.replace(pattern, '')];
   });
   // update
-  updateView(colorConfig, currentTab);
-};
-
-// select tab
-let tabs, navTabs;
-const changeTab = newTab => {
-  const newTabIndex = tabList.indexOf(newTab);
-  if (newTabIndex === -1) {
-    return;
-  }
-  // forms
-  tabs.forEach(el => el.forEach(el => el.style.display = 'none'));
-  tabs[newTabIndex].forEach(el => el.style.display = '');
-  // nav-tab
-  navTabs[tabList.indexOf(currentTab)].parentElement.classList.remove('active');
-  navTabs[newTabIndex].parentElement.classList.add('active');
-  // set new tab
-  currentTab = newTab;
-  // update
-  updateView(colorConfig, currentTab);
+  updateView();
 };
 
 // init
 global.addEventListener('load', () => {
   // set global var
-  navTabs = Array.from(global.document.getElementById('nav-tab').getElementsByTagName('a'));
-  tabs = [
-    Array.from(global.document.getElementsByClassName('rgb')),
-    Array.from(global.document.getElementsByClassName('rgba')),
-    Array.from(global.document.getElementsByClassName('hsl')),
-    Array.from(global.document.getElementsByClassName('hsla')),
-    Array.from(global.document.getElementsByClassName('hex'))
-  ];
   formInput = global.document.getElementById('form-input');
-  // init dom
-  for (let i = 0; i < tabList.length; i++) {
-    navTabs[i].setAttribute('href', '#' + tabList[i]);
-  }
   // add event
+  formInput.addEventListener('change', evt => changeValue(evt.target.id, evt.target.value), false);
+  formInput.addEventListener('input', evt => changeValue(evt.target.id, evt.target.value), false);
   global.document.getElementById('nav-tab').addEventListener('click', evt => {
     if (evt.target.tagName.toLowerCase() === 'a') {
       evt.preventDefault();
@@ -79,16 +55,15 @@ global.addEventListener('load', () => {
       changeTab(evt.target.getAttribute('href').substr(1));
     }
   }, false);
-  formInput.addEventListener('change', evt => changeValue(evt.target.id, evt.target.value), false);
-  formInput.addEventListener('input', evt => changeValue(evt.target.id, evt.target.value), false);
-  // set tab
+  // init
   const locationHash = global.location.hash.substr(1);
+  // init tab
   let scheme = locationHash.replace(/&\S*$/, '').toLowerCase();
   if (tabList.indexOf(scheme) === -1) {
     scheme = tabList[randomInt(0, 4)];
   }
   changeTab(scheme);
-  // set color
+  // init color
   try {
     const config = JSON.parse(locationHash.replace(/^\S*&/, ''));
     for (let key in config) {
@@ -104,5 +79,6 @@ global.addEventListener('load', () => {
     changeValue('text-rgba', textRgba);
     formInput['text-rgba'].value = textRgba;
   }
-  history.replaceState({}, '', location.href.replace(/\#.*/, ''));
+  // url
+  global.history.replaceState({}, '', global.location.href.replace(/\#.*/, ''));
 }, false);
