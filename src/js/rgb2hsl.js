@@ -1,7 +1,3 @@
-/* jshint esnext: true */
-
-'use strict';
-
 const rgb2hsl = (rgb) => {
   rgb = rgb.map(n => n / 255);
   const max = Math.max(...rgb),
@@ -10,8 +6,8 @@ const rgb2hsl = (rgb) => {
         delta = max - min,
         [r, g, b] = rgb;
   let h = 0,
-      s = 0,
-      l = sum * 50;
+      s = 0;
+  const l = sum * 50;
   if (delta !== 0) {
     switch (max) {
       case r:

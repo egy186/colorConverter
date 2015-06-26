@@ -1,13 +1,9 @@
-/* jshint node: true */
+import { lint as config } from '../config';
+import gulp from 'gulp';
+import eslint from 'gulp-eslint';
 
-'use strict';
-
-var config = require('../config').lint;
-var gulp = require('gulp');
-var eslint = require('gulp-eslint');
-
-gulp.task('lint:js', function () {
-  gulp.src(config.js.src)
+gulp.task('lint:js', () => {
+  return gulp.src(config.js.src)
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());

@@ -1,7 +1,4 @@
-/* global global */
-/* jshint esnext: true */
-
-'use strict';
+/* global global: false */
 
 // https://www.npmjs.com/package/weakmap-shim
 import WeakMap from 'weakmap-shim';

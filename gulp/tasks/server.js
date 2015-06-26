@@ -1,16 +1,12 @@
-/* jshint node: true */
+import browserSync from 'browser-sync';
+import { server as config } from '../config';
+import gulp from 'gulp';
 
-'use strict';
-
-var browserSync = require('browser-sync');
-var config = require('../config').server;
-var gulp = require('gulp');
-
-gulp.task('server:start', function() {
+gulp.task('server:start', () => {
   browserSync(config.options);
 });
 
-gulp.task('server:reload', function () {
+gulp.task('server:reload', () => {
   browserSync.reload();
 });
 

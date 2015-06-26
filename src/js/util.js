@@ -1,7 +1,3 @@
-/* jshint esnext: true */
-
-'use strict';
-
 const util = {
   randomInt: (from, to) => from + Math.floor(Math.random() * (to - from + 1)),
   rgba: (r, g, b, a) => `rgba(${r}, ${g}, ${b}, ${a})`,

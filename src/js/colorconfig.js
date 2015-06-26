@@ -1,7 +1,3 @@
-/* jshint esnext: true */
-
-'use strict';
-
 import hsl2rgb from './hsl2rgb';
 import rgb2hsl from './rgb2hsl';
 // import polyfill

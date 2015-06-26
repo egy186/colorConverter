@@ -1,7 +1,3 @@
-/* jshint esnext: true */
-
-'use strict';
-
 const hsl2rgb = (hsl) => {
   let [h, s, l] = hsl;
   while (h < 0) {
@@ -13,7 +9,7 @@ const hsl2rgb = (hsl) => {
   s /= 100;
   l /= 100;
   const c = s * (1 - Math.abs(2 * l - 1)),
-        x = c * (1 - Math.abs((h / 60) % 2 - 1)),
+        x = c * (1 - Math.abs(h / 60 % 2 - 1)),
         m = l - c / 2;
   let [r, g, b] = [l, l, l];
   if (s !== 0) {

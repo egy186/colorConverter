@@ -1,21 +1,17 @@
-/* jshint node: true */
+import babelify from 'babelify';
+import browserify from 'browserify';
+import buffer from 'vinyl-buffer';
+import { build as config } from '../config';
+import gulp from 'gulp';
+import jade from 'gulp-jade';
+import less from 'gulp-less';
+import minify from 'gulp-minify-css';
+import source from 'vinyl-source-stream';
+import sourcemaps from 'gulp-sourcemaps';
+import uglify from 'gulp-uglify';
 
-'use strict';
-
-var babelify = require('babelify');
-var browserify = require('browserify');
-var buffer = require('vinyl-buffer');
-var config = require('../config').build;
-var gulp = require('gulp');
-var jade = require('gulp-jade');
-var less = require('gulp-less');
-var minify = require('gulp-minify-css');
-var source = require('vinyl-source-stream');
-var sourcemaps = require('gulp-sourcemaps');
-var uglify = require('gulp-uglify');
-
-gulp.task('build:css', function () {
-  gulp.src(config.css.src)
+gulp.task('build:css', () => {
+  return gulp.src(config.css.src)
     .pipe(sourcemaps.init())
     .pipe(less())
     .pipe(minify())
@@ -23,15 +19,15 @@ gulp.task('build:css', function () {
     .pipe(gulp.dest(config.css.dest));
 });
 
-gulp.task('build:html', function () {
-  gulp.src(config.html.src)
+gulp.task('build:html', () => {
+  return gulp.src(config.html.src)
     .pipe(jade(config.html.options))
     .pipe(gulp.dest(config.html.dest));
 });
 
-gulp.task('build:js', function () {
-  var distName = config.js.src.replace(/^.*\//, '').replace(/\..*$/, '');
-  browserify({ debug: true }).transform(babelify).require(config.js.src, { entry: true }).bundle()
+gulp.task('build:js', () => {
+  const distName = config.js.src.replace(/^.*\//, '').replace(/\..*$/, '');
+  return browserify({ debug: true }).transform(babelify).require(config.js.src, { entry: true }).bundle()
     .pipe(source(distName + '.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
@@ -40,13 +36,13 @@ gulp.task('build:js', function () {
     .pipe(gulp.dest(config.js.dest));
 });
 
-gulp.task('build:source', function () {
-  gulp.src(config.source.src)
+gulp.task('build:source', () => {
+  return gulp.src(config.source.src)
     .pipe(gulp.dest(config.source.dest));
 });
 
-gulp.task('build:static', ['bower'], function () {
-  gulp.src(config.static.src)
+gulp.task('build:static', ['bower'], () => {
+  return gulp.src(config.static.src)
     .pipe(gulp.dest(config.static.dest));
 });
 

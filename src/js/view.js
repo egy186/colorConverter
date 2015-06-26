@@ -1,7 +1,4 @@
-/* global global */
-/* jshint esnext: true */
-
-'use strict';
+/* global global: false */
 
 import { rgba, hsla, linearGradient } from './util';
 // import polyfill
@@ -80,7 +77,7 @@ const updateView = (colorConfig, currentTab) => {
   return true;
 };
 
-global.addEventListener('load',() => {
+global.addEventListener('load', () => {
   formOutput = global.document.getElementById('form-output');
   layerBgColor = global.document.getElementById('layer-bgcolor');
   inputRangeStyles = {

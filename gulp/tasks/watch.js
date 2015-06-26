@@ -1,11 +1,7 @@
-/* jshint node: true */
+import { watch as config } from '../config';
+import gulp from 'gulp';
 
-'use strict';
-
-var config = require('../config').watch;
-var gulp = require('gulp');
-
-gulp.task('watch', ['server:start'], function() {
+gulp.task('watch', ['server:start'], () => {
   gulp.watch(config.css, ['build:css']);
   gulp.watch(config.html, ['build:html']);
   gulp.watch(config.js, ['build:js']);

@@ -1,7 +1,4 @@
-/* global global */
-/* jshint esnext: true */
-
-'use strict';
+/* global global: false */
 
 import ColorConfig from './colorconfig';
 import tab from './tab';
@@ -34,8 +31,8 @@ const changeValue = (key, value) => {
     'range-r', 'range-g', 'range-b', 'range-h', 'range-s', 'range-l', 'range-a'
   ];
   inputKeys.splice(inputKeys.indexOf(key), 1);
-  inputKeys.forEach((key) => {
-    formInput[key].value = colorConfig[key.replace(pattern, '')];
+  inputKeys.forEach((inputKey) => {
+    formInput[inputKey].value = colorConfig[inputKey.replace(pattern, '')];
   });
   // update
   updateView();
@@ -66,7 +63,7 @@ global.addEventListener('load', () => {
   // init color
   try {
     const config = JSON.parse(locationHash.replace(/^\S*&/, ''));
-    for (let key in config) {
+    for (const key in config) {
       if (!config.hasOwnProperty(key)) {
         continue;
       }

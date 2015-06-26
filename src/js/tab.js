@@ -1,5 +1,4 @@
-/* global global */
-/* jshint esnext: true */
+/* global global: false */
 
 export const tabList = ['rgb', 'rgba', 'hsl', 'hsla', 'hex'];
 
@@ -11,7 +10,7 @@ const changeTab = (colorConfig, newTab) => {
     return false;
   }
   // forms
-  tabs.forEach(el => el.forEach(el => el.style.display = 'none'));
+  tabs.forEach(tab => tab.forEach(el => el.style.display = 'none'));
   tabs[newTabIndex].forEach(el => el.style.display = '');
   // nav-tab
   navTabs.forEach(el => el.parentElement.classList.remove('active'));

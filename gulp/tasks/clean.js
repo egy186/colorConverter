@@ -1,11 +1,7 @@
-/* jshint node: true */
+import { clean as config } from '../config';
+import del from 'del';
+import gulp from 'gulp';
 
-'use strict';
-
-var config = require('../config').clean;
-var del = require('del');
-var gulp = require('gulp');
-
-gulp.task('clean', function () {
-  del.sync(config);
+gulp.task('clean', callback => {
+  del(config, callback);
 });
