@@ -2,7 +2,10 @@
 
 'use strict';
 
-var pkg = require('../package.json');
+var jf = require('jsonfile');
+var path = require('path');
+
+var pkg = jf.readFileSync(path.join(__dirname + './../package.json'));
 
 var src = './src';
 var dest = './dist';
@@ -28,6 +31,10 @@ module.exports = {
     js: {
       src: src + '/js/app.js',
       dest: dest + '/js'
+    },
+    source: {
+      src: [src + '/less/**/*.less', src + '/js/**/*.js'],
+      dest: dest + '/source'
     },
     static: {
       src: src + '/static/**',

@@ -4,13 +4,13 @@
 
 var config = require('../config').lint;
 var gulp = require('gulp');
-var jshint = require('gulp-jshint');
+var eslint = require('gulp-eslint');
 
 gulp.task('lint:js', function () {
   gulp.src(config.js.src)
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'))
-    .pipe(jshint.reporter('fail'));
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
 });
 
 gulp.task('lint', ['lint:js']);
