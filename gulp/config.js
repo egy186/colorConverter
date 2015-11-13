@@ -23,7 +23,7 @@ export const browsersync = {
 
 export const build = {
   css: {
-    src: src + '/less/**/*.less',
+    src: src + '/sass/**/*.scss',
     dest: dest + '/css'
   },
   html: {

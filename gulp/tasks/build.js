@@ -4,8 +4,8 @@ import buffer from 'vinyl-buffer';
 import { build as config } from '../config';
 import gulp from 'gulp';
 import jade from 'gulp-jade';
-import less from 'gulp-less';
 import minify from 'gulp-minify-css';
+import sass from 'gulp-sass';
 import source from 'vinyl-source-stream';
 import sourcemaps from 'gulp-sourcemaps';
 import uglify from 'gulp-uglify';
@@ -13,7 +13,7 @@ import uglify from 'gulp-uglify';
 gulp.task('build:css', () => {
   return gulp.src(config.css.src)
     .pipe(sourcemaps.init())
-    .pipe(less())
+    .pipe(sass())
     .pipe(minify())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(config.css.dest));

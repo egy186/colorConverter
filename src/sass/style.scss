@@ -11,7 +11,7 @@ input {
 }
 
 .form-control {
-  &:extend(.input-group-addon);
+  @extend .input-group-addon;
   &[readonly] {
     cursor: default;
     background-color: #fff;
