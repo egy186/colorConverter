@@ -3,9 +3,9 @@
 import hsl2rgb from './hsl2rgb';
 import rgb2hsl from './rgb2hsl';
 // import polyfill
-import './polyfill/numberisfinite';
-import './polyfill/stringincludes';
-import './polyfill/weakmap';
+import 'core-js/fn/number/is-finite';
+import 'core-js/fn/reflect/apply';
+import 'core-js/fn/string/includes';
 
 const round = Math.round;
 
@@ -40,9 +40,9 @@ const ColorConfig = (() => {
     if (Number.isFinite(value)) {
       privateProperties(this)[key] = value;
       if ('rgb'.includes(key)) {
-        sync.call(this, 'rgb');
+        Reflect.apply(sync, this, ['rgb']);
       } else if ('hsl'.includes(key)) {
-        sync.call(this, 'hsl');
+        Reflect.apply(sync, this, ['hsl']);
       }
     }
     return value;
@@ -53,7 +53,7 @@ const ColorConfig = (() => {
     if (value.length === 1) {
       value += value;
     }
-    return setNumber.call(this, key, parseInt(value, 16));
+    return Reflect.apply(setNumber, this, [key, parseInt(value, 16)]);
   };
 
   const setString = function (key, value) {
@@ -64,7 +64,7 @@ const ColorConfig = (() => {
         pp[key[i]] = value[i];
       }
     }
-    sync.call(this, key.substr(0, 3));
+    Reflect.apply(sync, this, [key.substr(0, 3)]);
     return value;
   };
 
@@ -84,98 +84,98 @@ const ColorConfig = (() => {
       return privateProperties(this).r;
     }
     set r (n) {
-      return setNumber.call(this, 'r', n);
+      return Reflect.apply(setNumber, this, ['r', n]);
     }
 
     get g () {
       return privateProperties(this).g;
     }
     set g (n) {
-      return setNumber.call(this, 'g', n);
+      return Reflect.apply(setNumber, this, ['g', n]);
     }
 
     get b () {
       return privateProperties(this).b;
     }
     set b (n) {
-      return setNumber.call(this, 'b', n);
+      return Reflect.apply(setNumber, this, ['b', n]);
     }
 
     get r16 () {
       return toHex(this.r);
     }
     set r16 (s) {
-      return setHex.call(this, 'r', s);
+      return Reflect.apply(setHex, this, ['r', s]);
     }
 
     get g16 () {
       return toHex(this.g);
     }
     set g16 (s) {
-      return setHex.call(this, 'g', s);
+      return Reflect.apply(setHex, this, ['g', s]);
     }
 
     get b16 () {
       return toHex(this.b);
     }
     set b16 (s) {
-      return setHex.call(this, 'b', s);
+      return Reflect.apply(setHex, this, ['b', s]);
     }
 
     get h () {
       return privateProperties(this).h;
     }
     set h (n) {
-      return setNumber.call(this, 'h', n);
+      return Reflect.apply(setNumber, this, ['h', n]);
     }
 
     get s () {
       return privateProperties(this).s;
     }
     set s (n) {
-      return setNumber.call(this, 's', n);
+      return Reflect.apply(setNumber, this, ['s', n]);
     }
 
     get l () {
       return privateProperties(this).l;
     }
     set l (n) {
-      return setNumber.call(this, 'l', n);
+      return Reflect.apply(setNumber, this, ['l', n]);
     }
 
     get a () {
       return privateProperties(this).a;
     }
     set a (n) {
-      return setNumber.call(this, 'a', n);
+      return Reflect.apply(setNumber, this, ['a', n]);
     }
 
     get rgb () {
       return `rgb(${round(this.r)}, ${round(this.g)}, ${round(this.b)})`;
     }
     set rgb (s) {
-      return setString.call(this, 'rgb', s);
+      return Reflect.apply(setString, this, ['rgb', s]);
     }
 
     get rgba () {
       return `rgba(${round(this.r)}, ${round(this.g)}, ${round(this.b)}, ${this.a})`;
     }
     set rgba (s) {
-      return setString.call(this, 'rgba', s);
+      return Reflect.apply(setString, this, ['rgba', s]);
     }
 
     get hsl () {
       return `hsl(${round(this.h)}, ${round(this.s)}%, ${round(this.l)}%)`;
     }
     set hsl (s) {
-      return setString.call(this, 'hsl', s);
+      return Reflect.apply(setString, this, ['hsl', s]);
     }
 
     get hsla () {
       return `hsla(${round(this.h)}, ${round(this.s)}%, ${round(this.l)}%, ${this.a})`;
     }
     set hsla (s) {
-      return setString.call(this, 'hsla', s);
+      return Reflect.apply(setString, this, ['hsla', s]);
     }
 
     get hex () {
@@ -189,9 +189,9 @@ const ColorConfig = (() => {
       } else if (s.length !== 6) {
         s = (s + '000000').substr(0, 6);
       }
-      setHex.call(this, 'r', s.substr(0, length));
-      setHex.call(this, 'g', s.substr(length, length));
-      setHex.call(this, 'b', s.substr(length * 2, length));
+      Reflect.apply(setHex, this, ['r', s.substr(0, length)]);
+      Reflect.apply(setHex, this, ['g', s.substr(length, length)]);
+      Reflect.apply(setHex, this, ['b', s.substr(length * 2, length)]);
     }
 
     toString () {

@@ -6,6 +6,6 @@ Web application to easily convert color codes. Convert between RGBa, HSLa, RGB, 
 
 ## Supported Browsers
 
-* Internet Explorer 10+
-* Mozilla Firefox 23+
-* Google Chrome 36+
+* Internet Explorer 11+
+* Latest Mozilla Firefox
+* Latest Google Chrome

@@ -1,4 +1,4 @@
-/* global global: false */
+/* global global */
 
 import ColorConfig from './colorconfig';
 import tab from './tab';
@@ -6,7 +6,7 @@ import { tabList } from './tab';
 import view from './view';
 import { rgba, randomInt } from './util';
 // import polyfill
-import './polyfill/arrayfrom';
+import 'core-js/fn/array/from';
 
 const colorConfig = new ColorConfig();
 let currentTab = tabList[0];

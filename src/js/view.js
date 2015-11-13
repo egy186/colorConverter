@@ -2,7 +2,7 @@
 
 import { rgba, hsla, linearGradient } from './util';
 // import polyfill
-import './polyfill/arrayfrom';
+import 'core-js/fn/array/from';
 
 let formOutput,
     layerBgColor,
