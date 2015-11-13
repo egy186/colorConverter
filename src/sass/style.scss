@@ -3,7 +3,7 @@
 }
 
 input {
-  font-family: Consolas, 'Lucida Console', 'DejaVu Sans Mono', monospace;
+  font-family: Consolas, "Lucida Console", "DejaVu Sans Mono", monospace;
 }
 
 .input-group-addon {
@@ -98,7 +98,7 @@ html {
   height: 100%;
   text-align: center;
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAB3RJTUUH3QgCCjQtC28MTwAAAAlwSFlzAAAOwgAADsIBFShKgAAAAARnQU1BAACxjwv8YQUAAAApSURBVHjaY/z//z8DNnDw4EGs4kwMJIJRDcQAFlzhbW9vP1T8MBw0AACLzAhiw0RyWAAAAABJRU5ErkJggg==); /* alphaback16.png */
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Segoe UI", Verdana, sans-serif;
   text-align: justify;
   min-width: 320px;
 }
@@ -132,7 +132,6 @@ form p{
 }
 
 #page-header {
-  font-family: 'Titillium Web', sans-serif;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   h1 {
     margin: 0;
@@ -191,7 +190,7 @@ form p{
 }
 
 #set-alpha p {
-  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAB3RJTUUH3QgCCjQtC28MTwAAAAlwSFlzAAAOwgAADsIBFShKgAAAAARnQU1BAACxjwv8YQUAAAApSURBVHjaY/z//z8DNnDw4EGs4kwMJIJRDcQAFlzhbW9vP1T8MBw0AACLzAhiw0RyWAAAAABJRU5ErkJggg==');
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAB3RJTUUH3QgCCjQtC28MTwAAAAlwSFlzAAAOwgAADsIBFShKgAAAAARnQU1BAACxjwv8YQUAAAApSURBVHjaY/z//z8DNnDw4EGs4kwMJIJRDcQAFlzhbW9vP1T8MBw0AACLzAhiw0RyWAAAAABJRU5ErkJggg==");
   border-radius: 6px;
 }
 
@@ -200,7 +199,6 @@ form p{
   border: 1px solid #222;
   color: #fafafa;
   padding: 20px 0;
-  font-family: 'Titillium Web', Arial, Meiryo, "Hiragino Maru Gothic ProN", "MS PGothic", Osaka, sans-serif;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   border-radius: 6px;
   a {

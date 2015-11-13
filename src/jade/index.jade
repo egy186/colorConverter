@@ -8,24 +8,11 @@ html(lang='en')
     meta(name='description', content='Web application to easily convert color codes for use in CSS. Convert between RGBa, HSLa, RGB, HSL and Hex.')
     meta(name='author', content='egy186')
     meta(name='viewport', content='width=device-width,user-scalable=no,initial-scale=1')
-    script.
-      WebFontConfig = {
-        google: { families: ['Open+Sans:400,700:latin', 'Titillium+Web:700,400:latin'] }
-      };
-      (function () {
-        var wf = document.createElement('script');
-        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-          '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-        wf.type = 'text/javascript';
-        wf.async = 'true';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(wf, s);
-      })();
-    script(src='lib/jquery/dist/jquery.min.js', defer)
-    script(src='lib/bootstrap/dist/js/bootstrap.min.js', defer)
-    script(src='js/app.js', async)
-    link(rel='stylesheet', href='lib/bootstrap/dist/css/bootstrap.min.css')
-    link(rel='stylesheet', href='css/style.css')
+    script(src='./lib/jquery/dist/jquery.min.js', defer)
+    script(src='./lib/bootstrap/dist/js/bootstrap.min.js', defer)
+    script(src='./js/app.js', async)
+    link(rel='stylesheet', href='./lib/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='./css/style.css')
     meta(name='application-name', content='Color_Converter')
   body#page
     div#layer-bgcolor
@@ -149,7 +136,7 @@ html(lang='en')
         footer.col-md-6
           div#page-footer.text-center
             p
-              a(href='//github.com/egy186/colorconverter/#readme', tabindex='10001') about
+              a(href='https://github.com/egy186/colorconverter/#readme', tabindex='10001') about
             p='Color Converter '+version
             p
               small.h5 Copyright (c) 2015 egy186 All Rights Reserved.
