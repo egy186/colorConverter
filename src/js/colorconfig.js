@@ -1,3 +1,5 @@
+/* eslint no-invalid-this: 0 */
+
 import hsl2rgb from './hsl2rgb';
 import rgb2hsl from './rgb2hsl';
 // import polyfill
@@ -9,7 +11,7 @@ const round = Math.round;
 
 const PrivateProperties = () => {
   const wm = new WeakMap();
-  //return self => wm.get(self) || wm.set(self, Object.create(null)).get(self);
+  // return self => wm.get(self) || wm.set(self, Object.create(null)).get(self);
   // `WeakMap.prototype.set` does not return `this` in IE11
   return self => wm.get(self) || (wm.set(self, Object.create(null)), wm.get(self));
 };

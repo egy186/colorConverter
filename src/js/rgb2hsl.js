@@ -1,4 +1,4 @@
-const rgb2hsl = (rgb) => {
+const rgb2hsl = rgb => {
   rgb = rgb.map(n => n / 255);
   const max = Math.max(...rgb),
         min = Math.min(...rgb),
@@ -9,7 +9,7 @@ const rgb2hsl = (rgb) => {
       s = 0;
   const l = sum * 50;
   if (delta !== 0) {
-    switch (max) {
+    switch (max) { // eslint-disable-line default-case
       case r:
         h = 60 * (g - b) / delta;
         break;

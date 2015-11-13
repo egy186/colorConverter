@@ -12,7 +12,7 @@ const colorConfig = new ColorConfig();
 let currentTab = tabList[0];
 
 const updateView = () => view(colorConfig, currentTab);
-const changeTab = (newTab) => {
+const changeTab = newTab => {
   currentTab = newTab;
   updateView();
   return tab(colorConfig, currentTab);
@@ -31,7 +31,7 @@ const changeValue = (key, value) => {
     'range-r', 'range-g', 'range-b', 'range-h', 'range-s', 'range-l', 'range-a'
   ];
   inputKeys.splice(inputKeys.indexOf(key), 1);
-  inputKeys.forEach((inputKey) => {
+  inputKeys.forEach(inputKey => {
     formInput[inputKey].value = colorConfig[inputKey.replace(pattern, '')];
   });
   // update

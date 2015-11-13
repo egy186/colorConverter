@@ -1,4 +1,4 @@
-const hsl2rgb = (hsl) => {
+const hsl2rgb = hsl => {
   let [h, s, l] = hsl;
   while (h < 0) {
     h += 360;
