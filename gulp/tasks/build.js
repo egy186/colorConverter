@@ -15,7 +15,7 @@ gulp.task('build:css', () => {
     .pipe(sourcemaps.init())
     .pipe(less())
     .pipe(minify())
-    .pipe(sourcemaps.write('.', { sourceRoot: '../source' }))
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(config.css.dest));
 });
 
@@ -32,20 +32,15 @@ gulp.task('build:js', () => {
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(uglify())
-    .pipe(sourcemaps.write('.', { sourceRoot: '../source' }))
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(config.js.dest));
 });
 
-gulp.task('build:source', () => {
-  return gulp.src(config.source.src)
-    .pipe(gulp.dest(config.source.dest));
-});
-
-gulp.task('build:static', ['bower'], () => {
+gulp.task('build:static', () => {
   return gulp.src(config.static.src)
     .pipe(gulp.dest(config.static.dest));
 });
 
-gulp.task('build:browser', ['build:css', 'build:html', 'build:js', 'build:source', 'build:static']);
+gulp.task('build:browser', ['bower', 'build:css', 'build:html', 'build:js', 'build:static']);
 
 gulp.task('build', ['build:browser']);

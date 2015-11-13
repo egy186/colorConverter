@@ -9,7 +9,16 @@ const src = './src';
 const dest = './dist';
 
 export const bower = {
-  dest: src + '/static/lib'
+  dest: dest + '/lib'
+};
+
+export const browsersync = {
+  options: {
+    open: false,
+    server: {
+      baseDir: dest
+    }
+  }
 };
 
 export const build = {
@@ -30,10 +39,6 @@ export const build = {
     src: src + '/js/app.js',
     dest: dest + '/js'
   },
-  source: {
-    src: [src + '/less/**/*.less', src + '/js/**/*.js'],
-    dest: dest + '/source'
-  },
   static: {
     src: src + '/static/**',
     dest
@@ -48,20 +53,9 @@ export const lint = {
   }
 };
 
-export const server = {
-  options: {
-    notify: false,
-    open: false,
-    server: {
-      baseDir: dest
-    }
-  }
-};
-
 export const watch = {
   css: src + '/less/**/*.less',
   html: src + '/jade/**/*.jade',
   js: src + '/js/**/*.js',
-  static: src + '/static/**',
-  server: dest + '/**'
+  static: src + '/static/**'
 };
