@@ -8,10 +8,6 @@ const pkg = jsonfile.readFileSync(path.join(__dirname, './../package.json'));
 const src = './src';
 const dest = './dist';
 
-export const bower = {
-  dest: dest + '/lib'
-};
-
 export const browsersync = {
   options: {
     open: false,

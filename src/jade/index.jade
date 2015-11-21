@@ -8,11 +8,8 @@ html(lang='en')
     meta(name='description', content='Web application to easily convert color codes for use in CSS. Convert between RGBa, HSLa, RGB, HSL and Hex.')
     meta(name='author', content='egy186')
     meta(name='viewport', content='width=device-width,user-scalable=no,initial-scale=1')
-    script(src='./lib/jquery/dist/jquery.min.js', defer)
-    script(src='./lib/bootstrap/dist/js/bootstrap.min.js', defer)
     script(src='./js/app.js', async)
-    link(rel='stylesheet', href='./lib/bootstrap/dist/css/bootstrap.min.css')
-    link(rel='stylesheet', href='./css/style.css')
+    link(rel='stylesheet', href='./css/bundle.css')
     meta(name='application-name', content='Color_Converter')
   body#page
     div#layer-bgcolor
@@ -22,12 +19,7 @@ html(lang='en')
             div.navbar-header
               h1
                 a.navbar-brand(role='heading', href='./', tabindex='2') Color Converter
-              button.navbar-toggle(type='button', data-toggle='collapse', data-target='#nav-tab')
-                span.sr-only Toggle navigation
-                span.icon-bar
-                span.icon-bar
-                span.icon-bar
-            div#nav-tab.collapse.navbar-collapse
+            div#nav-tab
               ul.nav.navbar-nav
                 li
                   a(href='#input-rgb', tabindex='11') RGB

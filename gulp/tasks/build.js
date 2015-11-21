@@ -13,7 +13,9 @@ import uglify from 'gulp-uglify';
 gulp.task('build:css', () => {
   return gulp.src(config.css.src)
     .pipe(sourcemaps.init())
-    .pipe(sass())
+    .pipe(sass({
+      includePaths: ['./node_modules']
+    }))
     .pipe(minify())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(config.css.dest));
@@ -41,6 +43,6 @@ gulp.task('build:static', () => {
     .pipe(gulp.dest(config.static.dest));
 });
 
-gulp.task('build:browser', ['bower', 'build:css', 'build:html', 'build:js', 'build:static']);
+gulp.task('build:browser', ['build:css', 'build:html', 'build:js', 'build:static']);
 
 gulp.task('build', ['build:browser']);

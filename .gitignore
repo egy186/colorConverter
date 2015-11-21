@@ -1,5 +1,2 @@
-node_modules/
-bower_components/
-
 dist/
-src/static/lib/
+node_modules/
