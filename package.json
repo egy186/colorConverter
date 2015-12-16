@@ -7,26 +7,19 @@
     "url": "https://github.com/egy186/colorconverter/issues"
   },
   "devDependencies": {
-    "babel-core": "^6.1.19",
-    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-es2015": "^6.3.13",
     "babelify": "^7.2.0",
     "bootstrap-sass": "^3.3.5",
-    "browser-sync": "^2.10.0",
     "browserify": "^12.0.1",
     "core-js": "^1.2.6",
-    "del": "^2.0.2",
+    "eslint": "^1.10.3",
     "eslint-config-eslint": "^1.0.1",
-    "gulp": "^3.9.0",
-    "gulp-eslint": "^1.1.0",
-    "gulp-jade": "^1.1.0",
-    "gulp-minify-css": "^1.2.1",
-    "gulp-sass": "^2.1.0",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^1.5.1",
-    "jsonfile": "^2.2.3",
-    "require-dir": "^0.3.0",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "jade": "^1.11.0",
+    "minifyify": "^7.1.0",
+    "mkdirp": "^0.5.1",
+    "ncp": "^2.0.0",
+    "node-sass": "^3.4.2",
+    "rimraf": "^2.4.4"
   },
   "homepage": "https://egy186.github.io/colorconverter",
   "keywords": [
@@ -40,8 +33,13 @@
     "url": "git+https://github.com/egy186/colorconverter.git"
   },
   "scripts": {
-    "build": "gulp build",
-    "clean": "gulp clean",
-    "start": "gulp"
+    "build": "npm run build-css && npm run build-html && npm run build-js && npm run build-static",
+    "build-css": "node-sass --include-path node_modules --output-style compressed --output dist/css --source-map true --source-map-contents src/sass",
+    "build-html": "jade --obj package.json --out dist src/jade",
+    "build-js": "mkdirp dist/js && browserify src/js/app.js --debug --plugin [ minifyify --map app.js.map --output dist/js/app.js.map ] --transform babelify --outfile dist/js/app.js",
+    "build-static": "ncp src/static dist",
+    "clean": "rimraf dist",
+    "lint": "eslint src",
+    "start": "npm run build"
   }
 }
