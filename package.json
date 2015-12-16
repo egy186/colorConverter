@@ -36,7 +36,7 @@
     "build": "npm run build-css && npm run build-html && npm run build-js && npm run build-static",
     "build-css": "node-sass --include-path node_modules --output-style compressed --output dist/css --source-map true --source-map-contents src/sass",
     "build-html": "jade --obj package.json --out dist src/jade",
-    "build-js": "mkdirp dist/js && browserify src/js/app.js --debug --plugin [ minifyify --map app.js.map --output dist/js/app.js.map ] --transform babelify --outfile dist/js/app.js",
+    "build-js": "mkdirp dist/js && browserify src/js/app.js --debug --plugin [ minifyify --map bundle.js.map --output dist/js/bundle.js.map ] --transform babelify --outfile dist/js/bundle.js",
     "build-static": "ncp src/static dist",
     "clean": "rimraf dist",
     "lint": "eslint src",

@@ -3,13 +3,12 @@ html(lang='en')
   head
     meta(charset='utf-8')
     title Color Converter - egy186.github.io
-    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><![endif]-->
     meta(name='keywords', content='CSS,color converter,color code,RGBa,HSLa,RGB,HSL,Hex')
     meta(name='description', content='Web application to easily convert color codes for use in CSS. Convert between RGBa, HSLa, RGB, HSL and Hex.')
     meta(name='author', content='egy186')
     meta(name='viewport', content='width=device-width,user-scalable=no,initial-scale=1')
-    script(src='./js/app.js', async)
-    link(rel='stylesheet', href='./css/bundle.css')
+    script(src='js/bundle.js', async)
+    link(rel='stylesheet', href='css/bundle.css')
     meta(name='application-name', content='Color_Converter')
   body#page
     div#layer-bgcolor
@@ -18,7 +17,7 @@ html(lang='en')
           div#page-header.navbar.navbar-inverse
             div.navbar-header
               h1
-                a.navbar-brand(role='heading', href='./', tabindex='2') Color Converter
+                a.navbar-brand(href='', tabindex='2') Color Converter
             div#nav-tab
               ul.nav.navbar-nav
                 li
@@ -31,7 +30,7 @@ html(lang='en')
                   a(href='#input-hsla', tabindex='11') HSLa
                 li
                   a(href='#input-hex', tabindex='11') Hex
-        main#page-body(role='main')
+        main#page-body
           section.col-md-6
             h2 Input
             form#form-input
