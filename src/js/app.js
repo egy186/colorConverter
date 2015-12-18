@@ -1,6 +1,6 @@
 /* global global */
 
-import ColorConfig from './colorconfig';
+import Color from 'color';
 import tab from './tab';
 import { tabList } from './tab';
 import view from './view';
@@ -8,14 +8,14 @@ import { rgba, randomInt } from './util';
 // import polyfill
 import 'core-js/fn/array/from';
 
-const colorConfig = new ColorConfig();
+const color = new Color();
 let currentTab = tabList[0];
 
-const updateView = () => view(colorConfig, currentTab);
+const updateView = () => view(color, currentTab);
 const changeTab = newTab => {
   currentTab = newTab;
   updateView();
-  return tab(colorConfig, currentTab);
+  return tab(color, currentTab);
 };
 
 // main
@@ -23,7 +23,7 @@ let formInput;
 const changeValue = (key, value) => {
   const pattern = new RegExp('^\\S+-');
   // set
-  colorConfig[key.replace(pattern, '')] = value;
+  color[key.replace(pattern, '')] = value;
   // update other values
   const inputKeys = [
     'text-rgb', 'text-rgba', 'text-hsl', 'text-hsla', 'text-hex',
@@ -32,7 +32,7 @@ const changeValue = (key, value) => {
   ];
   inputKeys.splice(inputKeys.indexOf(key), 1);
   inputKeys.forEach(inputKey => {
-    formInput[inputKey].value = colorConfig[inputKey.replace(pattern, '')];
+    formInput[inputKey].value = color[inputKey.replace(pattern, '')];
   });
   // update
   updateView();
@@ -67,10 +67,10 @@ global.addEventListener('load', () => {
       if (!config.hasOwnProperty(key)) {
         continue;
       }
-      colorConfig[key] = config[key];
+      color[key] = config[key];
     }
-    changeValue('num-r', colorConfig.r);
-    formInput['num-r'].value = colorConfig.r;
+    changeValue('num-r', color.r);
+    formInput['num-r'].value = color.r;
   } catch (err) {
     const textRgba = rgba(randomInt(0, 255), randomInt(0, 255), randomInt(0, 255), 1);
     changeValue('text-rgba', textRgba);
