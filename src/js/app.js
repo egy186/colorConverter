@@ -1,5 +1,3 @@
-/* global global */
-
 import Color from 'color';
 import tab from './tab';
 import { tabList } from './tab';
@@ -39,13 +37,13 @@ const changeValue = (key, value) => {
 };
 
 // init
-global.addEventListener('load', () => {
+window.addEventListener('load', () => {
   // set global var
-  formInput = global.document.getElementById('form-input');
+  formInput = document.getElementById('form-input');
   // add event
   formInput.addEventListener('change', evt => changeValue(evt.target.id, evt.target.value), false);
   formInput.addEventListener('input', evt => changeValue(evt.target.id, evt.target.value), false);
-  global.document.getElementById('nav-tab').addEventListener('click', evt => {
+  document.getElementById('nav-tab').addEventListener('click', evt => {
     if (evt.target.tagName.toLowerCase() === 'a') {
       evt.preventDefault();
       evt.target.blur();
@@ -53,7 +51,7 @@ global.addEventListener('load', () => {
     }
   }, false);
   // init
-  const locationHash = global.location.hash.substr(1);
+  const locationHash = location.hash.substr(1);
   // init tab
   let scheme = locationHash.replace(/&\S*$/, '').toLowerCase();
   if (tabList.indexOf(scheme) === -1) {
@@ -77,5 +75,5 @@ global.addEventListener('load', () => {
     formInput['text-rgba'].value = textRgba;
   }
   // url
-  global.history.replaceState({}, '', global.location.href.replace(/\#.*/, ''));
+  history.replaceState({}, '', location.href.replace(/\#.*/, ''));
 }, false);

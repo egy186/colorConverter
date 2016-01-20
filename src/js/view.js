@@ -1,12 +1,10 @@
-/* global global: false */
-
 import { rgba, hsla, linearGradient } from './util';
 // import polyfill
 import 'core-js/fn/array/from';
 
-let formOutput,
-    layerBgColor,
-    inputRangeStyles;
+let formOutput;
+let inputRangeStyles;
+let layerBgColor;
 
 const updateView = (colorConfig, currentTab) => {
   // form-output
@@ -15,7 +13,7 @@ const updateView = (colorConfig, currentTab) => {
   formOutput['output-hsl'].value = colorConfig.hsl;
   formOutput['output-hsla'].value = colorConfig.hsla;
   formOutput['output-hex'].value = colorConfig.hex;
-  formOutput['output-permalink'].value = global.location.toString() + '#' + currentTab + '&' + colorConfig.toString();
+  formOutput['output-permalink'].value = location.toString() + '#' + currentTab + '&' + colorConfig.toString();
   // set CSS
   if (currentTab === 'rgba' || currentTab === 'hsla') {
     layerBgColor.style.backgroundColor = colorConfig.hsla;
@@ -77,17 +75,17 @@ const updateView = (colorConfig, currentTab) => {
   return true;
 };
 
-global.addEventListener('load', () => {
-  formOutput = global.document.getElementById('form-output');
-  layerBgColor = global.document.getElementById('layer-bgcolor');
+window.addEventListener('load', () => {
+  formOutput = document.getElementById('form-output');
+  layerBgColor = document.getElementById('layer-bgcolor');
   inputRangeStyles = {
-    'range-r': global.document.getElementById('range-r').style,
-    'range-g': global.document.getElementById('range-g').style,
-    'range-b': global.document.getElementById('range-b').style,
-    'range-h': global.document.getElementById('range-h').style,
-    'range-s': global.document.getElementById('range-s').style,
-    'range-l': global.document.getElementById('range-l').style,
-    'range-a': global.document.getElementById('range-a').style
+    'range-r': document.getElementById('range-r').style,
+    'range-g': document.getElementById('range-g').style,
+    'range-b': document.getElementById('range-b').style,
+    'range-h': document.getElementById('range-h').style,
+    'range-s': document.getElementById('range-s').style,
+    'range-l': document.getElementById('range-l').style,
+    'range-a': document.getElementById('range-a').style
   };
   // onFocus
   const handler = evt => evt.target.select();

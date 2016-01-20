@@ -1,9 +1,8 @@
-/* global global: false */
-
 export const tabList = ['rgb', 'rgba', 'hsl', 'hsla', 'hex'];
 
 // select tab
-let tabs, navTabs;
+let navTabs;
+let tabs;
 const changeTab = (colorConfig, newTab) => {
   const newTabIndex = tabList.indexOf(newTab);
   if (newTabIndex === -1) {
@@ -20,15 +19,15 @@ const changeTab = (colorConfig, newTab) => {
 
 export default changeTab;
 
-global.addEventListener('load', () => {
+window.addEventListener('load', () => {
   // set global var
-  navTabs = Array.from(global.document.getElementById('nav-tab').getElementsByTagName('a'));
+  navTabs = Array.from(document.getElementById('nav-tab').getElementsByTagName('a'));
   tabs = [
-    Array.from(global.document.getElementsByClassName('rgb')),
-    Array.from(global.document.getElementsByClassName('rgba')),
-    Array.from(global.document.getElementsByClassName('hsl')),
-    Array.from(global.document.getElementsByClassName('hsla')),
-    Array.from(global.document.getElementsByClassName('hex'))
+    Array.from(document.getElementsByClassName('rgb')),
+    Array.from(document.getElementsByClassName('rgba')),
+    Array.from(document.getElementsByClassName('hsl')),
+    Array.from(document.getElementsByClassName('hsla')),
+    Array.from(document.getElementsByClassName('hex'))
   ];
   // init dom
   for (let i = 0; i < tabList.length; i++) {

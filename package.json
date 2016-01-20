@@ -14,7 +14,7 @@
     "color": "github:egy186/color#v0.1.0",
     "core-js": "^2.0.3",
     "eslint": "^1.10.3",
-    "eslint-config-eslint": "^1.0.1",
+    "eslint-config-airbnb": "^3.1.0",
     "jade": "^1.11.0",
     "minifyify": "^7.1.0",
     "mkdirp": "^0.5.1",
