@@ -1,30 +1,12 @@
 {
+  "ecmaFeatures": {
+    "modules": true
+  },
+  "env": {
+    "browser": true,
+    "node": false
+  },
   "extends": [
-    "airbnb/base",
-    "airbnb/rules/strict"
-  ],
-  "rules": {
-    "arrow-parens": [2, "as-needed"],
-    "comma-dangle": [2, "never"],
-    "dot-location": [2, "property"],
-    "dot-location": [2, "property"],
-    "func-style": [2, "expression"],
-    "handle-callback-err": 2,
-    "linebreak-style": 2,
-    "max-len": 0,
-    "no-extra-parens": [2, "all"],
-    "no-param-reassign": [2, {"props": false}],
-    "no-path-concat": 2,
-    "no-unexpected-multiline": 2,
-    "prefer-reflect": 2,
-    "prefer-spread": 2,
-    "sort-vars": 2,
-    "space-before-function-paren": [2, "always"],
-    "valid-jsdoc": [2, {
-      "prefer": {
-        "return": "return"
-      },
-      "requireReturn": false
-    }]
-  }
+    "egy186"
+  ]
 }

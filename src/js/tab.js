@@ -31,6 +31,6 @@ window.addEventListener('load', () => {
   ];
   // init dom
   for (let i = 0; i < tabList.length; i++) {
-    navTabs[i].setAttribute('href', '#' + tabList[i]);
+    navTabs[i].setAttribute('href', `#${tabList[i]}`);
   }
 }, false);

@@ -13,7 +13,7 @@ const updateView = (colorConfig, currentTab) => {
   formOutput['output-hsl'].value = colorConfig.hsl;
   formOutput['output-hsla'].value = colorConfig.hsla;
   formOutput['output-hex'].value = colorConfig.hex;
-  formOutput['output-permalink'].value = location.toString() + '#' + currentTab + '&' + colorConfig.toString();
+  formOutput['output-permalink'].value = `${location.toString()}#${currentTab}&${colorConfig.toString()}`;
   // set CSS
   if (currentTab === 'rgba' || currentTab === 'hsla') {
     layerBgColor.style.backgroundColor = colorConfig.hsla;
