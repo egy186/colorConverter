@@ -20,6 +20,7 @@
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
     "node-sass": "^3.4.2",
+    "npm-run-all": "^1.5.1",
     "rimraf": "^2.5.0"
   },
   "homepage": "https://egy186.github.io/colorconverter",
@@ -34,11 +35,12 @@
     "url": "git+https://github.com/egy186/colorconverter.git"
   },
   "scripts": {
-    "build": "npm run build-html && npm run build-js && npm run build-static",
-    "build-css": "node-sass --include-path node_modules --output-style compressed --output src/css src/sass",
-    "build-html": "npm run build-css && jade --obj package.json --out dist src/jade",
-    "build-js": "mkdirp dist/js && browserify src/js/app.js --debug --plugin [ minifyify --map bundle.js.map --output dist/js/bundle.js.map ] --transform babelify --outfile dist/js/bundle.js",
-    "build-static": "ncp src/static dist",
+    "build": "npm-run-all --parallel build:html build:js build:static",
+    "build:css": "node-sass --include-path node_modules --output-style compressed --output src/css src/sass",
+    "prebuild:html": "npm run build:css",
+    "build:html": "jade --obj package.json --out dist src/jade",
+    "build:js": "mkdirp dist/js && browserify src/js/app.js --debug --plugin [ minifyify --map bundle.js.map --output dist/js/bundle.js.map ] --transform babelify --outfile dist/js/bundle.js",
+    "build:static": "ncp src/static dist",
     "clean": "rimraf dist src/css",
     "lint": "eslint src",
     "start": "npm run build"
