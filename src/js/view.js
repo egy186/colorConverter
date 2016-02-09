@@ -1,6 +1,5 @@
-import { rgba, hsla, linearGradient } from './util';
-// import polyfill
 import 'core-js/fn/array/from';
+import { hsla, linearGradient, rgba } from './util';
 
 let formOutput;
 let inputRangeStyles;

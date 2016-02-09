@@ -1,10 +1,9 @@
+import 'core-js/fn/array/from';
+import { randomInt, rgba } from './util';
 import Color from 'color';
 import tab from './tab';
 import { tabList } from './tab';
 import view from './view';
-import { rgba, randomInt } from './util';
-// import polyfill
-import 'core-js/fn/array/from';
 
 const color = new Color();
 let currentTab = tabList[0];

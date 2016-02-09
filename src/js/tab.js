@@ -9,8 +9,12 @@ const changeTab = (colorConfig, newTab) => {
     return false;
   }
   // forms
-  tabs.forEach(tab => tab.forEach(el => el.style.display = 'none'));
-  tabs[newTabIndex].forEach(el => el.style.display = '');
+  tabs.forEach(tab => tab.forEach(el => {
+    el.style.display = 'none';
+  }));
+  tabs[newTabIndex].forEach(el => {
+    el.style.display = '';
+  });
   // nav-tab
   navTabs.forEach(el => el.parentElement.classList.remove('active'));
   navTabs[newTabIndex].parentElement.classList.add('active');

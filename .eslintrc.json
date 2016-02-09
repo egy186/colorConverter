@@ -1,12 +1,9 @@
 {
-  "ecmaFeatures": {
-    "modules": true
-  },
   "env": {
-    "browser": true,
-    "node": false
+    "browser": true
   },
-  "extends": [
-    "egy186"
-  ]
+  "extends": "egy186",
+  "parserOptions": {
+    "sourceType": "module"
+  }
 }
