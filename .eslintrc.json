@@ -2,8 +2,11 @@
   "env": {
     "browser": true
   },
-  "extends": "egy186",
+  "extends": ["egy186"],
   "parserOptions": {
     "sourceType": "module"
+  },
+  "rules": {
+    "init-declarations": 0
   }
 }
