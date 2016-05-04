@@ -2,7 +2,7 @@
   "env": {
     "browser": true
   },
-  "extends": ["egy186"],
+  "extends": ["@egy186/eslint-config"],
   "parserOptions": {
     "sourceType": "module"
   },

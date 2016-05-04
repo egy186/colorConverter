@@ -1,8 +1,7 @@
 import 'core-js/fn/array/from';
 import { randomInt, rgba } from './util';
+import tab, { tabList } from './tab';
 import Color from 'color';
-import tab from './tab';
-import { tabList } from './tab';
 import view from './view';
 
 const color = new Color();
@@ -68,11 +67,11 @@ window.addEventListener('load', () => {
     }
     changeValue('num-r', color.r);
     formInput['num-r'].value = color.r;
-  } catch (err) {
+  } catch (err) { // eslint-disable-line no-unused-vars
     const textRgba = rgba(randomInt(0, 255), randomInt(0, 255), randomInt(0, 255), 1);
     changeValue('text-rgba', textRgba);
     formInput['text-rgba'].value = textRgba;
   }
   // url
-  history.replaceState({}, '', location.href.replace(/\#.*/, ''));
+  history.replaceState({}, '', location.href.replace(/#.*/, ''));
 }, false);
