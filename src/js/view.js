@@ -78,13 +78,13 @@ window.addEventListener('load', () => {
   formOutput = document.getElementById('form-output');
   layerBgColor = document.getElementById('layer-bgcolor');
   inputRangeStyles = {
-    'range-r': document.getElementById('range-r').style,
-    'range-g': document.getElementById('range-g').style,
+    'range-a': document.getElementById('range-a').style,
     'range-b': document.getElementById('range-b').style,
+    'range-g': document.getElementById('range-g').style,
     'range-h': document.getElementById('range-h').style,
-    'range-s': document.getElementById('range-s').style,
     'range-l': document.getElementById('range-l').style,
-    'range-a': document.getElementById('range-a').style
+    'range-r': document.getElementById('range-r').style,
+    'range-s': document.getElementById('range-s').style
   };
   // onFocus
   const handler = evt => evt.target.select();

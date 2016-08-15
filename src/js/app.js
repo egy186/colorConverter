@@ -59,12 +59,9 @@ window.addEventListener('load', () => {
   // init color
   try {
     const config = JSON.parse(locationHash.replace(/^\S*&/, ''));
-    for (const key in config) {
-      if (!config.hasOwnProperty(key)) {
-        continue;
-      }
+    Object.keys(config).forEach(key => {
       color[key] = config[key];
-    }
+    });
     changeValue('num-r', color.r);
     formInput['num-r'].value = color.r;
   } catch (err) { // eslint-disable-line no-unused-vars
