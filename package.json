@@ -20,7 +20,7 @@
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
     "node-sass": "^3.7.0",
-    "npm-run-all": "^1.5.1",
+    "npm-run-all": "^2.3.0",
     "rimraf": "^2.5.0"
   },
   "homepage": "https://egy186.github.io/colorconverter",
@@ -35,7 +35,7 @@
     "url": "git+https://github.com/egy186/colorconverter.git"
   },
   "scripts": {
-    "build": "npm-run-all --parallel build:html build:js build:static",
+    "build": "run-p build:html build:js build:static",
     "build:css": "node-sass --include-path node_modules --output-style compressed --output src/css src/sass",
     "prebuild:html": "npm run build:css",
     "build:html": "jade --obj package.json --out dist src/jade",
