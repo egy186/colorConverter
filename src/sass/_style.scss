@@ -136,14 +136,56 @@ form p{
     border-bottom-right-radius: 0;
   }
   input[type="range"] {
-    margin-top: -1px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+    margin-top: -1px;
     padding-left: 0;
     padding-right: 0;
     &:focus {
       position: relative;
       z-index: 100;
+    }
+    &::-webkit-slider-runnable-track {
+      background: #999;
+      height: 4px;
+    }
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      background: #fff;
+      border-radius: 12px;
+      border: 2px solid #999;
+      height: 24px;
+      margin-top: -10px;
+      width: 24px;
+    }
+    &::-moz-range-thumb {
+      -moz-appearance: none;
+      background: #fff;
+      border-radius: 12px;
+      border: 2px solid #999;
+      height: 20px;
+      margin-top: -8px;
+      width: 20px;
+    }
+    &::-moz-range-track {
+      background: #999;
+      height: 4px;
+    }
+    &::-ms-fill-lower, &::-ms-fill-upper {
+      background: #999;
+    }
+    &::-ms-thumb {
+      background: #fff;
+      border-radius: 12px;
+      border: 2px solid #999;
+      height: 20px;
+      margin-top: 0px;
+      width: 20px;
+    }
+    &::-ms-track {
+      height: 4px;
     }
   }
 }
