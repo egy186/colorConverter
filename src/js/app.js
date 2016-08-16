@@ -58,7 +58,7 @@ window.addEventListener('load', () => {
   changeTab(scheme);
   // init color
   try {
-    const config = JSON.parse(locationHash.replace(/^\S*&/, ''));
+    const config = JSON.parse(unescape(locationHash.replace(/^\S*&/, '')));
     Object.keys(config).forEach(key => {
       color[key] = config[key];
     });
