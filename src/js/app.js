@@ -1,4 +1,4 @@
-import 'core-js/fn/array/from';
+import 'core-js/fn/array/from'; // eslint-disable-line
 import { randomInt, rgba } from './util';
 import tab, { tabList } from './tab';
 import Color from 'color';
@@ -14,13 +14,13 @@ const changeTab = newTab => {
   return tab(color, currentTab);
 };
 
-// main
+// Main
 let formInput;
 const changeValue = (key, value) => {
   const pattern = new RegExp('^\\S+-');
-  // set
+  // Set
   color[key.replace(pattern, '')] = value;
-  // update other values
+  // Update other values
   const inputKeys = [
     'text-rgb', 'text-rgba', 'text-hsl', 'text-hsla', 'text-hex',
     'num-r', 'num-g', 'num-b', 'num-r16', 'num-g16', 'num-b16', 'num-h', 'num-s', 'num-l', 'num-a',
@@ -30,15 +30,15 @@ const changeValue = (key, value) => {
   inputKeys.forEach(inputKey => {
     formInput[inputKey].value = color[inputKey.replace(pattern, '')];
   });
-  // update
+  // Update
   updateView();
 };
 
-// init
+// Init
 window.addEventListener('load', () => {
-  // set global var
+  // Set global var
   formInput = document.getElementById('form-input');
-  // add event
+  // Add event
   formInput.addEventListener('change', evt => changeValue(evt.target.id, evt.target.value), false);
   formInput.addEventListener('input', evt => changeValue(evt.target.id, evt.target.value), false);
   document.getElementById('nav-tab').addEventListener('click', evt => {
@@ -48,15 +48,15 @@ window.addEventListener('load', () => {
       changeTab(evt.target.getAttribute('href').substr(1));
     }
   }, false);
-  // init
+  // Init
   const locationHash = location.hash.substr(1);
-  // init tab
+  // Init tab
   let scheme = locationHash.replace(/&\S*$/, '').toLowerCase();
   if (tabList.indexOf(scheme) === -1) {
     scheme = tabList[randomInt(0, 4)];
   }
   changeTab(scheme);
-  // init color
+  // Init color
   try {
     const config = JSON.parse(unescape(locationHash.replace(/^\S*&/, '')));
     Object.keys(config).forEach(key => {
@@ -69,6 +69,6 @@ window.addEventListener('load', () => {
     changeValue('text-rgba', textRgba);
     formInput['text-rgba'].value = textRgba;
   }
-  // url
+  // Url
   history.replaceState({}, '', location.href.replace(/#.*/, ''));
 }, false);

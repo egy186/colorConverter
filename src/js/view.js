@@ -1,4 +1,4 @@
-import 'core-js/fn/array/from';
+import 'core-js/fn/array/from'; // eslint-disable-line
 import { hsla, linearGradient, rgba } from './util';
 
 let formOutput;
@@ -6,14 +6,14 @@ let inputRangeStyles;
 let layerBgColor;
 
 const updateView = (colorConfig, currentTab) => {
-  // form-output
+  // Form-output
   formOutput['output-rgb'].value = colorConfig.rgb;
   formOutput['output-rgba'].value = colorConfig.rgba;
   formOutput['output-hsl'].value = colorConfig.hsl;
   formOutput['output-hsla'].value = colorConfig.hsla;
   formOutput['output-hex'].value = colorConfig.hex;
   formOutput['output-permalink'].value = `${location.toString()}#${currentTab}&${colorConfig.toString()}`;
-  // set CSS
+  // Set CSS
   if (currentTab === 'rgba' || currentTab === 'hsla') {
     layerBgColor.style.backgroundColor = colorConfig.hsla;
     if (colorConfig.l > 50 || colorConfig.a < 0.5) {
@@ -29,7 +29,7 @@ const updateView = (colorConfig, currentTab) => {
       layerBgColor.setAttribute('class', 'theme-dark');
     }
   }
-  // range
+  // Range
   inputRangeStyles['range-r'].backgroundImage = linearGradient(
     90,
     rgba(0, colorConfig.g, colorConfig.b, 1),
@@ -86,7 +86,7 @@ window.addEventListener('load', () => {
     'range-r': document.getElementById('range-r').style,
     'range-s': document.getElementById('range-s').style
   };
-  // onFocus
+  // OnFocus
   const handler = evt => evt.target.select();
   Array.from(formOutput.getElementsByTagName('input')).forEach(el => el.addEventListener('focus', handler, false));
 }, false);
