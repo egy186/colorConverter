@@ -1,0 +1,12 @@
+{
+  "env": {
+    "browser": true,
+    "node": false
+  },
+  "extends": [
+    "@egy186/eslint-config/modules"
+  ],
+  "rules": {
+    "init-declarations": 0
+  }
+}
