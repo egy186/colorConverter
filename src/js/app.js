@@ -1,7 +1,7 @@
 import 'core-js/fn/array/from'; // eslint-disable-line
 import { randomInt, rgba } from './util';
 import tab, { tabList } from './tab';
-import Color from 'color';
+import Color from '@egy186/color';
 import view from './view';
 
 const color = new Color();

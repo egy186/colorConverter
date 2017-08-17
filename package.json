@@ -7,12 +7,12 @@
     "url": "https://github.com/egy186/colorconverter/issues"
   },
   "devDependencies": {
+    "@egy186/color": "github:egy186/color#v0.2.0",
     "@egy186/eslint-config": "^0.27.0",
     "babel-preset-es2015": "^6.3.13",
     "babelify": "^7.2.0",
     "bootstrap-sass": "^3.3.6",
     "browserify": "^13.0.0",
-    "color": "github:egy186/color#v0.1.0",
     "core-js": "^2.0.3",
     "eslint": "^4.4.1",
     "minifyify": "^7.1.0",
