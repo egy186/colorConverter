@@ -1,4 +1,10 @@
-export const tabList = ['rgb', 'rgba', 'hsl', 'hsla', 'hex'];
+export const tabList = [
+  'rgb',
+  'rgba',
+  'hsl',
+  'hsla',
+  'hex'
+];
 
 // Select tab
 let navTabs;

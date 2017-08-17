@@ -1,12 +1,10 @@
 {
-  "env": {
-    "browser": true
-  },
   "extends": [
     "@egy186/eslint-config",
+    "@egy186/eslint-config/browser",
     "@egy186/eslint-config/modules"
   ],
   "rules": {
-    "init-declarations": 0
+    "init-declarations": "off"
   }
 }

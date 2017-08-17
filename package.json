@@ -7,14 +7,14 @@
     "url": "https://github.com/egy186/colorconverter/issues"
   },
   "devDependencies": {
-    "@egy186/eslint-config": "^0.24.0",
+    "@egy186/eslint-config": "^0.27.0",
     "babel-preset-es2015": "^6.3.13",
     "babelify": "^7.2.0",
     "bootstrap-sass": "^3.3.6",
     "browserify": "^13.0.0",
     "color": "github:egy186/color#v0.1.0",
     "core-js": "^2.0.3",
-    "eslint": "^3.19.0",
+    "eslint": "^4.4.1",
     "minifyify": "^7.1.0",
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
@@ -42,7 +42,7 @@
     "build:js": "mkdirp dist/js && browserify src/js/app.js --debug --plugin [ minifyify --map bundle.js.map --output dist/js/bundle.js.map ] --transform babelify --outfile dist/js/bundle.js",
     "build:static": "ncp src/static dist",
     "clean": "rimraf dist src/css",
-    "lint": "eslint src",
+    "lint": "eslint .",
     "start": "npm run build"
   }
 }

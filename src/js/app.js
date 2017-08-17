@@ -5,7 +5,7 @@ import Color from 'color';
 import view from './view';
 
 const color = new Color();
-let currentTab = tabList[0];
+let [currentTab] = tabList;
 
 const updateView = () => view(color, currentTab);
 const changeTab = newTab => {
@@ -22,9 +22,28 @@ const changeValue = (key, value) => {
   color[key.replace(pattern, '')] = value;
   // Update other values
   const inputKeys = [
-    'text-rgb', 'text-rgba', 'text-hsl', 'text-hsla', 'text-hex',
-    'num-r', 'num-g', 'num-b', 'num-r16', 'num-g16', 'num-b16', 'num-h', 'num-s', 'num-l', 'num-a',
-    'range-r', 'range-g', 'range-b', 'range-h', 'range-s', 'range-l', 'range-a'
+    'text-rgb',
+    'text-rgba',
+    'text-hsl',
+    'text-hsla',
+    'text-hex',
+    'num-r',
+    'num-g',
+    'num-b',
+    'num-r16',
+    'num-g16',
+    'num-b16',
+    'num-h',
+    'num-s',
+    'num-l',
+    'num-a',
+    'range-r',
+    'range-g',
+    'range-b',
+    'range-h',
+    'range-s',
+    'range-l',
+    'range-a'
   ];
   inputKeys.splice(inputKeys.indexOf(key), 1);
   inputKeys.forEach(inputKey => {
